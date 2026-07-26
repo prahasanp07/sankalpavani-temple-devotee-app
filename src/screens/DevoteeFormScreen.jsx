@@ -36,8 +36,6 @@ export default function DevoteeFormScreen() {
   const [primaryGotram, setPrimaryGotram] = useState(currentUser?.gotram || 'Bharadwaja');
   const [primaryNakshatram, setPrimaryNakshatram] = useState(currentUser?.nakshatram || 'Rohini');
   const [primaryPhone] = useState(currentUser?.phone || '9876543210');
-  const [primaryAge, setPrimaryAge] = useState('');
-  const [primaryGender, setPrimaryGender] = useState('');
 
   // Family Members List State
   const [familyMembers, setFamilyMembers] = useState([]);
@@ -54,7 +52,7 @@ export default function DevoteeFormScreen() {
   const handleAddMember = () => {
     setFamilyMembers(prev => [
       ...prev, 
-      { id: Date.now() + Math.random(), name: '', gotram: 'Bharadwaja', nakshatram: 'Rohini', age: '', gender: '' }
+      { id: Date.now() + Math.random(), name: '', gotram: 'Bharadwaja', nakshatram: 'Rohini' }
     ]);
   };
 
@@ -81,14 +79,6 @@ export default function DevoteeFormScreen() {
       setError('Please select a Gotram for the primary devotee.');
       return;
     }
-    if (!primaryAge || isNaN(primaryAge) || parseInt(primaryAge) <= 0) {
-      setError('Please enter a valid age for the primary devotee.');
-      return;
-    }
-    if (!primaryGender) {
-      setError('Please select a gender for the primary devotee.');
-      return;
-    }
     
     // Validate family member inputs
     for (let i = 0; i < familyMembers.length; i++) {
@@ -99,14 +89,6 @@ export default function DevoteeFormScreen() {
       }
       if (!member.gotram) {
         setError(`Please select a Gotram for Family Member #${i + 1}.`);
-        return;
-      }
-      if (!member.age || isNaN(member.age) || parseInt(member.age) <= 0) {
-        setError(`Please enter a valid age for Family Member #${i + 1}.`);
-        return;
-      }
-      if (!member.gender) {
-        setError(`Please select a gender for Family Member #${i + 1}.`);
         return;
       }
     }
@@ -146,8 +128,8 @@ export default function DevoteeFormScreen() {
         gotram: primaryGotram, 
         nakshatram: primaryNakshatram, 
         phone: primaryPhone, 
-        age: parseInt(primaryAge), 
-        gender: primaryGender, 
+        age: currentUser?.age || null, 
+        gender: currentUser?.gender || null, 
         type: 'Primary' 
       },
       ...familyMembers.map(m => ({ 
@@ -155,8 +137,6 @@ export default function DevoteeFormScreen() {
         gotram: m.gotram, 
         nakshatram: m.nakshatram, 
         phone: '', 
-        age: parseInt(m.age), 
-        gender: m.gender, 
         type: 'Family' 
       }))
     ];
@@ -249,34 +229,6 @@ export default function DevoteeFormScreen() {
                 </select>
               </div>
             </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase" htmlFor="primaryAge">Age *</label>
-                <input 
-                  className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
-                  id="primaryAge" 
-                  onChange={(e) => setPrimaryAge(e.target.value)}
-                  placeholder="Enter age" 
-                  type="number" 
-                  value={primaryAge}
-                />
-              </div>
-              <div>
-                <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase" htmlFor="primaryGender">Gender *</label>
-                <select
-                  className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
-                  id="primaryGender"
-                  onChange={(e) => setPrimaryGender(e.target.value)}
-                  value={primaryGender}
-                >
-                  <option value="">Select Gender</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -348,32 +300,6 @@ export default function DevoteeFormScreen() {
                       {nakshatramsList.map(n => (
                         <option key={n} value={n}>{n}</option>
                       ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Age *</label>
-                    <input 
-                      className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2 text-on-surface text-xs focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
-                      onChange={(e) => handleMemberChange(member.id, 'age', e.target.value)}
-                      placeholder="Enter age" 
-                      type="number" 
-                      value={member.age}
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Gender *</label>
-                    <select
-                      className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2 text-on-surface text-xs focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
-                      onChange={(e) => handleMemberChange(member.id, 'gender', e.target.value)}
-                      value={member.gender}
-                    >
-                      <option value="">Select Gender</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                      <option value="Other">Other</option>
                     </select>
                   </div>
                 </div>
