@@ -88,7 +88,7 @@ export default function TempleDetailScreen() {
 
   const [activeModal, setActiveModal] = React.useState(null); // 'darshan', 'services', 'events', 'amenities'
   const [expandedSection, setExpandedSection] = React.useState('normal');
-  const [selectedSevaType, setSelectedSevaType] = React.useState('Daily');
+  const [selectedSevaType, setSelectedSevaType] = React.useState('');
 
   const getTemplePhone = (id) => {
     const phones = {
@@ -381,7 +381,12 @@ export default function TempleDetailScreen() {
   };
 
   const renderServices = () => {
-    const list = sevasByCategory[selectedSevaType] || sevasByCategory['Daily'];
+    let list = [];
+    if (selectedSevaType === 'All') {
+      list = Object.values(sevasByCategory).flat();
+    } else {
+      list = sevasByCategory[selectedSevaType] || [];
+    }
     return (
       <div className="flex flex-col gap-3">
         {list.map((seva, idx) => (
@@ -567,23 +572,27 @@ export default function TempleDetailScreen() {
           </div>
         </div>
 
-        {/* 1x2 Seva Type Row (Label & Selectable Pills) */}
-        <div className="flex items-center gap-3 mb-6 bg-navy-surface/50 p-3 rounded-xl border border-white-muted/5">
-          <span className="font-headline-sm text-xs font-bold text-on-surface tracking-wider shrink-0">SEVA TYPE:</span>
+        {/* Seva Type Selection */}
+        <div className="flex flex-col gap-2.5 mb-6 bg-navy-surface/50 p-4 rounded-xl border border-white-muted/5">
+          <div className="flex flex-col">
+            <span className="font-headline-sm text-xs font-bold text-on-surface uppercase tracking-wider">Seva Type</span>
+            <p className="text-[10px] text-white-muted/70 mt-0.5">Click on a category pill below to view and book specific sevas.</p>
+          </div>
           <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
-            {['Daily', 'Weekly', 'Monthly', 'Special', 'Dhanur Masa'].map((type) => {
+            {['All', 'Daily', 'Weekly', 'Monthly', 'Special', 'Dhanur Masa'].map((type) => {
               const isActive = selectedSevaType === type;
               return (
                 <button
                   key={type}
+                  type="button"
                   onClick={() => {
                     setSelectedSevaType(type);
                     setActiveModal('services');
                   }}
                   className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all border shrink-0 focus:outline-none ${
                     isActive 
-                      ? 'bg-[#FAF9E6] border-[#B48328] text-[#B48328] shadow-sm' 
-                      : 'bg-white border-white-muted/15 text-on-surface hover:bg-gold-primary/5'
+                      ? 'bg-gold-primary text-navy-bg border-gold-primary shadow-sm' 
+                      : 'bg-navy-bg border-white-muted/15 text-white-muted hover:border-gold-primary/30'
                   }`}
                 >
                   {type}
