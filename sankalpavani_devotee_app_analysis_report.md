@@ -123,18 +123,23 @@ The application features **14 dedicated screens**, providing a streamlined booki
   - Replaces traditional bottom navigation bars with an elegant, pill-shaped floating capsule container.
   - Floating above the bottom margin with deep shadow casing, translucent borders, and 4 centered action buttons: HOME, BOOKINGS, HUB, and DONATE.
 
-### 2.5. Services List Screen (`ServicesListScreen.jsx`)
+### 2.5. Temples List Screen (`TemplesListScreen.jsx`)
+* **Locality Search Bar**: Filter temples instantly by name or specific location matching the search term.
+* **Anti-Collapse Region Chips**: Horizontally scrollable capsule-shaped selector chips (`All`, `Basavanagudi`, `Malleswaram`, `Gavipuram`, `Ulsoor`, `Jayanagar`) styled with `shrink-0` layout flags to prevent height collapse on constrained viewports.
+* **Double-Column Grid Layout**: Premium cards displaying rating badges, location address, relative distance, and active hover scales.
+
+### 2.6. Services List Screen (`ServicesListScreen.jsx`)
 * **Real-time Search Bar**: Instant filtering of temple services by name or keyword.
 * **Category Pill Filters**: Supports the standard Admin Portal taxonomy (`Daily`, `Weekly`, `Monthly`, `Special`, `Dhanur Masa`). Clicking a category tab filters the displayed services dynamically.
 
-### 2.6. Service Detail Screen (`ServiceDetailScreen.jsx`)
+### 2.7. Service Detail Screen (`ServiceDetailScreen.jsx`)
 * **Hero Banner**: Full-width temple photo with gradient overlay and back navigation.
 * **Metadata Badges**: Duration, Timing, and Attire requirement.
 * **Prerequisites & Guidelines**: Entry gate rules, ID requirements, photography restrictions.
 * **Prasadam Delivery Toggle**: Detects if the Seva includes physical Prasadam. Renders a toggle switch: **"In-Person Attendance"** vs. **"Deliver Prasadam to Home"** that synchronizes with the booking context.
 * **Fixed Bottom Bar**: Seva price display and "Select Date & Time" CTA.
 
-### 2.7. Calendar Selection Screen (`CalendarSelectionScreen.jsx`)
+### 2.8. Calendar Selection Screen (`CalendarSelectionScreen.jsx`)
 * **Calendar Date grid**: Renders full grid for current and upcoming months.
 * **Past Date Lockout**: Previous dates are fully greyed out (opacity 30%), disabled, and locked from booking or selecting to prevent historical reservations.
 * **Validation Error Improvements**: Alert messages/toasts styled with bold, high-contrast black fonts (`text-black font-bold`) for high legibility.
@@ -144,27 +149,27 @@ The application features **14 dedicated screens**, providing a streamlined booki
   - Displays remaining slot availability ratios (e.g. `15 / 20` slots filled) based on the capacity config.
   - Disables slot selections and renders a prominent **"Fully Booked"** badge if the slot occupancy is full.
 
-### 2.8. Devotee Form Screen (`DevoteeFormScreen.jsx`)
-* **Primary Pilgrim Form**: Full Name, Gotram (dropdown menu using strict `gotramsList`), Nakshatram (dropdown), Phone, Age (number input), and Gender (select dropdown).
-* **Multi-Pilgrim Generator**: "Add Additional Pilgrim" button supporting additional family members, collecting name, strict Gotram, Nakshatram, Age, and Gender.
-* **Form Validation**: Real-time required field checks verifying all names, strict Gotram selections, positive integer Age inputs, and Gender selections.
-* **Prasadam Shipping Panel**: Dynamically rendered if "Deliver Prasadam to Home" is active. Collects mandatory shipping fields: Recipient Name, Flat/House No/Street, City, State, Pincode, and Contact Phone Number.
-* **Refactored Pricing Surcharge Logic**: Implements the dynamic formula:
+### 2.9. Devotee Form Screen (`DevoteeFormScreen.jsx`)
+* **Primary Devotee Sourcing**: Sourced strictly from the user's signup/session context (`currentUser?.age` and `currentUser?.gender`). No input form fields are presented to avoid duplicate entries.
+* **Strict Dropdown Schemas**: Gotram input restricted to standard `gotramsList` selector dropdown for both primary and family members.
+* **Multi-Pilgrim Generator**: Supports family additions, collecting only Name, strict Gotram dropdown, and Nakshatram selection (bypassing Age & Gender inputs/validations).
+* **Prasadam Shipping Panel**: Dynamically renders standard address text boxes (Recipient Name, Address lines, City, State, Pincode, and Contact Phone) if home delivery toggle is active.
+* **Surcharge Pricing Formula**: Applies extra pilgrim srv fee on count exceeding base allowance:
   $$\text{Total Cost} = \text{Base Price} + \max(0, \text{Pilgrim Count} - \text{Base Capacity}) \times \text{Extra Person Fee}$$
   Displays the itemized breakdown (Base Fee + Extra Pilgrim Surcharge) inside the floating summary bar.
 
-### 2.9. Booking Detail Screen (`BookingDetailScreen.jsx`)
-* **Summary Pass Card**: Visual recap of Temple, Seva, Date, Time Slot, and list of all registered pilgrims (including Age and Gender details).
+### 2.10. Booking Detail Screen (`BookingDetailScreen.jsx`)
+* **Summary Pass Card**: Visual recap of Temple, Seva, Date, Time Slot, and list of all registered pilgrims (printing age/gender details for the primary devotee only).
 * **Shipping Address Summary Card**: Renders a dedicated panel displaying the verified shipping recipient and full address payload if Prasadam delivery is selected.
 * **Itemized Price Breakdown**: Details Base Seva Fare (for base allowance), Extra Pilgrim Surcharge (if extra pilgrims are registered), convenience fee (`₹45`), GST (`18%`), and Total Payable Amount.
 * **Terms Agreement Checkbox**: Cancellation and refund policy consent.
 * **Fixed Bottom Bar**: "Proceed to Payment" button.
 
-### 2.10. Payment Screen (`PaymentScreen.jsx`)
+### 2.11. Payment Screen (`PaymentScreen.jsx`)
 * **Payment Method Tabs**: UPI, Credit/Debit Cards, Net Banking, and Wallets.
 * **Simulated Payment Trigger**: Processing modal animation leading to confirmation.
 
-### 2.11. Payment Success Screen (`PaymentSuccessScreen.jsx`)
+### 2.12. Payment Success Screen (`PaymentSuccessScreen.jsx`)
 * **Success Checkmark Animation**: Celebratory visual feedback.
 * **Digital Seva Confirmation Receipt**: Replaces the previous QR code entry pass with a clean, text-based Digital Receipt detailing:
   - Booking Reference ID (e.g., `SV-849231`)
@@ -175,31 +180,33 @@ The application features **14 dedicated screens**, providing a streamlined booki
   - Shipping address status (if Prasadam home delivery is chosen)
 * **Action Buttons**: "Go to My Bookings", "Back to Temples Screen", and "Download Receipt".
 
-### 2.12. Bookings History Screen (`BookingsHistoryScreen.jsx`)
+### 2.13. Bookings History Screen (`BookingsHistoryScreen.jsx`)
 * **Tab Selection**: "Upcoming Sevas" vs "Past Sevas".
 * **Booking Cards**: Status badges (*Confirmed*, *Completed*, *Cancelled*), Date, Time, Seva Name, Total Pilgrims.
-* **Receipt E-Ticket Modal**: Opens a modal showing the text-based **Digital Seva Confirmation Receipt** (no QR scanner required), showing reporting time, entry gate details, devotee lists with Age & Gender, and shipping coordinates.
+* **Receipt E-Ticket Modal**: Opens a modal showing the text-based **Digital Seva Confirmation Receipt** (no QR scanner required), showing reporting time, entry gate details, devotee lists, and shipping coordinates.
 * **Floating Bottom Navigation Dock**: Renders the identical floating capsule-style bottom navigation pill for interface consistency.
 
-### 2.13. Donation Screen (`DonationScreen.jsx`)
+### 2.14. Donation Screen (`DonationScreen.jsx`)
 * **Cause Selection**: Annadanam, Goshala, Veda Pathashala, and Temple Renovation.
 * **Preset Amount Chips**: ₹501, ₹1008, ₹5001, ₹10008, or Custom Amount input.
 * **80G Tax Exemption Module**: Checkbox enabling PAN card number and donor name fields for tax receipt generation.
 
-### 2.14. Devotional Aggregator Screen (`DevotionalAggregatorScreen.jsx`)
+### 2.15. Devotional Aggregator Screen (`DevotionalAggregatorScreen.jsx`)
 * **Dedicated Music Hub**: Audio player interface with album art, track duration slider, volume controls, play/pause, next/previous.
 * **Vedic Audio Playlist**: Sri Venkateswara Suprabhatam, Vishnu Sahasranamam, Bhaja Govindam, Ganesha Pancharatnam.
 * **Daily Panchangam Widget**: Today's Tithi, Nakshatra, Rahu Kalam, Yamagandam, and Sunrise/Sunset.
 * **Floating Bottom Navigation Dock**: Shares the floating capsule-style bottom navigation pill.
 
-### 2.15. Temple Detail Screen (`TempleDetailScreen.jsx`)
+### 2.16. Temple Detail Screen (`TempleDetailScreen.jsx`)
 * **Heritage Overview**: Hero header, founding century, deity, history narratives, and travel guides.
 * **Redesigned Darshan Timings Accordion**:
-  - Replaced uppercase accordions with structured Title Case headings (e.g., "Normal Days", "Weekends", "Dhanur Masa Season").
+  - Replaced uppercase accordions with structured Title Case headings.
   - Placed morning and evening times inside high-contrast timing cards using bold black text.
   - Enclosed weather/timing indicators inside circular gold backdrops (`wb_sunny` for morning, `bedtime` for evening).
-  - Replaced the low-contrast cream background (`#FAFAEB`) with navy gradient card panels.
-* **Header Optimization**: Removed the irrelevant "Search" and "Cart" buttons from the transparent top bar, leaving only the primary back arrow.
+* **2-Line Seva Type Category Filters**:
+  - Presents `Seva Type` header on line 1, followed by a guide text note.
+  - Renders horizontally scrollable selector pills (`All`, `Daily`, `Weekly`, `Monthly`, `Special`, `Dhanur Masa`) on line 2, unselected by default.
+  - Selecting `All` dynamically compiles and displays all daily, weekly, monthly, special, and festival offerings of the temple.
 
 ---
 
@@ -219,7 +226,8 @@ The application features **14 dedicated screens**, providing a streamlined booki
 | **Dynamic Capacity Limits** | Computes allowed vs booked capacities inside the integrated slot bottom sheet modal, disabling locking dates/slots. |
 | **Taxonomy Category Filters** | Restructured sevas grid filtering by Daily, Weekly, Monthly, Special, and Dhanur Masa categories. |
 | **Seva Surcharge Pricing** | Applies pricing formula factoring in pilgrim count, base allowance, and extra person fees. |
-| **Strict Dropdown Schemas** | Gotram inputs restricted to dropdown selector. Saved devotee payload retains Age and Gender properties. |
+| **Strict Dropdown Schemas** | Gotram inputs restricted to dropdown selector. Primary devotee's Age and Gender are sourced from `currentUser` registration context; family members bypass age/gender fields entirely. |
+| **Anti-Collapse Region Chips** | Region horizontal scroller in `TemplesListScreen.jsx` styled with `shrink-0` and premium padded capsule pills to prevent layout collapse under viewport pressure. |
 | **Prasadam Shipping Logistics** | Collects shipping details and saves full address payload inside final JSON transaction log. |
 | **Digital Seva Confirmation Receipt** | Auto-generates unique `SV-XXXXXX` reference IDs, computing entry gate and reporting times. QR codes stripped completely. |
 | **Floating Curved Navigation Dock** | A curved capsule pill container floating above the bottom margin, sharing HOME, BOOKINGS, HUB, and DONATE. |
