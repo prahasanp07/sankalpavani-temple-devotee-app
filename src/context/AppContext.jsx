@@ -139,8 +139,8 @@ export const AppProvider = ({ children }) => {
     pushScreen('devotee-form');
   };
 
-  const saveDevotees = (devotees) => {
-    setActiveBooking(prev => ({ ...prev, devotees }));
+  const saveDevotees = (devotees, shippingAddress = null) => {
+    setActiveBooking(prev => ({ ...prev, devotees, shippingAddress }));
     pushScreen('booking-detail');
   };
 
@@ -161,7 +161,9 @@ export const AppProvider = ({ children }) => {
       price: calculatedPrice,
       devotees: activeBooking.devotees,
       status: 'Upcoming',
-      receiptUrl: '#'
+      receiptUrl: '#',
+      prasadamDelivery: activeBooking.prasadamDelivery || false,
+      shippingAddress: activeBooking.shippingAddress || null
     };
     setBookingsHistory(prev => [newBooking, ...prev]);
     return newBooking.id;

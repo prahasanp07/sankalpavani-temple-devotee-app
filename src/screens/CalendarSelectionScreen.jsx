@@ -102,9 +102,8 @@ export default function CalendarSelectionScreen() {
       return bDateStr === dateStr && bService?.toLowerCase() === service.name?.toLowerCase();
     }).length;
 
-    if (count >= 3) return 'Fully Booked';
-    if (count === 2) return 'Filling Fast';
-    if (count === 1) return 'Available';
+    const capacityLimit = service.dailyCapacityLimit || service.capacity || 20;
+    if (count >= capacityLimit) return 'Fully Booked';
 
     // Fallback deterministic statuses so other dates look visually detailed and active
     const d = new Date(dateStr);
@@ -127,7 +126,7 @@ export default function CalendarSelectionScreen() {
   const getOccupancyStats = (dateStr) => {
     if (!dateStr) return { capacity: 20, filledSlots: 0, availableSlots: 20 };
 
-    const capacity = service.capacity || 20;
+    const capacity = service.dailyCapacityLimit || service.capacity || 20;
     const count = bookings.filter(b => {
       const bDateStr = parseBookingDate(b.date || b.bookingDate);
       const bService = b.service || b.sevaName;
@@ -136,21 +135,19 @@ export default function CalendarSelectionScreen() {
 
     let filledSlots = count;
     if (filledSlots === 0) {
-      const d = new Date(dateStr);
-      const day = d.getDay();
-      const dateNum = d.getDate();
-      if (day === 0 || day === 6) {
-        filledSlots = (dateNum % 3 === 0) ? capacity : 15;
-      } else if (day === 2) {
-        filledSlots = (dateNum % 4 === 0) ? capacity : 12;
+      const status = getDayStatus(dateStr);
+      if (status === 'Fully Booked') {
+        filledSlots = capacity;
+      } else if (status === 'Filling Fast') {
+        filledSlots = Math.round(capacity * 0.8);
       } else {
-        filledSlots = (dateNum % 5 === 0) ? 14 : 3;
+        filledSlots = Math.round(capacity * 0.15);
       }
     }
 
     return {
       capacity,
-      filledSlots,
+      filledSlots: Math.min(capacity, filledSlots),
       availableSlots: Math.max(0, capacity - filledSlots)
     };
   };
@@ -404,26 +401,37 @@ export default function CalendarSelectionScreen() {
 
             {/* Allowed vs Booked status stats bar */}
             <div className="bg-navy-surface border border-white-muted/5 p-4 rounded-xl space-y-2">
-              <div className="flex justify-between text-xs font-semibold text-black/70">
-                <span>Bookings Allowed (Max)</span>
-                <span className="text-black font-bold">{selectedStats.capacity}</span>
-              </div>
-              <div className="flex justify-between text-xs font-semibold text-black/70 border-t border-white-muted/5 pt-2">
-                <span>Filled Slots</span>
-                <span className="text-black font-bold">{selectedStats.filledSlots} / {selectedStats.capacity}</span>
-              </div>
-              <div className="flex justify-between text-xs font-semibold text-black/70 border-t border-white-muted/5 pt-2">
-                <span>Remaining Available</span>
-                <span className="text-emerald-500 font-bold">{selectedStats.availableSlots} seats left</span>
-              </div>
+              {selectedStats.filledSlots >= selectedStats.capacity ? (
+                <div className="bg-rose-500/10 border border-rose-500/20 text-rose-500 p-2.5 rounded-lg text-center text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 animate-pulse">
+                  <span className="material-symbols-outlined text-sm">block</span>
+                  Fully Booked
+                </div>
+              ) : (
+                <>
+                  <div className="flex justify-between text-xs font-semibold text-black/70">
+                    <span>Bookings Allowed (Max)</span>
+                    <span className="text-black font-bold">{selectedStats.capacity}</span>
+                  </div>
+                  <div className="flex justify-between text-xs font-semibold text-black/70 border-t border-white-muted/5 pt-2">
+                    <span>Filled Slots</span>
+                    <span className="text-black font-bold">{selectedStats.filledSlots} / {selectedStats.capacity}</span>
+                  </div>
+                  <div className="flex justify-between text-xs font-semibold text-black/70 border-t border-white-muted/5 pt-2">
+                    <span>Remaining Available</span>
+                    <span className="text-emerald-500 font-bold">{selectedStats.availableSlots} seats left</span>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Grid of Slots */}
             <div className="grid grid-cols-2 gap-3.5">
               {timeSlots.map((slot) => {
                 const isSelected = selectedSlot?.id === slot.id;
-                // If the entire day is filling fast, simulate t3 and t5 as fully booked
-                const isSlotBooked = !slot.available || (selectedStats.filledSlots >= 12 && (slot.id === 't3' || slot.id === 't5'));
+                // Check if slot itself or entire day is booked
+                const isSlotBooked = !slot.available || 
+                  (selectedStats.filledSlots >= selectedStats.capacity) || 
+                  (selectedStats.filledSlots >= Math.round(selectedStats.capacity * 0.8) && (slot.id === 't3' || slot.id === 't5'));
 
                 if (isSlotBooked) {
                   return (
@@ -469,10 +477,15 @@ export default function CalendarSelectionScreen() {
             {/* Bottom Sheet Confirm CTA Action */}
             <div className="pt-2">
               <button
+                disabled={selectedStats.filledSlots >= selectedStats.capacity}
                 onClick={handleProceed}
-                className="w-full bg-gold-primary text-navy-bg font-headline-sm text-sm uppercase tracking-wider py-4 rounded-xl font-bold hover:bg-gold-secondary transition-colors shadow-md active:scale-95"
+                className={`w-full font-headline-sm text-sm uppercase tracking-wider py-4 rounded-xl font-bold transition-all shadow-md active:scale-95 ${
+                  selectedStats.filledSlots >= selectedStats.capacity
+                    ? 'bg-white-muted/10 text-white-muted/30 cursor-not-allowed border border-white-muted/5'
+                    : 'bg-gold-primary text-navy-bg hover:bg-gold-secondary'
+                }`}
               >
-                Confirm & Proceed to Devotee Details
+                {selectedStats.filledSlots >= selectedStats.capacity ? 'Fully Booked' : 'Confirm & Proceed to Devotee Details'}
               </button>
             </div>
           </div>

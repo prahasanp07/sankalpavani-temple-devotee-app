@@ -77,20 +77,46 @@ export default function BookingDetailScreen() {
                 <div className="grid grid-cols-2 gap-2 text-black/70">
                   {devotee.gotram && <p>Gotram: {devotee.gotram}</p>}
                   {devotee.nakshatram && <p>Nakshatram: {devotee.nakshatram}</p>}
+                  {devotee.age && <p>Age: {devotee.age}</p>}
+                  {devotee.gender && <p>Gender: {devotee.gender}</p>}
                 </div>
               </div>
             ))}
           </div>
         </section>
 
+        {/* Shipping details review card */}
+        {activeBooking.prasadamDelivery && activeBooking.shippingAddress && (
+          <section className="bg-navy-surface rounded-xl p-4 border border-border-subtle shadow-md space-y-3">
+            <h2 className="font-headline-sm text-sm text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1 font-bold">
+              Prasadam Shipping Address
+            </h2>
+            <div className="text-xs space-y-1 text-black">
+              <p className="font-bold">{activeBooking.shippingAddress.recipientName}</p>
+              <p className="text-black/80">{activeBooking.shippingAddress.addressLine}</p>
+              <p className="text-black/80">{activeBooking.shippingAddress.city}, {activeBooking.shippingAddress.state} - {activeBooking.shippingAddress.pincode}</p>
+              <p className="text-black/80 font-bold mt-1.5 flex items-center gap-1">
+                <span className="material-symbols-outlined text-[14px]">phone</span>
+                {activeBooking.shippingAddress.phone}
+              </p>
+            </div>
+          </section>
+        )}
+
         {/* Price Breakdown */}
         <section className="bg-navy-surface rounded-xl p-4 border border-border-subtle shadow-md space-y-3">
           <h2 className="font-headline-sm text-sm text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1 font-bold">Fare Details</h2>
           <div className="space-y-2 text-xs">
             <div className="flex justify-between">
-              <span className="text-black/70">Base Seva Fare ({devotees.length} Devotee{devotees.length > 1 ? 's' : ''})</span>
-              <span className="text-black font-semibold">₹{sevaFare}</span>
+              <span className="text-black/70">Base Seva Fare (for up to {basePersons} person{basePersons > 1 ? 's' : ''})</span>
+              <span className="text-black font-semibold">₹{basePrice}</span>
             </div>
+            {extraDevotees > 0 && (
+              <div className="flex justify-between animate-[fadeIn_0.2s_ease-out]">
+                <span className="text-black/70">Extra Pilgrim Surcharge ({extraDevotees} × ₹{extraPersonCost})</span>
+                <span className="text-black font-semibold">₹{extraDevotees * extraPersonCost}</span>
+              </div>
+            )}
             <div className="flex justify-between">
               <span className="text-black/70">Convenience Fee</span>
               <span className="text-black font-semibold">₹{convenienceFee}</span>

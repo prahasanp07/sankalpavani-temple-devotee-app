@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
 export default function ServiceDetailScreen() {
-  const { activeBooking, popScreen, pushScreen } = useContext(AppContext);
+  const { activeBooking, popScreen, pushScreen, setActiveBooking } = useContext(AppContext);
   const service = activeBooking.service || { 
     name: 'Maha Aarti', 
     price: 501, 
@@ -13,6 +13,11 @@ export default function ServiceDetailScreen() {
     timings: '06:00 AM - 12:30 PM',
     instructions: 'Dress code: Traditional attire only. Dhoti/Kurta for men, Saree/Salwar for women. Reporting time: 45 minutes prior to Seva start time.'
   };
+
+  const includesPrasadam = service.hasPrasadam || 
+    (service.name && service.name.toLowerCase().includes('prasadam')) ||
+    (service.desc && service.desc.toLowerCase().includes('prasadam')) ||
+    (service.instructions && service.instructions.toLowerCase().includes('prasadam'));
 
   const details = [
     { icon: 'schedule', title: 'Performance Timing', value: service.timings || '06:00 AM - 12:30 PM' },
@@ -84,6 +89,48 @@ export default function ServiceDetailScreen() {
             {service.instructions || 'Please wear traditional dress and report 45 minutes before the seva start time.'}
           </p>
         </section>
+
+        {/* Prasadam Shipping Toggle */}
+        {includesPrasadam && (
+          <section className="space-y-3 bg-navy-surface p-4 rounded-xl border border-white-muted/5 shadow-md">
+            <div className="flex justify-between items-center">
+              <div>
+                <h3 className="font-headline-sm text-xs font-bold text-gold-primary uppercase tracking-wider">Prasadam Option</h3>
+                <p className="text-[10px] text-white-muted/70 mt-0.5">Choose how you want to receive the blessed offerings.</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setActiveBooking(prev => ({ ...prev, prasadamDelivery: false }))}
+                  className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider border transition-colors ${
+                    !activeBooking.prasadamDelivery
+                      ? 'bg-gold-primary text-navy-bg border-gold-primary'
+                      : 'bg-navy-bg border-white-muted/15 text-white-muted'
+                  }`}
+                >
+                  In-Person
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveBooking(prev => ({ ...prev, prasadamDelivery: true }))}
+                  className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider border transition-colors ${
+                    activeBooking.prasadamDelivery
+                      ? 'bg-gold-primary text-navy-bg border-gold-primary'
+                      : 'bg-navy-bg border-white-muted/15 text-white-muted'
+                  }`}
+                >
+                  Home Delivery
+                </button>
+              </div>
+            </div>
+            {activeBooking.prasadamDelivery && (
+              <div className="p-3 bg-gold-primary/10 border border-gold-primary/20 rounded-lg text-[10px] text-gold-primary/95 leading-normal flex items-start gap-2">
+                <span className="material-symbols-outlined text-[16px] shrink-0 mt-0.5">local_shipping</span>
+                <span>Blessed Prasadam will be physically shipped to your address post-seva performance. Fill in shipping details on the Devotee Info screen.</span>
+              </div>
+            )}
+          </section>
+        )}
       </main>
 
       {/* Floating Price & Select Slot Actions */}

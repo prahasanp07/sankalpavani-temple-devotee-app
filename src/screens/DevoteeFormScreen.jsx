@@ -36,15 +36,25 @@ export default function DevoteeFormScreen() {
   const [primaryGotram, setPrimaryGotram] = useState(currentUser?.gotram || 'Bharadwaja');
   const [primaryNakshatram, setPrimaryNakshatram] = useState(currentUser?.nakshatram || 'Rohini');
   const [primaryPhone] = useState(currentUser?.phone || '9876543210');
+  const [primaryAge, setPrimaryAge] = useState('');
+  const [primaryGender, setPrimaryGender] = useState('');
 
   // Family Members List State
   const [familyMembers, setFamilyMembers] = useState([]);
   const [error, setError] = useState('');
 
+  // Shipping details state
+  const [recipientName, setRecipientName] = useState(currentUser?.name || '');
+  const [addressLine, setAddressLine] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [pincode, setPincode] = useState('');
+  const [shippingPhone, setShippingPhone] = useState(currentUser?.phone || '');
+
   const handleAddMember = () => {
     setFamilyMembers(prev => [
       ...prev, 
-      { id: Date.now() + Math.random(), name: '', gotram: 'Bharadwaja', nakshatram: 'Rohini' }
+      { id: Date.now() + Math.random(), name: '', gotram: 'Bharadwaja', nakshatram: 'Rohini', age: '', gender: '' }
     ]);
   };
 
@@ -67,21 +77,100 @@ export default function DevoteeFormScreen() {
       setError('Primary devotee name is required.');
       return;
     }
+    if (!primaryGotram) {
+      setError('Please select a Gotram for the primary devotee.');
+      return;
+    }
+    if (!primaryAge || isNaN(primaryAge) || parseInt(primaryAge) <= 0) {
+      setError('Please enter a valid age for the primary devotee.');
+      return;
+    }
+    if (!primaryGender) {
+      setError('Please select a gender for the primary devotee.');
+      return;
+    }
     
-    // Validate family member names
+    // Validate family member inputs
     for (let i = 0; i < familyMembers.length; i++) {
-      if (!familyMembers[i].name.trim()) {
+      const member = familyMembers[i];
+      if (!member.name.trim()) {
         setError(`Please enter a name for Family Member #${i + 1}.`);
+        return;
+      }
+      if (!member.gotram) {
+        setError(`Please select a Gotram for Family Member #${i + 1}.`);
+        return;
+      }
+      if (!member.age || isNaN(member.age) || parseInt(member.age) <= 0) {
+        setError(`Please enter a valid age for Family Member #${i + 1}.`);
+        return;
+      }
+      if (!member.gender) {
+        setError(`Please select a gender for Family Member #${i + 1}.`);
+        return;
+      }
+    }
+
+    // Validate shipping details if delivery option is selected
+    if (activeBooking.prasadamDelivery) {
+      if (!recipientName.trim()) {
+        setError('Recipient Name is required for Prasadam home delivery.');
+        return;
+      }
+      if (!addressLine.trim()) {
+        setError('Shipping Address is required for Prasadam home delivery.');
+        return;
+      }
+      if (!city.trim()) {
+        setError('City is required for Prasadam home delivery.');
+        return;
+      }
+      if (!state.trim()) {
+        setError('State is required for Prasadam home delivery.');
+        return;
+      }
+      if (!pincode.trim() || !/^\d{6}$/.test(pincode)) {
+        setError('Please enter a valid 6-digit Pincode.');
+        return;
+      }
+      if (!shippingPhone.trim() || shippingPhone.length < 10) {
+        setError('Please enter a valid Contact Phone Number.');
         return;
       }
     }
 
     setError('');
     const devoteesList = [
-      { name: primaryName, gotram: primaryGotram, nakshatram: primaryNakshatram, phone: primaryPhone, type: 'Primary' },
-      ...familyMembers.map(m => ({ name: m.name, gotram: m.gotram, nakshatram: m.nakshatram, phone: '', type: 'Family' }))
+      { 
+        name: primaryName, 
+        gotram: primaryGotram, 
+        nakshatram: primaryNakshatram, 
+        phone: primaryPhone, 
+        age: parseInt(primaryAge), 
+        gender: primaryGender, 
+        type: 'Primary' 
+      },
+      ...familyMembers.map(m => ({ 
+        name: m.name, 
+        gotram: m.gotram, 
+        nakshatram: m.nakshatram, 
+        phone: '', 
+        age: parseInt(m.age), 
+        gender: m.gender, 
+        type: 'Family' 
+      }))
     ];
-    saveDevotees(devoteesList);
+
+    const shippingAddress = activeBooking.prasadamDelivery ? {
+      recipientName,
+      addressLine,
+      city,
+      state,
+      pincode,
+      phone: shippingPhone
+    } : null;
+
+    saveDevotees(devoteesList, shippingAddress);
   };
 
   const totalDevotees = 1 + familyMembers.length;
@@ -132,7 +221,7 @@ export default function DevoteeFormScreen() {
             
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase" htmlFor="gotram">Gotram</label>
+                <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase" htmlFor="gotram">Gotram *</label>
                 <select
                   className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
                   id="gotram"
@@ -160,6 +249,34 @@ export default function DevoteeFormScreen() {
                 </select>
               </div>
             </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase" htmlFor="primaryAge">Age *</label>
+                <input 
+                  className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
+                  id="primaryAge" 
+                  onChange={(e) => setPrimaryAge(e.target.value)}
+                  placeholder="Enter age" 
+                  type="number" 
+                  value={primaryAge}
+                />
+              </div>
+              <div>
+                <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase" htmlFor="primaryGender">Gender *</label>
+                <select
+                  className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
+                  id="primaryGender"
+                  onChange={(e) => setPrimaryGender(e.target.value)}
+                  value={primaryGender}
+                >
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -171,6 +288,7 @@ export default function DevoteeFormScreen() {
               <h2 className="font-headline-sm text-sm text-on-surface uppercase font-bold">Family Members</h2>
             </div>
             <button 
+              type="button"
               onClick={handleAddMember}
               className="text-gold-primary font-label-caps text-xs uppercase hover:text-gold-secondary transition-colors flex items-center gap-1 font-bold"
             >
@@ -185,6 +303,7 @@ export default function DevoteeFormScreen() {
                 className="bg-navy-surface rounded-xl p-4 border border-border-subtle shadow-md relative group space-y-3"
               >
                 <button 
+                  type="button"
                   onClick={() => handleRemoveMember(member.id)}
                   className="absolute top-3 right-3 text-white-muted hover:text-error transition-colors"
                   aria-label="Remove member"
@@ -206,7 +325,7 @@ export default function DevoteeFormScreen() {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Gotram</label>
+                    <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Gotram *</label>
                     <select
                       className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2 text-on-surface text-xs focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
                       onChange={(e) => handleMemberChange(member.id, 'gotram', e.target.value)}
@@ -232,6 +351,32 @@ export default function DevoteeFormScreen() {
                     </select>
                   </div>
                 </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Age *</label>
+                    <input 
+                      className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2 text-on-surface text-xs focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
+                      onChange={(e) => handleMemberChange(member.id, 'age', e.target.value)}
+                      placeholder="Enter age" 
+                      type="number" 
+                      value={member.age}
+                    />
+                  </div>
+                  <div>
+                    <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Gender *</label>
+                    <select
+                      className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2 text-on-surface text-xs focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
+                      onChange={(e) => handleMemberChange(member.id, 'gender', e.target.value)}
+                      value={member.gender}
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             ))}
 
@@ -242,6 +387,82 @@ export default function DevoteeFormScreen() {
             )}
           </div>
         </section>
+
+        {/* Prasadam Home Delivery Shipping Details */}
+        {activeBooking.prasadamDelivery && (
+          <section className="space-y-3 animate-[fadeIn_0.2s_ease-out]">
+            <div className="flex items-center gap-3">
+              <span className="material-symbols-outlined text-gold-primary">local_shipping</span>
+              <h2 className="font-headline-sm text-sm text-on-surface uppercase font-bold">Prasadam Shipping Address</h2>
+            </div>
+            <div className="bg-navy-surface rounded-xl p-4 border border-border-subtle shadow-md space-y-4">
+              <div>
+                <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Recipient Name *</label>
+                <input 
+                  className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
+                  onChange={(e) => setRecipientName(e.target.value)}
+                  placeholder="Enter recipient full name" 
+                  type="text" 
+                  value={recipientName}
+                />
+              </div>
+              <div>
+                <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Flat / House No / Street *</label>
+                <input 
+                  className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
+                  onChange={(e) => setAddressLine(e.target.value)}
+                  placeholder="Enter flat, house no, street details" 
+                  type="text" 
+                  value={addressLine}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">City *</label>
+                  <input 
+                    className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
+                    onChange={(e) => setCity(e.target.value)}
+                    placeholder="Enter city" 
+                    type="text" 
+                    value={city}
+                  />
+                </div>
+                <div>
+                  <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">State *</label>
+                  <input 
+                    className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
+                    onChange={(e) => setState(e.target.value)}
+                    placeholder="Enter state" 
+                    type="text" 
+                    value={state}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Pincode *</label>
+                  <input 
+                    className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
+                    onChange={(e) => setPincode(e.target.value)}
+                    placeholder="6-digit pin" 
+                    type="text" 
+                    value={pincode}
+                  />
+                </div>
+                <div>
+                  <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Contact Phone Number *</label>
+                  <input 
+                    className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
+                    onChange={(e) => setShippingPhone(e.target.value)}
+                    placeholder="10-digit number" 
+                    type="tel" 
+                    value={shippingPhone}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
       </main>
 
       {/* Dynamic Summary Floating Bar */}

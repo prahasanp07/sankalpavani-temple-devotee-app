@@ -39,6 +39,42 @@ const allServices = [
     instructions: 'Performed at the main homam pit. Complete family participation allowed.\nDress code: Strict traditional attire.'
   },
   {
+    id: 'friday-abhishekam',
+    name: 'Friday Abhishekam',
+    desc: 'Holy bathing ritual of the main deity.',
+    price: 500,
+    persons: 2,
+    extraPersonCost: 100,
+    capacity: 15,
+    timings: '08:00 AM - 10:30 AM',
+    type: 'Weekly',
+    instructions: 'Holy prasadam and vastram will be distributed after the bathing ritual.\nDress code: Saree/Salwar for women, Dhoti/Veshti with shalya for men.'
+  },
+  {
+    id: 'sankashta-chaturthi',
+    name: 'Sankashta Chaturthi',
+    desc: 'Monthly Ganesha puja for obstacle removal.',
+    price: 300,
+    persons: 1,
+    extraPersonCost: 50,
+    capacity: 50,
+    timings: '05:30 PM - 08:00 PM',
+    type: 'Monthly',
+    instructions: 'Performed on Chaturthi evening. Modak prasadam will be provided to pilgrims.\nDress code: Traditional attire.'
+  },
+  {
+    id: 'dhanur-masa-archana',
+    name: 'Dhanur Masa Archana',
+    desc: 'Early morning special worship in Margazhi.',
+    price: 150,
+    persons: 1,
+    extraPersonCost: 0,
+    capacity: 50,
+    timings: '05:00 AM - 06:30 AM',
+    type: 'Dhanur Masa',
+    instructions: 'Early morning Margazhi worship. Pongal prasadam is distributed to all devotees.\nDress code: Traditional attire.'
+  },
+  {
     id: 'pushpanjali',
     name: 'Pushpanjali',
     desc: 'An offering of fragrant, fresh flowers accompanied by chanting of specific mantras.',
@@ -55,11 +91,16 @@ const allServices = [
 export default function ServicesListScreen() {
   const { pushScreen, selectService } = useContext(AppContext);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const filteredServices = allServices.filter(service => 
-    service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    service.desc.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const categories = ['All', 'Daily', 'Weekly', 'Monthly', 'Special', 'Dhanur Masa'];
+
+  const filteredServices = allServices.filter(service => {
+    const matchesSearch = service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      service.desc.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === 'All' || service.type === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="bg-navy-bg text-on-surface h-full pb-[100px] pt-16 flex flex-col overflow-y-auto">
@@ -76,7 +117,7 @@ export default function ServicesListScreen() {
       </header>
 
       {/* Main Content */}
-      <main className="px-margin-main max-w-lg mx-auto mt-6 flex flex-col gap-6">
+      <main className="px-margin-main max-w-lg mx-auto mt-6 flex flex-col gap-6 w-full">
         {/* Header Section */}
         <section className="flex flex-col gap-2 text-center">
           <h2 className="font-headline-lg text-2xl text-gold-primary tracking-wide">SACRED SEVAS</h2>
@@ -93,6 +134,24 @@ export default function ServicesListScreen() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           <span className="material-symbols-outlined absolute left-3 text-white-muted/40 text-[20px] pointer-events-none">search</span>
+        </div>
+
+        {/* Category Pill Filters */}
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              type="button"
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-colors border ${
+                selectedCategory === cat
+                  ? 'bg-gold-primary text-navy-bg border-gold-primary'
+                  : 'bg-navy-surface border-white-muted/10 text-white-muted hover:border-gold-primary/30'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
 
         {/* Services Grid */}
