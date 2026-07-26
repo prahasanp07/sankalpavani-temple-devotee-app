@@ -139,7 +139,7 @@ The application features **14 dedicated screens**, providing a streamlined booki
 * **Calendar Date grid**: Renders full grid for current and upcoming months.
 * **Past Date Lockout**: Previous dates are fully greyed out (opacity 30%), disabled, and locked from booking or selecting to prevent historical reservations.
 * **Validation Error Improvements**: Alert messages/toasts styled with bold, high-contrast black fonts (`text-black font-bold`) for high legibility.
-* **Integrated Slide-up Slot Sheet**:
+* **Integrated Slide-up Slot Sheet**: 
   - Selecting an active date opens a premium slide-up bottom sheet modal directly on the calendar screen.
   - Bypasses the need for a separate slot selection screen, going directly to Devotee Details afterward.
   - Groups slots into Morning, Afternoon, and Evening.

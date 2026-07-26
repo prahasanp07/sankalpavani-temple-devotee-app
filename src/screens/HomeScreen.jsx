@@ -329,14 +329,14 @@ export default function HomeScreen() {
           >
             <img
               src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
-              alt="Abhishek Patel"
+              alt="Prahasan P"
               className="w-full h-full object-cover"
             />
           </div>
           {/* Welcome User Text */}
           <div>
             <p className="text-[10px] text-white-muted uppercase tracking-wider font-semibold">Welcome Back</p>
-            <h3 className="font-extrabold text-sm text-gold-primary tracking-wide">Abhishek Patel</h3>
+            <h3 className="font-extrabold text-sm text-gold-primary tracking-wide">Prahasan P</h3>
           </div>
         </div>
 
