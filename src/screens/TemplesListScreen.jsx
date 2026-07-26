@@ -58,12 +58,13 @@ export default function TemplesListScreen() {
         </div>
 
         {/* Region Filter Chips */}
-        <div className="flex overflow-x-auto gap-2 no-scrollbar pb-1">
+        <div className="flex overflow-x-auto gap-2 no-scrollbar pb-1 shrink-0">
           {regions.map((region) => (
             <button
               key={region}
+              type="button"
               onClick={() => setSelectedRegion(region)}
-              className={`px-3 py-1.5 rounded-lg text-[10px] font-bold tracking-wider uppercase transition-all whitespace-nowrap border ${
+              className={`px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all whitespace-nowrap border ${
                 selectedRegion === region
                   ? 'bg-gold-primary text-navy-bg border-gold-primary shadow-md'
                   : 'bg-navy-surface text-white-muted border-white-muted/10 hover:border-gold-primary/30'
