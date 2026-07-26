@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sankalpavani - Slot Selection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#d2c4b4",
+                        "on-error": "#690005",
+                        "gold-primary": "#dcb06b",
+                        "surface": "#0c1322",
+                        "primary-container": "#dcb06b",
+                        "on-primary-fixed": "#281900",
+                        "on-primary-container": "#614205",
+                        "secondary-fixed-dim": "#f2be72",
+                        "navy-surface": "#1f2937",
+                        "error": "#ffb4ab",
+                        "surface-dim": "#0c1322",
+                        "primary-fixed": "#ffdeae",
+                        "surface-container-low": "#141b2b",
+                        "inverse-on-surface": "#293040",
+                        "tertiary-fixed-dim": "#aac8f6",
+                        "secondary-fixed": "#ffddb1",
+                        "on-secondary-fixed-variant": "#624000",
+                        "surface-container-high": "#232a3a",
+                        "tertiary-fixed": "#d4e3ff",
+                        "outline": "#9b8f80",
+                        "on-tertiary": "#0e3157",
+                        "on-secondary-container": "#e6b369",
+                        "surface-container-lowest": "#070e1d",
+                        "surface-tint": "#edbf79",
+                        "on-secondary": "#442b00",
+                        "on-tertiary-fixed-variant": "#29486f",
+                        "on-tertiary-fixed": "#001c39",
+                        "surface-variant": "#2e3545",
+                        "gold-secondary": "#b88a44",
+                        "secondary-container": "#684400",
+                        "primary": "#facb84",
+                        "border-subtle": "rgba(255, 255, 255, 0.1)",
+                        "secondary": "#f2be72",
+                        "white-muted": "rgba(255, 255, 255, 0.7)",
+                        "surface-container-highest": "#2e3545",
+                        "on-primary": "#432c00",
+                        "surface-container": "#191f2f",
+                        "inverse-primary": "#7a581c",
+                        "primary-fixed-dim": "#edbf79",
+                        "on-tertiary-container": "#2a4970",
+                        "on-background": "#dce2f7",
+                        "background": "#0c1322",
+                        "surface-bright": "#323949",
+                        "navy-bg": "#111827",
+                        "tertiary-container": "#9bb9e6",
+                        "tertiary": "#b9d5ff",
+                        "error-container": "#93000a",
+                        "on-surface": "#dce2f7",
+                        "on-primary-fixed-variant": "#604104",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#291800",
+                        "inverse-surface": "#dce2f7",
+                        "outline-variant": "#4e4539"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-lg": "48px",
+                        "section-gap": "40px",
+                        "stack-sm": "16px",
+                        "stack-md": "32px",
+                        "margin-main": "24px",
+                        "gutter-grid": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Oswald"],
+                        "label-caps": ["Inter"],
+                        "headline-lg": ["Oswald"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Oswald"],
+                        "body-md": ["Inter"],
+                        "display-vertical": ["Oswald"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["36px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-vertical": ["20px", { "lineHeight": "normal", "letterSpacing": "0.15em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #111827; /* navy-bg */
+            color: #dce2f7; /* on-surface */
+        }
+        
+        .slot-card {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .slot-card.selected {
+            border-color: #dcb06b; /* gold-primary */
+            background-color: rgba(220, 176, 107, 0.1);
+        }
+        
+        .slot-card.unavailable {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-color: rgba(255, 255, 255, 0.1); /* border-subtle */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-navy-bg font-body-md text-on-surface antialiased min-h-screen flex flex-col pt-16 pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md dark:bg-surface-container-lowest/80 border-b border-white-muted/10 shadow-sm flex justify-between items-center px-margin-main h-16">
+<button class="text-white-muted hover:text-gold-secondary transition-colors scale-95 active:duration-150">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-display-vertical text-display-vertical uppercase tracking-widest text-gold-primary tracking-[0.2em]">SLOT SELECTION</h1>
+<button class="text-white-muted hover:text-gold-secondary transition-colors scale-95 active:duration-150">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</header>
+<main class="flex-grow px-margin-main py-section-gap flex flex-col gap-stack-lg max-w-3xl mx-auto w-full">
+<!-- Context Header -->
+<section class="flex flex-col gap-stack-sm items-center text-center">
+<div class="w-24 h-24 rounded-full border-2 border-gold-primary overflow-hidden mb-2">
+<img class="w-full h-full object-cover" data-alt="A macro photograph of an ornate, traditional oil lamp lit in a dark temple setting, radiating a warm golden glow. The background is deeply shadowed stone architecture, reflecting the Dravidian Elegance theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrxVkl-n9q6SbnGEx5CZXbZmDHGZ_GmPiaJ3mHZU6cb10TC1t0q7NJis_RLUF_HsrPrmdAePVEWnqXeIcBWctareGFB9liYqaBlD5jVr7JH2J_G9nuu9t7KZCwAN3IpFAg2E5AtNjU2Nff-YImwNHzIgUkWhPd21Me_XOdfNqC3EceSN3ff8p_viXTmA75B_a-sWSyDzSpOrk-4tI3vAm3piIBkKzdmh2fmD5eGMGl2Tb_3CxYKbCBxRSKw3KD4SNwlHmBn2EhE3c"/>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-gold-primary uppercase">Abhishekam</h2>
+<p class="font-body-md text-body-md text-white-muted">Select an available time slot for your sacred offering.</p>
+</section>
+<!-- Date Selection (Horizontal Scroll) -->
+<section>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-stack-sm uppercase tracking-wider">Select Date</h3>
+<div class="flex gap-gutter-grid overflow-x-auto pb-4 snap-x no-scrollbar">
+<!-- Selected Date -->
+<button class="snap-start shrink-0 flex flex-col items-center justify-center w-20 h-24 rounded-xl border-2 border-gold-primary bg-primary-container/10 text-gold-primary">
+<span class="font-label-caps text-label-caps uppercase">Thu</span>
+<span class="font-headline-md text-headline-md mt-1">12</span>
+<span class="font-label-caps text-[10px] uppercase mt-1">Oct</span>
+</button>
+<!-- Unselected Dates -->
+<button class="snap-start shrink-0 flex flex-col items-center justify-center w-20 h-24 rounded-xl border border-white-muted/20 bg-navy-surface text-white-muted hover:border-gold-primary/50 transition-colors">
+<span class="font-label-caps text-label-caps uppercase">Fri</span>
+<span class="font-headline-md text-headline-md mt-1">13</span>
+<span class="font-label-caps text-[10px] uppercase mt-1">Oct</span>
+</button>
+<button class="snap-start shrink-0 flex flex-col items-center justify-center w-20 h-24 rounded-xl border border-white-muted/20 bg-navy-surface text-white-muted hover:border-gold-primary/50 transition-colors">
+<span class="font-label-caps text-label-caps uppercase">Sat</span>
+<span class="font-headline-md text-headline-md mt-1">14</span>
+<span class="font-label-caps text-[10px] uppercase mt-1">Oct</span>
+</button>
+<button class="snap-start shrink-0 flex flex-col items-center justify-center w-20 h-24 rounded-xl border border-white-muted/20 bg-navy-surface text-white-muted hover:border-gold-primary/50 transition-colors">
+<span class="font-label-caps text-label-caps uppercase">Sun</span>
+<span class="font-headline-md text-headline-md mt-1">15</span>
+<span class="font-label-caps text-[10px] uppercase mt-1">Oct</span>
+</button>
+</div>
+</section>
+<!-- Time Slots -->
+<section>
+<div class="flex justify-between items-end mb-stack-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-wider">Morning Slots</h3>
+<span class="font-label-caps text-label-caps text-white-muted uppercase">3 Available</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-gutter-grid">
+<!-- Available & Selected -->
+<div class="slot-card selected rounded-xl border-2 p-4 flex flex-col items-center justify-center cursor-pointer bg-navy-surface relative overflow-hidden">
+<div class="absolute top-0 right-0 bg-gold-primary text-navy-bg w-6 h-6 flex items-center justify-center rounded-bl-lg">
+<span class="material-symbols-outlined text-[14px]" data-icon="check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="material-symbols-outlined text-gold-primary mb-2" data-icon="wb_sunny">wb_sunny</span>
+<span class="font-headline-sm text-headline-sm text-gold-primary">06:00 AM</span>
+<span class="font-label-caps text-label-caps text-gold-primary/80 mt-1 uppercase">Suprabhatam</span>
+</div>
+<!-- Available -->
+<div class="slot-card rounded-xl border border-white-muted/20 p-4 flex flex-col items-center justify-center cursor-pointer bg-navy-surface hover:border-gold-primary/50">
+<span class="material-symbols-outlined text-white-muted mb-2" data-icon="wb_sunny">wb_sunny</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">08:30 AM</span>
+<span class="font-label-caps text-label-caps text-white-muted mt-1 uppercase">Archana</span>
+</div>
+<!-- Unavailable -->
+<div class="slot-card unavailable rounded-xl border border-white-muted/10 p-4 flex flex-col items-center justify-center bg-navy-surface/50">
+<span class="material-symbols-outlined text-white-muted/50 mb-2" data-icon="block">block</span>
+<span class="font-headline-sm text-headline-sm text-white-muted/50 line-through">10:00 AM</span>
+<span class="font-label-caps text-label-caps text-error mt-1 uppercase">Fully Booked</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Fixed Footer Action -->
+<div class="fixed bottom-0 w-full z-40 bg-navy-bg/95 backdrop-blur-lg border-t border-white-muted/10 p-margin-main pb-safe flex gap-4">
+<button class="flex-grow bg-gold-primary text-navy-bg font-headline-sm text-headline-sm py-4 rounded-xl uppercase tracking-wider hover:bg-gold-secondary transition-colors">
+            Proceed to Details
+        </button>
+</div>
+<script>
+        // Simple slot selection logic
+        document.querySelectorAll('.slot-card:not(.unavailable)').forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove selected class from all
+                document.querySelectorAll('.slot-card').forEach(c => {
+                    c.classList.remove('selected');
+                    c.classList.remove('border-2');
+                    c.classList.add('border');
+                    
+                    // Remove checkmark
+                    const check = c.querySelector('.absolute');
+                    if(check) check.remove();
+                    
+                    // Reset text colors
+                    const icon = c.querySelector('.material-symbols-outlined');
+                    const time = c.querySelector('.font-headline-sm');
+                    const label = c.querySelector('.font-label-caps');
+                    
+                    if(icon && time && label) {
+                        icon.classList.remove('text-gold-primary');
+                        icon.classList.add('text-white-muted');
+                        time.classList.remove('text-gold-primary');
+                        time.classList.add('text-on-surface');
+                        label.classList.remove('text-gold-primary/80');
+                        label.classList.add('text-white-muted');
+                    }
+                });
+                
+                // Add selected class to clicked
+                this.classList.add('selected');
+                this.classList.add('border-2');
+                this.classList.remove('border');
+                
+                // Add checkmark
+                const checkHtml = `
+                    <div class="absolute top-0 right-0 bg-gold-primary text-navy-bg w-6 h-6 flex items-center justify-center rounded-bl-lg">
+                        <span class="material-symbols-outlined text-[14px]" data-icon="check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check</span>
+                    </div>
+                `;
+                this.insertAdjacentHTML('afterbegin', checkHtml);
+                
+                // Update text colors
+                const icon = this.querySelector('.material-symbols-outlined:not([data-icon="check"])');
+                const time = this.querySelector('.font-headline-sm');
+                const label = this.querySelector('.font-label-caps');
+                
+                if(icon && time && label) {
+                    icon.classList.remove('text-white-muted');
+                    icon.classList.add('text-gold-primary');
+                    time.classList.remove('text-on-surface');
+                    time.classList.add('text-gold-primary');
+                    label.classList.remove('text-white-muted');
+                    label.classList.add('text-gold-primary/80');
+                }
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sankalpavani - Donation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface-variant": "#d2c4b4",
+                      "on-error": "#690005",
+                      "gold-primary": "#dcb06b",
+                      "surface": "#0c1322",
+                      "primary-container": "#dcb06b",
+                      "on-primary-fixed": "#281900",
+                      "on-primary-container": "#614205",
+                      "secondary-fixed-dim": "#f2be72",
+                      "navy-surface": "#1f2937",
+                      "error": "#ffb4ab",
+                      "surface-dim": "#0c1322",
+                      "primary-fixed": "#ffdeae",
+                      "surface-container-low": "#141b2b",
+                      "inverse-on-surface": "#293040",
+                      "tertiary-fixed-dim": "#aac8f6",
+                      "secondary-fixed": "#ffddb1",
+                      "on-secondary-fixed-variant": "#624000",
+                      "surface-container-high": "#232a3a",
+                      "tertiary-fixed": "#d4e3ff",
+                      "outline": "#9b8f80",
+                      "on-tertiary": "#0e3157",
+                      "on-secondary-container": "#e6b369",
+                      "surface-container-lowest": "#070e1d",
+                      "surface-tint": "#edbf79",
+                      "on-secondary": "#442b00",
+                      "on-tertiary-fixed-variant": "#29486f",
+                      "on-tertiary-fixed": "#001c39",
+                      "surface-variant": "#2e3545",
+                      "gold-secondary": "#b88a44",
+                      "secondary-container": "#684400",
+                      "primary": "#facb84",
+                      "border-subtle": "rgba(255, 255, 255, 0.1)",
+                      "secondary": "#f2be72",
+                      "white-muted": "rgba(255, 255, 255, 0.7)",
+                      "surface-container-highest": "#2e3545",
+                      "on-primary": "#432c00",
+                      "surface-container": "#191f2f",
+                      "inverse-primary": "#7a581c",
+                      "primary-fixed-dim": "#edbf79",
+                      "on-tertiary-container": "#2a4970",
+                      "on-background": "#dce2f7",
+                      "background": "#0c1322",
+                      "surface-bright": "#323949",
+                      "navy-bg": "#111827",
+                      "tertiary-container": "#9bb9e6",
+                      "tertiary": "#b9d5ff",
+                      "error-container": "#93000a",
+                      "on-surface": "#dce2f7",
+                      "on-primary-fixed-variant": "#604104",
+                      "on-error-container": "#ffdad6",
+                      "on-secondary-fixed": "#291800",
+                      "inverse-surface": "#dce2f7",
+                      "outline-variant": "#4e4539"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "stack-lg": "48px",
+                      "section-gap": "40px",
+                      "stack-sm": "16px",
+                      "stack-md": "32px",
+                      "margin-main": "24px",
+                      "gutter-grid": "16px"
+              },
+              "fontFamily": {
+                      "headline-sm": [
+                              "Oswald"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Oswald"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Oswald"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "display-vertical": [
+                              "Oswald"
+                      ]
+              },
+              "fontSize": {
+                      "headline-sm": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "36px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-vertical": [
+                              "20px",
+                              {
+                                      "lineHeight": "normal",
+                                      "letterSpacing": "0.15em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(220, 176, 107, 0.3);
+            border-radius: 4px;
+        }
+      </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-navy-bg text-on-background min-h-screen flex flex-col font-body-md antialiased pb-safe">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md dark:bg-surface-container-lowest/80 border-b border-white-muted/10 shadow-sm flex justify-between items-center px-margin-main h-16 w-full">
+<button aria-label="Menu" class="text-white-muted hover:text-gold-secondary transition-colors scale-95 active:duration-150 p-2 -ml-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="temple_hindu">temple_hindu</span>
+</button>
+<h1 class="font-display-vertical text-display-vertical text-gold-primary tracking-[0.2em] uppercase">SANKALPAVANI</h1>
+<button aria-label="Notifications" class="text-white-muted hover:text-gold-secondary transition-colors scale-95 active:duration-150 p-2 -mr-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-[88px] pb-32 px-margin-main max-w-lg mx-auto w-full flex flex-col gap-section-gap">
+<!-- Hero Section -->
+<section class="flex flex-col gap-stack-md text-center">
+<div class="relative w-24 h-24 mx-auto rounded-full bg-navy-surface border border-border-subtle flex items-center justify-center overflow-hidden shadow-[0_0_30px_rgba(220,176,107,0.15)]">
+<span class="material-symbols-outlined text-5xl text-gold-primary" data-icon="volunteer_activism" data-weight="fill" style="font-variation-settings: 'FILL' 1;">volunteer_activism</span>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Make a Contribution</h2>
+<p class="font-body-md text-body-md text-white-muted max-w-[280px] mx-auto">Support the maintenance and ongoing sevas of our sacred temples.</p>
+</div>
+</section>
+<!-- Donation Amount Selector -->
+<section class="flex flex-col gap-stack-sm">
+<h3 class="font-label-caps text-label-caps text-white-muted tracking-widest uppercase">Select Amount</h3>
+<div class="grid grid-cols-2 gap-gutter-grid">
+<!-- Amount Card 1 -->
+<button class="bg-navy-surface border border-gold-primary/30 rounded-xl p-4 flex flex-col items-center justify-center gap-2 hover:border-gold-primary transition-colors focus:outline-none focus:ring-2 focus:ring-gold-primary focus:ring-offset-2 focus:ring-offset-navy-bg relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-gold-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="font-headline-md text-headline-md text-gold-primary">₹501</span>
+<span class="font-label-caps text-label-caps text-white-muted">Annadhanam</span>
+</button>
+<!-- Amount Card 2 (Active state simulation) -->
+<button class="bg-navy-surface border-2 border-gold-primary rounded-xl p-4 flex flex-col items-center justify-center gap-2 relative overflow-hidden focus:outline-none shadow-[inset_0_0_20px_rgba(220,176,107,0.1)]">
+<div class="absolute inset-0 bg-gradient-to-br from-gold-primary/10 to-transparent"></div>
+<span class="material-symbols-outlined absolute top-2 right-2 text-gold-primary text-sm" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-headline-md text-headline-md text-gold-primary">₹1001</span>
+<span class="font-label-caps text-label-caps text-white-muted">Vastra Dhanam</span>
+</button>
+<!-- Amount Card 3 -->
+<button class="bg-navy-surface border border-white-muted/10 rounded-xl p-4 flex flex-col items-center justify-center gap-2 hover:border-gold-primary/50 transition-colors focus:outline-none group">
+<div class="absolute inset-0 bg-gradient-to-br from-gold-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="font-headline-md text-headline-md text-white-muted group-hover:text-gold-primary transition-colors">₹5001</span>
+<span class="font-label-caps text-label-caps text-white-muted/60 group-hover:text-white-muted transition-colors">Maha Seva</span>
+</button>
+<!-- Amount Card 4 (Custom) -->
+<button class="bg-navy-surface border border-white-muted/10 rounded-xl p-4 flex flex-col items-center justify-center gap-2 hover:border-gold-primary/50 transition-colors focus:outline-none group">
+<div class="absolute inset-0 bg-gradient-to-br from-gold-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="font-headline-sm text-headline-sm text-white-muted group-hover:text-gold-primary transition-colors">Custom</span>
+<span class="font-label-caps text-label-caps text-white-muted/60 group-hover:text-white-muted transition-colors">Enter Amount</span>
+</button>
+</div>
+</section>
+<!-- Cause/Purpose Selection -->
+<section class="flex flex-col gap-stack-sm">
+<h3 class="font-label-caps text-label-caps text-white-muted tracking-widest uppercase">Dedicate To</h3>
+<div class="flex flex-col gap-2">
+<label class="flex items-center gap-4 p-4 bg-navy-surface rounded-xl border border-white-muted/10 hover:border-gold-primary/30 transition-colors cursor-pointer">
+<div class="relative flex items-center justify-center">
+<input class="peer appearance-none w-5 h-5 border-2 border-white-muted/30 rounded-full checked:border-gold-primary transition-colors focus:ring-0 focus:ring-offset-0 bg-transparent" name="cause" type="radio"/>
+<div class="absolute w-2.5 h-2.5 bg-gold-primary rounded-full opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+<span class="font-body-lg text-body-lg text-on-surface">General Temple Maintenance</span>
+</label>
+<label class="flex items-center gap-4 p-4 bg-navy-surface rounded-xl border border-gold-primary/30 cursor-pointer shadow-[inset_0_0_15px_rgba(220,176,107,0.05)]">
+<div class="relative flex items-center justify-center">
+<input checked="" class="peer appearance-none w-5 h-5 border-2 border-white-muted/30 rounded-full checked:border-gold-primary transition-colors focus:ring-0 focus:ring-offset-0 bg-transparent" name="cause" type="radio"/>
+<div class="absolute w-2.5 h-2.5 bg-gold-primary rounded-full opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+<div class="flex flex-col">
+<span class="font-body-lg text-body-lg text-gold-primary">Upcoming Festival Corpus</span>
+<span class="font-body-md text-body-md text-white-muted text-sm">Special Navaratri preparations</span>
+</div>
+</label>
+</div>
+</section>
+</main>
+<!-- Fixed Action Footer -->
+<div class="fixed bottom-20 left-0 w-full px-margin-main pb-4 pt-8 bg-gradient-to-t from-navy-bg via-navy-bg/90 to-transparent z-40 max-w-lg mx-auto right-0">
+<button class="w-full bg-gold-primary text-on-primary-fixed font-headline-sm text-headline-sm uppercase tracking-wider py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-gold-primary/90 active:scale-[0.98] transition-all shadow-[0_10px_30px_rgba(220,176,107,0.2)]">
+<span class="material-symbols-outlined" data-icon="favorite" data-weight="fill" style="font-variation-settings: 'FILL' 1;">favorite</span>
+            Donate ₹1001
+        </button>
+</div>
+<!-- BottomNavBar (Hidden on this transactional flow, but included for structure if needed, suppressed visually) -->
+<!-- SUPPRESSED AS PER LOGIC: Transactional/Task-Focused Screen -->
+</body></html>

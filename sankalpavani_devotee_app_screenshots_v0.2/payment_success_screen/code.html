@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Payment Success - Sankalpavani</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface-variant": "#d2c4b4",
+                        "on-error": "#690005",
+                        "gold-primary": "#dcb06b",
+                        "surface": "#0c1322",
+                        "primary-container": "#dcb06b",
+                        "on-primary-fixed": "#281900",
+                        "on-primary-container": "#614205",
+                        "secondary-fixed-dim": "#f2be72",
+                        "navy-surface": "#1f2937",
+                        "error": "#ffb4ab",
+                        "surface-dim": "#0c1322",
+                        "primary-fixed": "#ffdeae",
+                        "surface-container-low": "#141b2b",
+                        "inverse-on-surface": "#293040",
+                        "tertiary-fixed-dim": "#aac8f6",
+                        "secondary-fixed": "#ffddb1",
+                        "on-secondary-fixed-variant": "#624000",
+                        "surface-container-high": "#232a3a",
+                        "tertiary-fixed": "#d4e3ff",
+                        "outline": "#9b8f80",
+                        "on-tertiary": "#0e3157",
+                        "on-secondary-container": "#e6b369",
+                        "surface-container-lowest": "#070e1d",
+                        "surface-tint": "#edbf79",
+                        "on-secondary": "#442b00",
+                        "on-tertiary-fixed-variant": "#29486f",
+                        "on-tertiary-fixed": "#001c39",
+                        "surface-variant": "#2e3545",
+                        "gold-secondary": "#b88a44",
+                        "secondary-container": "#684400",
+                        "primary": "#facb84",
+                        "border-subtle": "rgba(255, 255, 255, 0.1)",
+                        "secondary": "#f2be72",
+                        "white-muted": "rgba(255, 255, 255, 0.7)",
+                        "surface-container-highest": "#2e3545",
+                        "on-primary": "#432c00",
+                        "surface-container": "#191f2f",
+                        "inverse-primary": "#7a581c",
+                        "primary-fixed-dim": "#edbf79",
+                        "on-tertiary-container": "#2a4970",
+                        "on-background": "#dce2f7",
+                        "background": "#0c1322",
+                        "surface-bright": "#323949",
+                        "navy-bg": "#111827",
+                        "tertiary-container": "#9bb9e6",
+                        "tertiary": "#b9d5ff",
+                        "error-container": "#93000a",
+                        "on-surface": "#dce2f7",
+                        "on-primary-fixed-variant": "#604104",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#291800",
+                        "inverse-surface": "#dce2f7",
+                        "outline-variant": "#4e4539"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.125rem",
+                        lg: "0.25rem",
+                        xl: "0.5rem",
+                        full: "0.75rem"
+                    },
+                    spacing: {
+                        "stack-lg": "48px",
+                        "section-gap": "40px",
+                        "stack-sm": "16px",
+                        "stack-md": "32px",
+                        "margin-main": "24px",
+                        "gutter-grid": "16px"
+                    },
+                    fontFamily: {
+                        "headline-sm": ["Oswald"],
+                        "label-caps": ["Inter"],
+                        "headline-lg": ["Oswald"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Oswald"],
+                        "body-md": ["Inter"],
+                        "display-vertical": ["Oswald"]
+                    },
+                    fontSize: {
+                        "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }],
+                        "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+                        "headline-lg": ["36px", { lineHeight: "40px", fontWeight: "700" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "display-vertical": ["20px", { lineHeight: "normal", letterSpacing: "0.15em", fontWeight: "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glow-effect {
+            box-shadow: 0 0 40px rgba(220, 176, 107, 0.15);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-navy-bg text-on-surface min-h-screen flex flex-col font-body-md antialiased selection:bg-gold-primary/30 selection:text-gold-primary">
+<!-- Ambient Background Glow -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[500px] bg-gold-primary/5 blur-[120px] rounded-full"></div>
+</div>
+<!-- Main Content Canvas (Transactional Page - No Global Nav Shell) -->
+<main class="flex-grow flex flex-col items-center justify-center px-margin-main py-section-gap relative z-10 w-full max-w-lg mx-auto">
+<!-- Success Animation / Hero -->
+<div class="flex flex-col items-center mb-stack-md relative animate-[fade-in-up_0.6s_ease-out]">
+<!-- Outer Ring -->
+<div class="absolute inset-0 bg-gold-primary/10 rounded-full animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
+<!-- Icon Container -->
+<div class="w-24 h-24 rounded-full bg-navy-surface border border-gold-primary/30 flex items-center justify-center glow-effect mb-stack-sm relative z-10">
+<span class="material-symbols-outlined text-[48px] text-gold-primary" style="font-variation-settings: 'FILL' 1;">
+                    check_circle
+                </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface uppercase text-center mb-2">
+                Booking Confirmed
+            </h1>
+<p class="font-body-md text-body-md text-white-muted text-center max-w-xs">
+                Your Seva has been successfully scheduled. May the divine blessings be with you.
+            </p>
+</div>
+<!-- Receipt Card (Glassmorphism / Premium Ticket Style) -->
+<div class="w-full bg-navy-surface border border-white-muted/10 rounded-xl p-6 mb-stack-lg shadow-lg relative overflow-hidden animate-[fade-in-up_0.8s_ease-out]">
+<!-- Top Pattern/Texture hint -->
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold-primary/50 to-transparent"></div>
+<!-- Booking Reference -->
+<div class="text-center pb-6 border-b border-border-subtle mb-6">
+<span class="font-label-caps text-label-caps text-gold-primary block mb-1">Transaction ID</span>
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-wider">TXN-8934-VANI</span>
+</div>
+<!-- Receipt Details Grid -->
+<div class="space-y-4 mb-6">
+<div class="flex justify-between items-start">
+<div class="text-left">
+<span class="font-label-caps text-label-caps text-white-muted block mb-1">Seva Details</span>
+<span class="font-body-md text-body-md text-on-surface block font-medium">Sri Rudra Abhishekam</span>
+<span class="font-body-md text-[13px] text-white-muted block">Kashi Vishwanath Temple</span>
+</div>
+</div>
+<div class="flex justify-between items-center py-2">
+<div class="text-left">
+<span class="font-label-caps text-label-caps text-white-muted block mb-1">Date &amp; Time</span>
+<span class="font-body-md text-body-md text-on-surface">15 Nov 2023, 06:00 AM</span>
+</div>
+</div>
+<div class="flex justify-between items-center py-2">
+<div class="text-left">
+<span class="font-label-caps text-label-caps text-white-muted block mb-1">Devotee Name</span>
+<span class="font-body-md text-body-md text-on-surface">Arjun Reddy</span>
+</div>
+</div>
+</div>
+<!-- Total Paid -->
+<div class="pt-6 border-t border-border-subtle border-dashed flex justify-between items-end">
+<span class="font-headline-sm text-headline-sm text-on-surface uppercase">Total Paid</span>
+<span class="font-headline-md text-headline-md text-gold-primary">₹2,501</span>
+</div>
+<!-- Cutout corners for ticket effect -->
+<div class="absolute -left-4 top-[88px] w-8 h-8 bg-navy-bg rounded-full border border-white-muted/10"></div>
+<div class="absolute -right-4 top-[88px] w-8 h-8 bg-navy-bg rounded-full border border-white-muted/10"></div>
+</div>
+<!-- Action Buttons -->
+<div class="w-full flex flex-col gap-4 animate-[fade-in-up_1s_ease-out]">
+<!-- Primary Action -->
+<button class="w-full h-14 bg-gold-primary text-navy-bg font-headline-sm text-headline-sm uppercase tracking-wider rounded-lg flex items-center justify-center gap-2 hover:bg-gold-secondary transition-colors duration-300">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">
+                    download
+                </span>
+                Download Receipt
+            </button>
+<!-- Secondary Action -->
+<button class="w-full h-14 bg-transparent border-2 border-gold-primary text-gold-primary font-headline-sm text-headline-sm uppercase tracking-wider rounded-lg flex items-center justify-center hover:bg-gold-primary/10 transition-colors duration-300">
+                Return to Home
+            </button>
+</div>
+</main>
+<!-- Inline Animation Styles -->
+<style>
+        @keyframes fade-in-up {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</body></html>

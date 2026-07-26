@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sankalpavani - Map Discovery</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Oswald:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#d2c4b4",
+                        "on-error": "#690005",
+                        "gold-primary": "#dcb06b",
+                        "surface": "#0c1322",
+                        "primary-container": "#dcb06b",
+                        "on-primary-fixed": "#281900",
+                        "on-primary-container": "#614205",
+                        "secondary-fixed-dim": "#f2be72",
+                        "navy-surface": "#1f2937",
+                        "error": "#ffb4ab",
+                        "surface-dim": "#0c1322",
+                        "primary-fixed": "#ffdeae",
+                        "surface-container-low": "#141b2b",
+                        "inverse-on-surface": "#293040",
+                        "tertiary-fixed-dim": "#aac8f6",
+                        "secondary-fixed": "#ffddb1",
+                        "on-secondary-fixed-variant": "#624000",
+                        "surface-container-high": "#232a3a",
+                        "tertiary-fixed": "#d4e3ff",
+                        "outline": "#9b8f80",
+                        "on-tertiary": "#0e3157",
+                        "on-secondary-container": "#e6b369",
+                        "surface-container-lowest": "#070e1d",
+                        "surface-tint": "#edbf79",
+                        "on-secondary": "#442b00",
+                        "on-tertiary-fixed-variant": "#29486f",
+                        "on-tertiary-fixed": "#001c39",
+                        "surface-variant": "#2e3545",
+                        "gold-secondary": "#b88a44",
+                        "secondary-container": "#684400",
+                        "primary": "#facb84",
+                        "border-subtle": "rgba(255, 255, 255, 0.1)",
+                        "secondary": "#f2be72",
+                        "white-muted": "rgba(255, 255, 255, 0.7)",
+                        "surface-container-highest": "#2e3545",
+                        "on-primary": "#432c00",
+                        "surface-container": "#191f2f",
+                        "inverse-primary": "#7a581c",
+                        "primary-fixed-dim": "#edbf79",
+                        "on-tertiary-container": "#2a4970",
+                        "on-background": "#dce2f7",
+                        "background": "#0c1322",
+                        "surface-bright": "#323949",
+                        "navy-bg": "#111827",
+                        "tertiary-container": "#9bb9e6",
+                        "tertiary": "#b9d5ff",
+                        "error-container": "#93000a",
+                        "on-surface": "#dce2f7",
+                        "on-primary-fixed-variant": "#604104",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#291800",
+                        "inverse-surface": "#dce2f7",
+                        "outline-variant": "#4e4539"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-lg": "48px",
+                        "section-gap": "40px",
+                        "stack-sm": "16px",
+                        "stack-md": "32px",
+                        "margin-main": "24px",
+                        "gutter-grid": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Oswald"],
+                        "label-caps": ["Inter"],
+                        "headline-lg": ["Oswald"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Oswald"],
+                        "body-md": ["Inter"],
+                        "display-vertical": ["Oswald"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["36px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-vertical": ["20px", { "lineHeight": "normal", "letterSpacing": "0.15em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #111827; /* navy-bg */
+            color: #dce2f7; /* on-surface */
+            overflow-x: hidden;
+        }
+        .bg-pattern {
+            background-image: radial-gradient(circle at center, rgba(220, 176, 107, 0.05) 0%, transparent 70%);
+            background-size: 100px 100px;
+        }
+    </style>
+</head>
+<body class="bg-navy-bg text-on-surface antialiased flex flex-col min-h-screen">
+<!-- Top App Bar (Generated from logic, since it's a top-level destination) -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex justify-between items-center px-margin-main h-16 w-full">
+<button aria-label="Menu" class="text-gold-primary hover:text-gold-secondary transition-colors scale-95 active:duration-150">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">temple_hindu</span>
+</button>
+<h1 class="font-display-vertical text-display-vertical text-gold-primary tracking-[0.2em] uppercase">SANKALPAVANI</h1>
+<button aria-label="Notifications" class="text-white-muted hover:text-gold-secondary transition-colors scale-95 active:duration-150">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 pt-20 pb-32 relative">
+<!-- Map Background Area (Simulated Map) -->
+<div class="absolute inset-0 top-16 h-[50vh] w-full bg-pattern overflow-hidden flex items-center justify-center opacity-80 mix-blend-screen pointer-events-none z-0">
+<!-- Interactive stylization of India map placeholder -->
+<img alt="Stylized map of India" class="w-full h-full object-cover object-top opacity-60 mix-blend-luminosity filter contrast-125 sepia-[.3]" src="https://lh3.googleusercontent.com/aida/AP1WRLv7jXlWM0p7Nx44YKkHOhwwN0y2k6UGab6OnR7cQgWcAzU_TW4sI5cle9-Rmbt4UPFa9wVESa71RWcPOACg4K4vrSxfa4l5KRWu7a84BynK52-85xnLJe6tFNu_6GnulWOXUPPdhxffNCfEZUa0Pz73JD_6261kXrMQc3lQ0s4_7p2-A7eDb9rS3tE67eeuaImW-OU33K42OpUsCF8GV47ObmixJv0qamnQ7v02HUk-Osl3JA8mkNl6unM"/>
+<!-- Overlay Gradient for seamless transition to bottom panel -->
+<div class="absolute bottom-0 w-full h-32 bg-gradient-to-t from-navy-bg to-transparent"></div>
+</div>
+<!-- Pin Overlay (Simulated interactive pins on map) -->
+<div class="relative z-10 w-full h-[40vh] mt-4">
+<!-- Pin 1 -->
+<div class="absolute top-[30%] left-[20%] transform -translate-x-1/2 -translate-y-1/2 cursor-pointer group">
+<div class="w-12 h-12 bg-gold-primary/20 rounded-full animate-pulse absolute -inset-2 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-gold-primary drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-[32px] group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<!-- Pin 2 (Active/Selected) -->
+<div class="absolute top-[60%] left-[40%] transform -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20">
+<div class="w-16 h-16 bg-gold-primary/30 rounded-full animate-ping absolute -inset-3"></div>
+<span class="material-symbols-outlined text-gold-primary drop-shadow-[0_4px_8px_rgba(220,176,107,0.5)] text-[40px]" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<!-- Pin 3 -->
+<div class="absolute top-[45%] left-[70%] transform -translate-x-1/2 -translate-y-1/2 cursor-pointer group">
+<div class="w-12 h-12 bg-gold-primary/20 rounded-full animate-pulse absolute -inset-2 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-gold-primary/70 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-[32px] group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+</div>
+<!-- Selected Temple Bottom Sheet / Card -->
+<div class="relative z-20 mt-auto bg-navy-bg rounded-t-3xl pt-2 px-margin-main pb-8 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border-t border-border-subtle before:content-[''] before:block before:w-12 before:h-1.5 before:bg-white-muted/20 before:mx-auto before:rounded-full before:mb-6">
+<h2 class="font-headline-lg text-headline-lg text-white mb-stack-sm tracking-wide">Selected Temple</h2>
+<!-- Premium Temple Card -->
+<div class="bg-navy-surface rounded-xl overflow-hidden border border-border-subtle shadow-lg flex flex-col group relative">
+<!-- Image Container -->
+<div class="relative h-48 w-full">
+<div class="bg-cover bg-center w-full h-full" data-alt="A highly detailed, majestic Dravidian-style Hindu temple gopuram captured during the golden hour. The towering structure is intricately carved with deities and painted in vibrant but muted colors. The lighting is warm and dramatic, casting long shadows. Set against a clear, deep blue sky, evoking a modern spiritualism aesthetic with high contrast and premium editorial quality." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDggiCJuZroJAPe2VNlbM2wmKykM7TYwazpclexHTKwlwelVEHwxbknNYhPno1gB4PlRAOauQiUlYsZmlnKberI98v-PnUdMLC4SWLyKdB9fAddtSlkCjsDY9ehd_xkGc9XGFRuKv9XcpWxgy6H1hXKtyJVmk7yy1wr55-6ylqVE78QJogn1SoQ-RH5n07V8fLA2Aa5dlq5jdgqEeUQ9cdi4nKT2qnJLhTKkuqT-JvyXktDu-ooZAGmWjCTXoxD-vbRkXAC6ba8vxM')"></div>
+<!-- Distance Chip -->
+<div class="absolute top-4 right-4 bg-navy-surface/90 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-border-subtle flex items-center gap-1 shadow-md">
+<span class="material-symbols-outlined text-gold-primary text-[16px]">navigation</span>
+<span class="font-label-caps text-label-caps text-on-surface">2.4 km</span>
+</div>
+<!-- Subtle bottom gradient on image for text contrast if needed -->
+<div class="absolute bottom-0 w-full h-1/3 bg-gradient-to-t from-navy-surface to-transparent"></div>
+</div>
+<!-- Card Content -->
+<div class="p-4 flex flex-col gap-2">
+<h3 class="font-headline-md text-headline-md text-gold-primary truncate">Sri Venkateswara Temple</h3>
+<div class="flex items-center text-white-muted gap-1">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<p class="font-body-md text-body-md truncate">Bengaluru, Karnataka</p>
+</div>
+<div class="flex justify-between items-end mt-2">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-gold-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">4.8</span>
+<span class="font-body-md text-body-md text-white-muted">(1.2k)</span>
+</div>
+<button class="bg-gold-primary text-navy-bg font-headline-sm text-headline-sm px-6 py-2 rounded-lg uppercase tracking-wider hover:bg-gold-secondary transition-colors active:scale-95 shadow-md">
+                            View Details
+                        </button>
+</div>
+</div>
+<!-- Decorative Gold Line at bottom of image -->
+<div class="absolute top-48 w-full h-1 bg-gold-primary opacity-80"></div>
+</div>
+</div>
+</main>
+<!-- Bottom Nav Bar (From JSON) - HOME is active for Map Discovery -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl border-t border-white-muted/5 bg-navy-surface shadow-[0_-4px_20px_rgba(0,0,0,0.4)] flex justify-around items-center h-20 px-margin-main pb-safe md:hidden">
+<!-- HOME (Active) -->
+<button class="flex flex-col items-center justify-center text-gold-primary gap-1 transition-transform duration-300 active:scale-90 w-1/3">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">distance</span>
+<span class="font-label-caps text-label-caps text-gold-primary font-headline-lg uppercase">HOME</span>
+</button>
+<!-- BOOKINGS (Inactive) -->
+<button class="flex flex-col items-center justify-center text-white-muted/60 gap-1 hover:text-gold-primary/80 transition-transform duration-300 active:scale-90 w-1/3">
+<span class="material-symbols-outlined text-[24px]">event_upcoming</span>
+<span class="font-label-caps text-label-caps uppercase">BOOKINGS</span>
+</button>
+<!-- PROFILE (Inactive) -->
+<button class="flex flex-col items-center justify-center text-white-muted/60 gap-1 hover:text-gold-primary/80 transition-transform duration-300 active:scale-90 w-1/3">
+<span class="material-symbols-outlined text-[24px]">account_circle</span>
+<span class="font-label-caps text-label-caps uppercase">PROFILE</span>
+</button>
+</nav>
+</body></html>

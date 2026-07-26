@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Service Detail - Dravidian Elegance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#d2c4b4",
+                        "on-error": "#690005",
+                        "gold-primary": "#dcb06b",
+                        "surface": "#0c1322",
+                        "primary-container": "#dcb06b",
+                        "on-primary-fixed": "#281900",
+                        "on-primary-container": "#614205",
+                        "secondary-fixed-dim": "#f2be72",
+                        "navy-surface": "#1f2937",
+                        "error": "#ffb4ab",
+                        "surface-dim": "#0c1322",
+                        "primary-fixed": "#ffdeae",
+                        "surface-container-low": "#141b2b",
+                        "inverse-on-surface": "#293040",
+                        "tertiary-fixed-dim": "#aac8f6",
+                        "secondary-fixed": "#ffddb1",
+                        "on-secondary-fixed-variant": "#624000",
+                        "surface-container-high": "#232a3a",
+                        "tertiary-fixed": "#d4e3ff",
+                        "outline": "#9b8f80",
+                        "on-tertiary": "#0e3157",
+                        "on-secondary-container": "#e6b369",
+                        "surface-container-lowest": "#070e1d",
+                        "surface-tint": "#edbf79",
+                        "on-secondary": "#442b00",
+                        "on-tertiary-fixed-variant": "#29486f",
+                        "on-tertiary-fixed": "#001c39",
+                        "surface-variant": "#2e3545",
+                        "gold-secondary": "#b88a44",
+                        "secondary-container": "#684400",
+                        "primary": "#facb84",
+                        "border-subtle": "rgba(255, 255, 255, 0.1)",
+                        "secondary": "#f2be72",
+                        "white-muted": "rgba(255, 255, 255, 0.7)",
+                        "surface-container-highest": "#2e3545",
+                        "on-primary": "#432c00",
+                        "surface-container": "#191f2f",
+                        "inverse-primary": "#7a581c",
+                        "primary-fixed-dim": "#edbf79",
+                        "on-tertiary-container": "#2a4970",
+                        "on-background": "#dce2f7",
+                        "background": "#0c1322",
+                        "surface-bright": "#323949",
+                        "navy-bg": "#111827",
+                        "tertiary-container": "#9bb9e6",
+                        "tertiary": "#b9d5ff",
+                        "error-container": "#93000a",
+                        "on-surface": "#dce2f7",
+                        "on-primary-fixed-variant": "#604104",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#291800",
+                        "inverse-surface": "#dce2f7",
+                        "outline-variant": "#4e4539"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-lg": "48px",
+                        "section-gap": "40px",
+                        "stack-sm": "16px",
+                        "stack-md": "32px",
+                        "margin-main": "24px",
+                        "gutter-grid": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Oswald", "sans-serif"],
+                        "label-caps": ["Inter", "sans-serif"],
+                        "headline-lg": ["Oswald", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "headline-md": ["Oswald", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "display-vertical": ["Oswald", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["36px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-vertical": ["20px", { "lineHeight": "normal", "letterSpacing": "0.15em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Oswald:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .oswald { font-family: 'Oswald', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-navy-bg text-on-surface min-h-screen relative pb-[120px]">
+<!-- Floating TopAppBar (Contextual/Transparent on Hero) -->
+<header class="fixed top-0 w-full z-50 p-margin-main flex justify-between items-center bg-gradient-to-b from-navy-bg/80 to-transparent">
+<button class="w-10 h-10 rounded-full bg-navy-surface/50 border border-white-muted/20 flex items-center justify-center backdrop-blur-sm text-white-muted hover:text-gold-primary transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-navy-surface/50 border border-white-muted/20 flex items-center justify-center backdrop-blur-sm text-white-muted hover:text-gold-primary transition-colors">
+<span class="material-symbols-outlined" data-weight="fill">favorite</span>
+</button>
+</header>
+<!-- Immersive Hero Image -->
+<div class="relative w-full h-[442px] md:h-[530px] max-h-[600px]">
+<img class="w-full h-full object-cover" data-alt="A majestic, high-resolution cinematic photograph of a grand Dravidian temple interior illuminated by warm, glowing oil lamps. The scene features intricate stone carvings and brass artifacts, captured in a dramatic high-contrast dark mode aesthetic with deep navy shadows and rich gold highlights. The atmosphere is profoundly spiritual, serene, and ancient, invoking a sense of deep reverence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASA1AKtlMeeP-c48G9S-qzFZiO8QqWn24DQmF3ZQ41k8xB8_Z6C3T3oneP2yQYYmi7-9PsjryeyutvDqWFgrWGD7xNJ280nN9ewHk4CrTeO3LD9Tb9QQg5QI0tKmijlAyDlOAzb5BYNR87JaFT4OcMcr5thJua0y9r1H-vMQ8iKJC7XDh0MtWBYajfuawrIfi38IxZSsnyusRSwHaMkNE2kBgBTn8MOGTE6vi78DTDF18nnEGGb8ayRF-qty0qgse9XSpN-fGC2Bk"/>
+<!-- Gradient Overlay for seamless blend to Navy-Bg -->
+<div class="absolute inset-0 bg-gradient-to-t from-navy-bg via-navy-bg/50 to-transparent"></div>
+<!-- Hero Content (Pinned to bottom of image) -->
+<div class="absolute bottom-0 left-0 w-full px-margin-main pb-stack-md flex flex-col gap-stack-sm">
+<div class="flex items-center gap-2">
+<span class="px-3 py-1 rounded-full bg-gold-primary/20 text-gold-primary border border-gold-primary/30 font-label-caps text-label-caps">SPECIAL POOJA</span>
+<span class="px-3 py-1 rounded-full bg-navy-surface/80 text-white-muted border border-white-muted/20 font-label-caps text-label-caps flex items-center gap-1 backdrop-blur-sm">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 45 MINS
+                </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-gold-primary uppercase">Maha Rudrabhishekam</h1>
+<p class="font-body-lg text-body-lg text-white-muted">A profound Vedic ritual offering sacred chants and ablutions to Lord Shiva for ultimate peace and spiritual awakening.</p>
+</div>
+</div>
+<!-- Main Content Area -->
+<main class="px-margin-main py-section-gap flex flex-col gap-section-gap max-w-4xl mx-auto">
+<!-- Key Details Grid -->
+<section class="grid grid-cols-2 md:grid-cols-4 gap-gutter-grid">
+<div class="bg-navy-surface border border-border-subtle rounded-xl p-4 flex flex-col gap-2 items-center text-center">
+<span class="material-symbols-outlined text-gold-primary text-3xl">temple_hindu</span>
+<span class="font-label-caps text-label-caps text-white-muted uppercase">Deity</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Lord Shiva</span>
+</div>
+<div class="bg-navy-surface border border-border-subtle rounded-xl p-4 flex flex-col gap-2 items-center text-center">
+<span class="material-symbols-outlined text-gold-primary text-3xl">event</span>
+<span class="font-label-caps text-label-caps text-white-muted uppercase">Frequency</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Daily</span>
+</div>
+<div class="bg-navy-surface border border-border-subtle rounded-xl p-4 flex flex-col gap-2 items-center text-center">
+<span class="material-symbols-outlined text-gold-primary text-3xl">groups</span>
+<span class="font-label-caps text-label-caps text-white-muted uppercase">Participants</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Up to 4</span>
+</div>
+<div class="bg-navy-surface border border-border-subtle rounded-xl p-4 flex flex-col gap-2 items-center text-center">
+<span class="material-symbols-outlined text-gold-primary text-3xl">volunteer_activism</span>
+<span class="font-label-caps text-label-caps text-white-muted uppercase">Prasadam</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Included</span>
+</div>
+</section>
+<!-- Contribution Detail Card (Bento Style) -->
+<section class="bg-surface-container border border-gold-primary/30 rounded-xl p-6 relative overflow-hidden">
+<!-- Decorative Background Element -->
+<div class="absolute -right-10 -top-10 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[150px] text-gold-primary">star</span>
+</div>
+<div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-stack-md">
+<div>
+<h2 class="font-headline-md text-headline-md text-gold-primary uppercase mb-2">Contribution</h2>
+<p class="font-body-md text-body-md text-white-muted">Your offering supports the maintenance of the temple and daily rituals.</p>
+</div>
+<div class="flex flex-col items-start md:items-end">
+<span class="font-headline-lg text-headline-lg text-gold-primary">₹ 1,116</span>
+<span class="font-label-caps text-label-caps text-white-muted uppercase">Per Sankalpam</span>
+</div>
+</div>
+</section>
+<!-- Date & Time Selection -->
+<section class="flex flex-col gap-stack-md">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-gold-primary">calendar_month</span>
+                Select Date
+            </h2>
+<!-- Horizontal Date Carousel -->
+<div class="flex overflow-x-auto gap-4 pb-4 -mx-margin-main px-margin-main snap-x scrollbar-hide">
+<!-- Selected State -->
+<button class="snap-start shrink-0 w-24 h-28 rounded-xl bg-gold-primary/10 border-2 border-gold-primary flex flex-col items-center justify-center gap-1 text-gold-primary">
+<span class="font-label-caps text-label-caps uppercase">MON</span>
+<span class="font-headline-md text-headline-md">12</span>
+<span class="font-label-caps text-label-caps uppercase text-gold-primary/80">AUG</span>
+</button>
+<!-- Unselected States -->
+<button class="snap-start shrink-0 w-24 h-28 rounded-xl bg-navy-surface border border-border-subtle flex flex-col items-center justify-center gap-1 text-white-muted hover:border-gold-primary/50 transition-colors">
+<span class="font-label-caps text-label-caps uppercase">TUE</span>
+<span class="font-headline-md text-headline-md">13</span>
+<span class="font-label-caps text-label-caps uppercase text-white-muted/60">AUG</span>
+</button>
+<button class="snap-start shrink-0 w-24 h-28 rounded-xl bg-navy-surface border border-border-subtle flex flex-col items-center justify-center gap-1 text-white-muted hover:border-gold-primary/50 transition-colors">
+<span class="font-label-caps text-label-caps uppercase">WED</span>
+<span class="font-headline-md text-headline-md">14</span>
+<span class="font-label-caps text-label-caps uppercase text-white-muted/60">AUG</span>
+</button>
+<button class="snap-start shrink-0 w-24 h-28 rounded-xl bg-navy-surface border border-border-subtle flex flex-col items-center justify-center gap-1 text-white-muted hover:border-gold-primary/50 transition-colors">
+<span class="font-label-caps text-label-caps uppercase">THU</span>
+<span class="font-headline-md text-headline-md">15</span>
+<span class="font-label-caps text-label-caps uppercase text-white-muted/60">AUG</span>
+</button>
+</div>
+<h3 class="font-label-caps text-label-caps text-white-muted uppercase mt-2">Available Slots</h3>
+<div class="flex flex-wrap gap-3">
+<button class="px-6 py-3 rounded-lg bg-navy-surface border border-border-subtle text-white-muted font-body-md text-body-md hover:border-gold-primary/50 transition-colors">06:00 AM</button>
+<!-- Selected Slot -->
+<button class="px-6 py-3 rounded-lg bg-gold-primary/10 border border-gold-primary text-gold-primary font-body-md text-body-md font-semibold">08:30 AM</button>
+<button class="px-6 py-3 rounded-lg bg-navy-surface border border-border-subtle text-white-muted font-body-md text-body-md hover:border-gold-primary/50 transition-colors">10:00 AM</button>
+<button class="px-6 py-3 rounded-lg bg-navy-surface border border-border-subtle text-white-muted font-body-md text-body-md hover:border-gold-primary/50 transition-colors opacity-50 cursor-not-allowed">05:30 PM (Full)</button>
+</div>
+</section>
+<!-- Service Description -->
+<section class="flex flex-col gap-stack-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase border-l-4 border-gold-primary pl-3">About the Ritual</h2>
+<div class="font-body-md text-body-md text-white-muted space-y-4">
+<p>The Maha Rudrabhishekam is a deeply purifying ritual dedicated to Lord Shiva, the destroyer of evils. The Abhishekam involves bathing the Shiva Lingam continuously with water, milk, honey, and other sacred items while chanting the powerful Rudra Suktam.</p>
+<p>This elaborate offering is believed to clear negative karma, bestow prosperity, and bring profound spiritual clarity to the devotee's life. It is especially auspicious when performed during Pradosham or Mondays.</p>
+</div>
+</section>
+</main>
+<!-- Fixed Bottom Booking Action (Transactional - Suppresses main Nav) -->
+<div class="fixed bottom-0 w-full z-50 bg-navy-surface/90 backdrop-blur-md border-t border-border-subtle p-4 px-margin-main flex items-center justify-between shadow-[0_-8px_30px_rgba(0,0,0,0.5)]">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-white-muted uppercase">Total Contribution</span>
+<span class="font-headline-md text-headline-md text-gold-primary">₹ 1,116</span>
+</div>
+<button class="bg-gold-primary text-navy-bg font-headline-sm text-headline-sm uppercase px-8 py-4 rounded-lg flex items-center gap-2 hover:bg-gold-secondary transition-colors shadow-lg shadow-gold-primary/20">
+            Proceed to Book
+            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</body></html>

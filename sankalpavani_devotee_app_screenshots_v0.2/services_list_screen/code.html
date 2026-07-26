@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sankalpavani - Services</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#d2c4b4",
+                        "on-error": "#690005",
+                        "gold-primary": "#dcb06b",
+                        "surface": "#0c1322",
+                        "primary-container": "#dcb06b",
+                        "on-primary-fixed": "#281900",
+                        "on-primary-container": "#614205",
+                        "secondary-fixed-dim": "#f2be72",
+                        "navy-surface": "#1f2937",
+                        "error": "#ffb4ab",
+                        "surface-dim": "#0c1322",
+                        "primary-fixed": "#ffdeae",
+                        "surface-container-low": "#141b2b",
+                        "inverse-on-surface": "#293040",
+                        "tertiary-fixed-dim": "#aac8f6",
+                        "secondary-fixed": "#ffddb1",
+                        "on-secondary-fixed-variant": "#624000",
+                        "surface-container-high": "#232a3a",
+                        "tertiary-fixed": "#d4e3ff",
+                        "outline": "#9b8f80",
+                        "on-tertiary": "#0e3157",
+                        "on-secondary-container": "#e6b369",
+                        "surface-container-lowest": "#070e1d",
+                        "surface-tint": "#edbf79",
+                        "on-secondary": "#442b00",
+                        "on-tertiary-fixed-variant": "#29486f",
+                        "on-tertiary-fixed": "#001c39",
+                        "surface-variant": "#2e3545",
+                        "gold-secondary": "#b88a44",
+                        "secondary-container": "#684400",
+                        "primary": "#facb84",
+                        "border-subtle": "rgba(255, 255, 255, 0.1)",
+                        "secondary": "#f2be72",
+                        "white-muted": "rgba(255, 255, 255, 0.7)",
+                        "surface-container-highest": "#2e3545",
+                        "on-primary": "#432c00",
+                        "surface-container": "#191f2f",
+                        "inverse-primary": "#7a581c",
+                        "primary-fixed-dim": "#edbf79",
+                        "on-tertiary-container": "#2a4970",
+                        "on-background": "#dce2f7",
+                        "background": "#0c1322",
+                        "surface-bright": "#323949",
+                        "navy-bg": "#111827",
+                        "tertiary-container": "#9bb9e6",
+                        "tertiary": "#b9d5ff",
+                        "error-container": "#93000a",
+                        "on-surface": "#dce2f7",
+                        "on-primary-fixed-variant": "#604104",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#291800",
+                        "inverse-surface": "#dce2f7",
+                        "outline-variant": "#4e4539"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-lg": "48px",
+                        "section-gap": "40px",
+                        "stack-sm": "16px",
+                        "stack-md": "32px",
+                        "margin-main": "24px",
+                        "gutter-grid": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Oswald"],
+                        "label-caps": ["Inter"],
+                        "headline-lg": ["Oswald"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Oswald"],
+                        "body-md": ["Inter"],
+                        "display-vertical": ["Oswald"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["36px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-vertical": ["20px", { "lineHeight": "normal", "letterSpacing": "0.15em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-navy-bg text-on-surface min-h-screen pb-[100px] pt-20">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md dark:bg-surface-container-lowest/80 border-b border-white-muted/10 shadow-sm flex justify-between items-center px-margin-main h-16 transition-transform">
+<button class="text-white-muted hover:text-gold-secondary transition-colors scale-95 active:duration-150">
+<span class="material-symbols-outlined" data-icon="temple_hindu">temple_hindu</span>
+</button>
+<h1 class="font-display-vertical text-display-vertical text-gold-primary tracking-[0.2em] uppercase">SANKALPAVANI</h1>
+<button class="text-white-muted hover:text-gold-secondary transition-colors scale-95 active:duration-150">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="px-margin-main max-w-7xl mx-auto mt-stack-md flex flex-col gap-section-gap">
+<!-- Header Section -->
+<section class="flex flex-col gap-stack-sm text-center">
+<h2 class="font-headline-lg text-headline-lg text-gold-primary">SACRED SEVAS</h2>
+<p class="font-body-lg text-body-lg text-white-muted max-w-2xl mx-auto">Explore our spiritual offerings and find the perfect ceremony for your devotion.</p>
+</section>
+<!-- Services Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter-grid">
+<!-- Service Card 1 -->
+<article class="bg-navy-surface border border-white-muted/10 rounded-xl overflow-hidden flex flex-col shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:border-gold-primary/30">
+<div class="h-48 relative">
+<img alt="Maha Aarti" class="w-full h-full object-cover" data-alt="A cinematic, high-contrast image of a traditional Hindu Aarti ceremony. A priest is holding a multi-tiered brass lamp with glowing oil flames illuminating his face against the deep, dark temple background. The mood is spiritual and reverent, emphasizing the warm gold tones of the fire against the cool navy shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEV2Lzv-sFBT3BX19Y-T96xpp_PNf1Otgt5aeJSeZNGQL-xk2f0sTsrT-FSuFjiOtb2Q6SUmz7jvYV_vboJdvuNcbyhPFEPjrv2y-0vtGnbIWmw_sJQhIC13W9xKNXKp7rFfmWh-7nFrPvp2EmY9WayZFj0hskJGPaBgufV0CDMxUtwEvcphq5HPhhBe5QXZXR6ZFJpNV1lcW6Q0gnXD5E4ti9pz9EPAVGpT1fJsuO9SCCkQeg9uDL-nQ9Gh6s0wqMdtn09_x4vHc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-navy-surface via-transparent to-transparent"></div>
+</div>
+<div class="p-stack-sm flex flex-col flex-1">
+<h3 class="font-headline-md text-headline-md text-gold-primary uppercase mb-2">Maha Aarti</h3>
+<p class="font-body-md text-body-md text-white-muted flex-1 mb-4">A grand evening devotion featuring elaborate lamp offerings, chanting, and divine blessings.</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-white-muted/10">
+<span class="font-headline-sm text-headline-sm text-gold-primary">₹501</span>
+<button class="bg-gold-primary text-navy-bg font-label-caps text-label-caps uppercase px-4 py-2 rounded shadow-sm hover:bg-gold-secondary transition-colors active:scale-95">Book Now</button>
+</div>
+</div>
+</article>
+<!-- Service Card 2 -->
+<article class="bg-navy-surface border border-white-muted/10 rounded-xl overflow-hidden flex flex-col shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:border-gold-primary/30">
+<div class="h-48 relative">
+<img alt="Rudrabhishekam" class="w-full h-full object-cover" data-alt="A close-up, premium shot of hands performing Rudrabhishekam. Water and milk are being poured continuously from a brass vessel over a dark stone Shiva Lingam adorned with bilva leaves and marigolds. High contrast lighting with rich golds and deep navy background. A sense of ancient tradition and sacredness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOonOPzVWLadHsYW0Z5k3455uENpqXvq82xq8roG-nVad4TQpBH_LQvN_6wv8D_GWYI08jyazAbdSq0FEDoVxCsPJPXxJEDH5Ng8J8xK8juj4Y42GfOjp0DgNHRKfnlVS5G2zmPk-f-NBwgzv-j2kRpLUZrocaidQmGj2-anKvyMwBCjJTv7p5L9zkIimC2DfJbRfvDI3ZxuCpDP2biRKHm-UNUkEuGmIMDzDmNEQ62vAPUvKWcVmqWL-suOIa8TiRbcNt7LwUQFU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-navy-surface via-transparent to-transparent"></div>
+</div>
+<div class="p-stack-sm flex flex-col flex-1">
+<h3 class="font-headline-md text-headline-md text-gold-primary uppercase mb-2">Rudrabhishekam</h3>
+<p class="font-body-md text-body-md text-white-muted flex-1 mb-4">Sacred bathing of the Shiva Lingam for peace, prosperity, and spiritual purification.</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-white-muted/10">
+<span class="font-headline-sm text-headline-sm text-gold-primary">₹1116</span>
+<button class="bg-gold-primary text-navy-bg font-label-caps text-label-caps uppercase px-4 py-2 rounded shadow-sm hover:bg-gold-secondary transition-colors active:scale-95">Book Now</button>
+</div>
+</div>
+</article>
+<!-- Service Card 3 -->
+<article class="bg-navy-surface border border-white-muted/10 rounded-xl overflow-hidden flex flex-col shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:border-gold-primary/30">
+<div class="h-48 relative">
+<img alt="Ganapathi Homa" class="w-full h-full object-cover" data-alt="A majestic view of a Homa (fire ritual) setting. Bright orange flames rise from a square brick altar (Homa Kundam). Offerings of ghee, grains, and flowers are visible around the fire. The scene is captured with dramatic lighting, highlighting the glowing embers against the dark, mystic temple environment. Dravidian elegance style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUkpi-hbAh7DTfls9qHR4y2RhgXyJRXEeYtldjEnGoyP1U-uVei4SUw_ku_Whnauf-2X3DbGmmECvSg7UhMPJ18vZGuUYnrLbnfubsrT0kUFz3LfApxHlflzH5TajAlJs8UE8Wi0SNZEwo5KSxljNrxpB9DvOQ9V-CSa5IBn5E6-TxJkE8GL5yKptUP0KRzRCTWIIxHN_Ecuw9XORcM1VrHOtbs9BcurxQkA91USK3FimS9HUjl-va5PxgKB8QPaSqe6ZFa5PHR4w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-navy-surface via-transparent to-transparent"></div>
+</div>
+<div class="p-stack-sm flex flex-col flex-1">
+<h3 class="font-headline-md text-headline-md text-gold-primary uppercase mb-2">Ganapathi Homa</h3>
+<p class="font-body-md text-body-md text-white-muted flex-1 mb-4">Invoke Lord Ganesha to remove obstacles and bless new beginnings through sacred fire.</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-white-muted/10">
+<span class="font-headline-sm text-headline-sm text-gold-primary">₹2100</span>
+<button class="bg-gold-primary text-navy-bg font-label-caps text-label-caps uppercase px-4 py-2 rounded shadow-sm hover:bg-gold-secondary transition-colors active:scale-95">Book Now</button>
+</div>
+</div>
+</article>
+<!-- Service Card 4 -->
+<article class="bg-navy-surface border border-white-muted/10 rounded-xl overflow-hidden flex flex-col shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:border-gold-primary/30">
+<div class="h-48 relative">
+<img alt="Pushpanjali" class="w-full h-full object-cover" data-alt="Detailed photography of a beautiful floral decoration (Pushpanjali) offered at the feet of a deity. Vibrant garlands of jasmine, rose, and marigold rest on polished dark stone, illuminated by soft golden light from nearby oil lamps. The composition exudes luxury, devotion, and traditional Indian aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPLFPAE4cZ2nN-ClLtS4sruLkjYm_g4WRscHLrH-I29Lxa-qkxcINbXWeNtxE75fEm0QIIVvPfzC1mZBWq3fo5S2ZpSIBdye7lpP8RgaBhhCVHQBWq1DLE_C91iTxV6HjlN3irlShEgMV6PW69Kx1Px-ixIm8sxigrClf5GawoHWPCIcgiItLrLxIPQhx8Yvg-2xyMsbYFCUopJ4_B9pkW3A-B4wKjkkbo_3ij019QoHxKyQ1DlGEQEPdcCMAFjK0-l8TBELKaS_c"/>
+<div class="absolute inset-0 bg-gradient-to-t from-navy-surface via-transparent to-transparent"></div>
+</div>
+<div class="p-stack-sm flex flex-col flex-1">
+<h3 class="font-headline-md text-headline-md text-gold-primary uppercase mb-2">Pushpanjali</h3>
+<p class="font-body-md text-body-md text-white-muted flex-1 mb-4">An offering of fragrant, fresh flowers accompanied by chanting of specific mantras.</p>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-white-muted/10">
+<span class="font-headline-sm text-headline-sm text-gold-primary">₹251</span>
+<button class="bg-gold-primary text-navy-bg font-label-caps text-label-caps uppercase px-4 py-2 rounded shadow-sm hover:bg-gold-secondary transition-colors active:scale-95">Book Now</button>
+</div>
+</div>
+</article>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-navy-surface dark:bg-surface-container-low border-t border-white-muted/5 shadow-[0_-4px_20px_rgba(0,0,0,0.4)] flex justify-around items-center h-20 px-margin-main pb-safe">
+<a class="flex flex-col items-center justify-center text-white-muted/60 gap-1 hover:text-gold-primary/80 transition-transform duration-300 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="distance">distance</span>
+<span class="font-label-caps text-label-caps">HOME</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gold-primary gap-1 hover:text-gold-primary/80 transition-transform duration-300 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="event_upcoming" data-weight="fill">event_upcoming</span>
+<span class="font-label-caps text-label-caps">BOOKINGS</span>
+</a>
+<a class="flex flex-col items-center justify-center text-white-muted/60 gap-1 hover:text-gold-primary/80 transition-transform duration-300 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-label-caps text-label-caps">PROFILE</span>
+</a>
+</nav>
+<!-- Desktop Sidebar/Nav alternative (hidden on mobile, visible on desktop to satisfy layout rules if needed, but TopAppBar covers desktop nav here. Leaving BottomNav for mobile.) -->
+</body></html>

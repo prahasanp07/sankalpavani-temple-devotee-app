@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sankalpavani - Booking History</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#d2c4b4",
+                        "on-error": "#690005",
+                        "gold-primary": "#dcb06b",
+                        "surface": "#0c1322",
+                        "primary-container": "#dcb06b",
+                        "on-primary-fixed": "#281900",
+                        "on-primary-container": "#614205",
+                        "secondary-fixed-dim": "#f2be72",
+                        "navy-surface": "#1f2937",
+                        "error": "#ffb4ab",
+                        "surface-dim": "#0c1322",
+                        "primary-fixed": "#ffdeae",
+                        "surface-container-low": "#141b2b",
+                        "inverse-on-surface": "#293040",
+                        "tertiary-fixed-dim": "#aac8f6",
+                        "secondary-fixed": "#ffddb1",
+                        "on-secondary-fixed-variant": "#624000",
+                        "surface-container-high": "#232a3a",
+                        "tertiary-fixed": "#d4e3ff",
+                        "outline": "#9b8f80",
+                        "on-tertiary": "#0e3157",
+                        "on-secondary-container": "#e6b369",
+                        "surface-container-lowest": "#070e1d",
+                        "surface-tint": "#edbf79",
+                        "on-secondary": "#442b00",
+                        "on-tertiary-fixed-variant": "#29486f",
+                        "on-tertiary-fixed": "#001c39",
+                        "surface-variant": "#2e3545",
+                        "gold-secondary": "#b88a44",
+                        "secondary-container": "#684400",
+                        "primary": "#facb84",
+                        "border-subtle": "rgba(255, 255, 255, 0.1)",
+                        "secondary": "#f2be72",
+                        "white-muted": "rgba(255, 255, 255, 0.7)",
+                        "surface-container-highest": "#2e3545",
+                        "on-primary": "#432c00",
+                        "surface-container": "#191f2f",
+                        "inverse-primary": "#7a581c",
+                        "primary-fixed-dim": "#edbf79",
+                        "on-tertiary-container": "#2a4970",
+                        "on-background": "#dce2f7",
+                        "background": "#0c1322",
+                        "surface-bright": "#323949",
+                        "navy-bg": "#111827",
+                        "tertiary-container": "#9bb9e6",
+                        "tertiary": "#b9d5ff",
+                        "error-container": "#93000a",
+                        "on-surface": "#dce2f7",
+                        "on-primary-fixed-variant": "#604104",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#291800",
+                        "inverse-surface": "#dce2f7",
+                        "outline-variant": "#4e4539"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-lg": "48px",
+                        "section-gap": "40px",
+                        "stack-sm": "16px",
+                        "stack-md": "32px",
+                        "margin-main": "24px",
+                        "gutter-grid": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Oswald"],
+                        "label-caps": ["Inter"],
+                        "headline-lg": ["Oswald"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Oswald"],
+                        "body-md": ["Inter"],
+                        "display-vertical": ["Oswald"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["36px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-vertical": ["20px", {"lineHeight": "normal", "letterSpacing": "0.15em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-navy-bg text-on-surface font-body-md min-h-screen pb-safe">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md dark:bg-surface-container-lowest/80 border-b border-white-muted/10 shadow-sm flex justify-between items-center px-margin-main h-16 w-full">
+<button class="scale-95 active:duration-150 hover:text-gold-secondary transition-colors text-gold-primary">
+<span class="material-symbols-outlined" data-icon="temple_hindu">temple_hindu</span>
+</button>
+<h1 class="font-display-vertical text-display-vertical text-gold-primary tracking-[0.2em] uppercase">SANKALPAVANI</h1>
+<button class="scale-95 active:duration-150 hover:text-gold-secondary transition-colors text-white-muted">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 px-margin-main pb-32 max-w-3xl mx-auto flex flex-col gap-section-gap">
+<!-- Header Section -->
+<section class="flex flex-col gap-stack-sm">
+<h2 class="font-headline-lg text-headline-lg text-gold-primary uppercase tracking-wide">Booking History</h2>
+<p class="font-body-md text-body-md text-white-muted">Review your past and upcoming sevas and temple visits.</p>
+</section>
+<!-- Booking Cards List -->
+<section class="flex flex-col gap-stack-md">
+<!-- Confirmed Booking Card -->
+<article class="bg-navy-surface border border-white-muted/10 rounded-xl p-stack-sm flex flex-col gap-stack-sm shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
+<div class="flex justify-between items-start">
+<div class="flex gap-stack-sm items-center">
+<div class="w-12 h-12 bg-surface-container-lowest rounded-lg flex items-center justify-center border border-white-muted/10">
+<span class="material-symbols-outlined text-gold-primary" data-icon="event">event</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase">Maha Rudrabhishekam</h3>
+<p class="font-body-md text-body-md text-white-muted">Sri Kashi Vishwanath Temple</p>
+</div>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded-full border border-gold-primary/30">
+<div class="w-2 h-2 rounded-full bg-gold-primary animate-pulse"></div>
+<span class="font-label-caps text-label-caps text-gold-primary">CONFIRMED</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-stack-sm mt-stack-sm border-t border-white-muted/5 pt-stack-sm">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-white-muted">DATE &amp; TIME</span>
+<span class="font-body-md text-body-md text-on-surface">Oct 24, 2023 • 05:30 AM</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-white-muted">BOOKING ID</span>
+<span class="font-body-md text-body-md text-on-surface">#SKV-8829-MR</span>
+</div>
+</div>
+<div class="flex gap-stack-sm mt-stack-sm">
+<button class="flex-1 py-3 px-4 rounded-lg bg-transparent border-2 border-gold-primary text-gold-primary font-label-caps text-label-caps uppercase tracking-wider hover:bg-gold-primary/10 transition-colors">
+                        View Details
+                    </button>
+</div>
+</article>
+<!-- Completed Booking Card -->
+<article class="bg-navy-surface border border-white-muted/10 rounded-xl p-stack-sm flex flex-col gap-stack-sm opacity-80">
+<div class="flex justify-between items-start">
+<div class="flex gap-stack-sm items-center">
+<div class="w-12 h-12 bg-surface-container-lowest rounded-lg flex items-center justify-center border border-white-muted/10">
+<span class="material-symbols-outlined text-white-muted" data-icon="history">history</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase">Kalyanotsavam</h3>
+<p class="font-body-md text-body-md text-white-muted">Tirumala Tirupati Devasthanams</p>
+</div>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded-full border border-white-muted/30">
+<span class="material-symbols-outlined text-white-muted text-[16px]" data-icon="check_circle">check_circle</span>
+<span class="font-label-caps text-label-caps text-white-muted">COMPLETED</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-stack-sm mt-stack-sm border-t border-white-muted/5 pt-stack-sm">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-white-muted">DATE</span>
+<span class="font-body-md text-body-md text-on-surface">Sep 15, 2023</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-white-muted">BOOKING ID</span>
+<span class="font-body-md text-body-md text-on-surface">#SKV-4412-KL</span>
+</div>
+</div>
+<div class="flex gap-stack-sm mt-stack-sm">
+<button class="flex-1 py-3 px-4 rounded-lg bg-transparent border-2 border-white-muted/30 text-white-muted font-label-caps text-label-caps uppercase tracking-wider hover:bg-white-muted/10 transition-colors">
+                        View Details
+                    </button>
+<button class="flex-1 py-3 px-4 rounded-lg bg-transparent border-2 border-gold-primary text-gold-primary font-label-caps text-label-caps uppercase tracking-wider hover:bg-gold-primary/10 transition-colors">
+                        Rebook
+                    </button>
+</div>
+</article>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-navy-surface dark:bg-surface-container-low border-t border-white-muted/5 shadow-[0_-4px_20px_rgba(0,0,0,0.4)] flex justify-around items-center h-20 px-margin-main pb-safe">
+<a class="flex flex-col items-center justify-center text-white-muted/60 gap-1 hover:text-gold-primary/80 transition-transform duration-300 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="distance">distance</span>
+<span class="font-label-caps text-label-caps">HOME</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gold-primary gap-1 hover:text-gold-primary/80 transition-transform duration-300 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="event_upcoming" data-weight="fill" style="font-variation-settings: 'FILL' 1;">event_upcoming</span>
+<span class="font-label-caps text-label-caps">BOOKINGS</span>
+</a>
+<a class="flex flex-col items-center justify-center text-white-muted/60 gap-1 hover:text-gold-primary/80 transition-transform duration-300 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-label-caps text-label-caps">PROFILE</span>
+</a>
+</nav>
+</body></html>

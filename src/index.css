@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #FAFAEB; /* navy-bg */
+  color: #1E293B; /* on-surface */
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Animations */
+.pulse-gold {
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(220, 176, 107, 0.5));
+  }
+  50% {
+    opacity: .7;
+    filter: drop-shadow(0 0 2px rgba(220, 176, 107, 0.2));
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 1s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-500 { animation-delay: 500ms; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes subtle-scale {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.animate-subtle-scale {
+  animation: subtle-scale 20s infinite ease-in-out;
+}
+
+/* Custom scrollbar for webkit */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #FAFAEB; 
+}
+::-webkit-scrollbar-thumb {
+  background: #dcb06b; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b88a44; 
+}
+
+/* Vertical Text */
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.bg-pattern {
+  background-image: radial-gradient(circle at center, rgba(220, 176, 107, 0.05) 0%, transparent 70%);
+  background-size: 100px 100px;
+}
+
+/* Page Transition Wrapper */
+.screen-transition-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.screen-transition-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.screen-transition-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.screen-transition-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 300ms, transform 300ms;
+}
