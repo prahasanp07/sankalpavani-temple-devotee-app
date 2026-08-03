@@ -183,30 +183,46 @@ export default function ServicesListScreen() {
         </section>
       </main>
 
-      {/* Bottom Nav Bar */}
-      <nav className="fixed bottom-0 w-full max-w-md z-40 border-t border-white-muted/5 bg-navy-surface shadow-[0_-4px_20px_rgba(0,0,0,0.4)] flex justify-around items-center h-20 pb-safe">
-        <button 
-          onClick={() => pushScreen('home')}
-          className="flex flex-col items-center justify-center text-white-muted/60 gap-1 hover:text-gold-primary/80 transition-transform duration-300 active:scale-90 w-1/3"
-        >
-          <span className="material-symbols-outlined text-[24px]">distance</span>
-          <span className="font-label-caps text-[10px] uppercase">HOME</span>
-        </button>
-        <button 
-          onClick={() => pushScreen('bookings-history')}
-          className="flex flex-col items-center justify-center text-gold-primary gap-1 transition-transform duration-300 active:scale-90 w-1/3"
-        >
-          <span className="material-symbols-outlined text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>event_upcoming</span>
-          <span className="font-label-caps text-[10px] text-gold-primary font-bold uppercase">BOOKINGS</span>
-        </button>
-        <button 
-          onClick={() => pushScreen('devotional-aggregator')}
-          className="flex flex-col items-center justify-center text-white-muted/60 gap-1 hover:text-gold-primary/80 transition-transform duration-300 active:scale-90 w-1/3"
-        >
-          <span className="material-symbols-outlined text-[24px]">library_music</span>
-          <span className="font-label-caps text-[10px] uppercase">HUB</span>
-        </button>
-      </nav>
+      {/* Floating Embossed Bottom Nav Bar */}
+      <div className="fixed bottom-4 inset-x-0 z-40 px-4 max-w-md mx-auto">
+        <nav className="bg-navy-surface/95 backdrop-blur-md border border-white-muted/10 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex justify-around items-center h-16 px-4">
+          {/* HOME */}
+          <button
+            onClick={() => pushScreen('home')}
+            className="flex flex-col items-center justify-center text-gold-primary gap-1 transition-transform duration-300 active:scale-90 w-1/4"
+          >
+            <span className="material-symbols-outlined text-[22px]" style={{ fontVariationSettings: "'FILL' 1" }}>distance</span>
+            <span className="text-[8px] text-gold-primary font-bold uppercase tracking-wider">HOME</span>
+          </button>
+
+          {/* BOOKINGS */}
+          <button
+            onClick={() => pushScreen('bookings-history')}
+            className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
+          >
+            <span className="material-symbols-outlined text-[22px]">event_upcoming</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">BOOKINGS</span>
+          </button>
+
+          {/* HUB */}
+          <button
+            onClick={() => pushScreen('devotional-aggregator')}
+            className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
+          >
+            <span className="material-symbols-outlined text-[22px]">library_music</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">HUB</span>
+          </button>
+
+          {/* DONATE */}
+          <button
+            onClick={() => pushScreen('donation')}
+            className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
+          >
+            <span className="material-symbols-outlined text-[22px]">volunteer_activism</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">DONATE</span>
+          </button>
+        </nav>
+      </div>
     </div>
   );
 }

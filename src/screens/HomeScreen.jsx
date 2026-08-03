@@ -385,10 +385,10 @@ export default function HomeScreen() {
               </div>
 
               <button
-                onClick={() => pushScreen('temples-list')}
-                className="bg-navy-bg text-gold-primary hover:bg-navy-surface hover:text-white text-[10px] font-bold uppercase tracking-wider py-2.5 px-5 rounded-full w-max shadow-md transition-colors active:scale-95"
+                onClick={() => pushScreen('about-sankalpavani')}
+                className="bg-navy-bg text-gold-primary hover:bg-navy-surface hover:text-black text-[10px] font-bold uppercase tracking-wider py-2.5 px-5 rounded-full w-max shadow-md transition-colors active:scale-95"
               >
-                Explore Sevas
+                Know More About Sankalpavani
               </button>
             </div>
 
@@ -950,28 +950,28 @@ export default function HomeScreen() {
           {/* BOOKINGS */}
           <button
             onClick={() => pushScreen('bookings-history')}
-            className="flex flex-col items-center justify-center text-white-muted/60 gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
+            className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
           >
-            <span className="material-symbols-outlined text-[20px]">event_upcoming</span>
-            <span className="text-[8px] uppercase tracking-wider">BOOKINGS</span>
+            <span className="material-symbols-outlined text-[22px]">event_upcoming</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">BOOKINGS</span>
           </button>
 
           {/* HUB */}
           <button
             onClick={() => pushScreen('devotional-aggregator')}
-            className="flex flex-col items-center justify-center text-white-muted/60 gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
+            className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
           >
-            <span className="material-symbols-outlined text-[20px]">library_music</span>
-            <span className="text-[8px] uppercase tracking-wider">HUB</span>
+            <span className="material-symbols-outlined text-[22px]">library_music</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">HUB</span>
           </button>
 
           {/* DONATE */}
           <button
             onClick={() => pushScreen('donation')}
-            className="flex flex-col items-center justify-center text-white-muted/60 gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
+            className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
           >
-            <span className="material-symbols-outlined text-[20px]">volunteer_activism</span>
-            <span className="text-[8px] uppercase tracking-wider">DONATE</span>
+            <span className="material-symbols-outlined text-[22px]">volunteer_activism</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">DONATE</span>
           </button>
         </nav>
       </div>

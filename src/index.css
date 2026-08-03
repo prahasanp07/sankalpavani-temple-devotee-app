@@ -112,3 +112,9 @@ body {
   transform: translateX(-100%);
   transition: opacity 300ms, transform 300ms;
 }
+
+/* Ensure all button text/icon colors turn black on hover globally */
+button:hover:not(:disabled),
+button:hover:not(:disabled) * {
+  color: #000000 !important;
+}

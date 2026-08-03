@@ -226,19 +226,19 @@ export default function DevotionalAggregatorScreen() {
           {/* HOME */}
           <button
             onClick={() => pushScreen('home')}
-            className="flex flex-col items-center justify-center text-white-muted/60 gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
+            className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
           >
-            <span className="material-symbols-outlined text-[20px]">distance</span>
-            <span className="text-[8px] uppercase tracking-wider">HOME</span>
+            <span className="material-symbols-outlined text-[22px]">distance</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">HOME</span>
           </button>
           
           {/* BOOKINGS */}
           <button
             onClick={() => pushScreen('bookings-history')}
-            className="flex flex-col items-center justify-center text-white-muted/60 gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
+            className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
           >
-            <span className="material-symbols-outlined text-[20px]">event_upcoming</span>
-            <span className="text-[8px] uppercase tracking-wider">BOOKINGS</span>
+            <span className="material-symbols-outlined text-[22px]">event_upcoming</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">BOOKINGS</span>
           </button>
           
           {/* HUB */}
@@ -253,10 +253,10 @@ export default function DevotionalAggregatorScreen() {
           {/* DONATE */}
           <button
             onClick={() => pushScreen('donation')}
-            className="flex flex-col items-center justify-center text-white-muted/60 gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
+            className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
           >
-            <span className="material-symbols-outlined text-[20px]">volunteer_activism</span>
-            <span className="text-[8px] uppercase tracking-wider">DONATE</span>
+            <span className="material-symbols-outlined text-[22px]">volunteer_activism</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">DONATE</span>
           </button>
         </nav>
       </div>
