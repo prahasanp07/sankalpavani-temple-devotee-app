@@ -11,7 +11,7 @@ export default function BookingDetailScreen() {
   const devotees = activeBooking.devotees || [];
 
   const basePrice = seva.price || 0;
-  const basePersons = seva.persons || 1;
+  const basePersons = seva.personsPerSeva || seva.persons || 1;
   const extraPersonCost = seva.extraPersonCost || 0;
   const totalDevotees = devotees.length || 1;
   const extraDevotees = Math.max(0, totalDevotees - basePersons);

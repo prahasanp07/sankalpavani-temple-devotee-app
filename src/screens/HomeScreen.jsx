@@ -83,10 +83,10 @@ const popularSevas = [
 export default function HomeScreen() {
   const { pushScreen, logout, selectedTemple, setSelectedTemple, setActiveBooking, playlist, currentTrackIndex, isPlaying, setIsPlaying } = useContext(AppContext);
 
-  // Sheet is hidden initially as requested
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Advanced interactive zoom & pan state
   const [scale, setScale] = useState(1);
@@ -143,6 +143,22 @@ export default function HomeScreen() {
     }, 4000);
     return () => clearInterval(timer);
   }, [offersIndex]);
+
+  // Dynamic search filtering for temples and sevas
+  const queryLower = searchQuery.toLowerCase().trim();
+
+  const filteredTemples = templesData.filter(temple => {
+    if (!queryLower) return true;
+    const nameMatch = temple.name.toLowerCase().includes(queryLower);
+    const locMatch = temple.location.toLowerCase().includes(queryLower);
+    const sevasMatch = popularSevas.some(s => s.templeId === temple.id && s.name.toLowerCase().includes(queryLower));
+    return nameMatch || locMatch || sevasMatch;
+  });
+
+  const filteredSevas = popularSevas.filter(seva => {
+    if (!queryLower) return true;
+    return seva.name.toLowerCase().includes(queryLower) || seva.templeName.toLowerCase().includes(queryLower);
+  });
 
   // Auto-loop for Popular Sevas Carousel
   useEffect(() => {
@@ -356,14 +372,42 @@ export default function HomeScreen() {
 
         {/* Search temples and sevas */}
         <div className="px-4 mt-4">
-          <div className="w-full bg-navy-surface border border-white-muted/10 rounded-xl px-3.5 py-1.5 flex items-center gap-2 shadow-inner">
+          <div className="w-full bg-navy-surface border border-white-muted/10 focus-within:border-gold-primary/50 rounded-xl px-3.5 py-2 flex items-center gap-2 shadow-inner transition-colors">
             <span className="material-symbols-outlined text-white-muted text-base">search</span>
             <input
               type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search temples and sevas..."
               className="w-full bg-transparent text-xs text-on-surface focus:outline-none placeholder:text-white-muted/40 font-medium"
             />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                className="text-white-muted hover:text-gold-primary transition-colors flex items-center justify-center p-0.5"
+                aria-label="Clear search"
+              >
+                <span className="material-symbols-outlined text-base">close</span>
+              </button>
+            )}
           </div>
+
+          {/* Active Search Result Tag / Clear Bar */}
+          {searchQuery.trim() && (
+            <div className="flex justify-between items-center mt-2 px-1 text-[11px] text-white-muted animate-[fadeIn_0.2s_ease-out]">
+              <span>
+                Found <span className="text-gold-primary font-bold">{filteredTemples.length}</span> temple{filteredTemples.length !== 1 ? 's' : ''} & <span className="text-gold-primary font-bold">{filteredSevas.length}</span> seva{filteredSevas.length !== 1 ? 's' : ''} for <span className="text-gold-primary font-bold">"{searchQuery}"</span>
+              </span>
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                className="text-gold-primary hover:underline font-bold text-[10px] uppercase tracking-wider"
+              >
+                Clear
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Prominent SankalpaVani App Banner */}
@@ -436,154 +480,12 @@ export default function HomeScreen() {
           </div>
         </div>
 
-        {/* Devotion Balances / Passes Carousel */}
-        <section className="mt-6 flex-shrink-0">
-          <div
-            ref={topCarouselRef}
-            className="flex overflow-x-auto gap-3.5 px-4 pb-2 scrollbar-none snap-x snap-mandatory"
-          >
-            {/* Card 1 - Dark Onyx / Gold Highlight */}
-            <div
-              onClick={() => {
-                const target = templesData.find(t => t.id === 'dodda-ganesha-basavanagudi');
-                if (target) { setSelectedTemple(target); pushScreen('temple-detail'); }
-              }}
-              className="flex-shrink-0 w-[84vw] max-w-[320px] h-44 bg-gradient-to-br from-[#18181b] via-[#09090b] to-[#27272a] rounded-2xl p-4 flex flex-col justify-between shadow-xl border border-white/10 snap-center cursor-pointer relative overflow-hidden group transform transition-transform hover:scale-[1.01]"
-            >
-              <div className="absolute -right-8 -bottom-8 w-36 h-36 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
-
-              {/* Top Row: Active badge + Emblem */}
-              <div className="flex justify-between items-center z-10">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-white/15 backdrop-blur text-white border border-white/10">
-                  Active
-                </span>
-                <div className="flex -space-x-1.5 opacity-80">
-                  <div className="w-5 h-5 rounded-full bg-white/30 border border-white/20"></div>
-                  <div className="w-5 h-5 rounded-full bg-amber-400/40 border border-amber-300/30"></div>
-                </div>
-              </div>
-
-              {/* Middle Row: Large Value/Title */}
-              <div className="z-10 mt-1">
-                <p className="text-2xl font-extrabold text-white tracking-tight leading-none">
-                  ₹ 32,620.4
-                </p>
-                <p className="text-[11px] text-white/60 font-medium mt-1">
-                  Total Temple Devotion Balance
-                </p>
-              </div>
-
-              {/* Bottom Row: Label + Contactless Wave Icon */}
-              <div className="flex justify-between items-end z-10 pt-2 border-t border-white/10">
-                <div>
-                  <p className="text-[10px] uppercase tracking-wider text-amber-300 font-bold">
-                    Dodda Ganesha Benne Pass
-                  </p>
-                </div>
-                <div className="flex items-center gap-1 text-white/80">
-                  <span className="material-symbols-outlined text-lg">sensors</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 2 - Deep Terracotta & Gold */}
-            <div
-              onClick={() => {
-                const target = templesData.find(t => t.id === 'bull-temple-basavanagudi');
-                if (target) { setSelectedTemple(target); pushScreen('temple-detail'); }
-              }}
-              className="flex-shrink-0 w-[84vw] max-w-[320px] h-44 bg-gradient-to-br from-[#7c2d12] via-[#9a3412] to-[#451a03] rounded-2xl p-4 flex flex-col justify-between shadow-xl border border-white/15 snap-center cursor-pointer relative overflow-hidden group transform transition-transform hover:scale-[1.01]"
-            >
-              <div className="absolute -right-8 -bottom-8 w-36 h-36 bg-orange-400/15 rounded-full blur-2xl pointer-events-none"></div>
-
-              <div className="flex justify-between items-center z-10">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-amber-400/20 backdrop-blur text-amber-200 border border-amber-400/30">
-                  VIP Active
-                </span>
-                <div className="flex -space-x-1.5 opacity-80">
-                  <div className="w-5 h-5 rounded-full bg-amber-400/40 border border-amber-300/30"></div>
-                  <div className="w-5 h-5 rounded-full bg-white/30 border border-white/20"></div>
-                </div>
-              </div>
-
-              <div className="z-10 mt-1">
-                <p className="text-xl font-extrabold text-white tracking-tight leading-none uppercase">
-                  Bull Temple Nandi Archana
-                </p>
-                <p className="text-[11px] text-amber-100/70 font-medium mt-1">
-                  Confirmed Priority E-Pass #8842
-                </p>
-              </div>
-
-              <div className="flex justify-between items-end z-10 pt-2 border-t border-amber-400/20">
-                <div>
-                  <p className="text-[10px] uppercase tracking-wider text-amber-200 font-bold">
-                    Nandi Abhisheka Seva
-                  </p>
-                </div>
-                <div className="flex items-center gap-1 text-white/80">
-                  <span className="material-symbols-outlined text-lg">sensors</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 3 - Emerald Sacred Shrine */}
-            <div
-              onClick={() => {
-                const target = templesData.find(t => t.id === 'kadu-malleshwara');
-                if (target) { setSelectedTemple(target); pushScreen('temple-detail'); }
-              }}
-              className="flex-shrink-0 w-[84vw] max-w-[320px] h-44 bg-gradient-to-br from-[#0f766e] via-[#115e59] to-[#042f2e] rounded-2xl p-4 flex flex-col justify-between shadow-xl border border-white/15 snap-center cursor-pointer relative overflow-hidden group transform transition-transform hover:scale-[1.01]"
-            >
-              <div className="absolute -right-8 -bottom-8 w-36 h-36 bg-emerald-400/15 rounded-full blur-2xl pointer-events-none"></div>
-
-              <div className="flex justify-between items-center z-10">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-400/20 backdrop-blur text-emerald-200 border border-emerald-400/30">
-                  Live Offering
-                </span>
-                <div className="flex -space-x-1.5 opacity-80">
-                  <div className="w-5 h-5 rounded-full bg-emerald-400/40 border border-emerald-300/30"></div>
-                  <div className="w-5 h-5 rounded-full bg-white/30 border border-white/20"></div>
-                </div>
-              </div>
-
-              <div className="z-10 mt-1">
-                <p className="text-xl font-extrabold text-white tracking-tight leading-none uppercase">
-                  TEERTHA ABHISHEKA
-                </p>
-                <p className="text-[11px] text-emerald-100/70 font-medium mt-1">
-                  Kadu Malleshwara Natural Spring
-                </p>
-              </div>
-
-              <div className="flex justify-between items-end z-10 pt-2 border-t border-emerald-400/20">
-                <div>
-                  <p className="text-[10px] uppercase tracking-wider text-emerald-200 font-bold">
-                    Malleswaram Heritage
-                  </p>
-                </div>
-                <div className="flex items-center gap-1 text-white/80">
-                  <span className="material-symbols-outlined text-lg">sensors</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* Active Dot Indicators */}
-          <div className="flex justify-center gap-1.5 mt-2">
-            {[0, 1, 2].map((idx) => (
-              <span
-                key={idx}
-                className={`h-1.5 rounded-full transition-all duration-300 ${topCardIndex === idx ? 'w-5 bg-gold-primary' : 'w-1.5 bg-on-surface/20'
-                  }`}
-              ></span>
-            ))}
-          </div>
-        </section>
-
-        {/* Explore Temples Section - 2 Column Grid (Max 8) */}
+        {/* Explore Temples Section - 2 Column Grid */}
         <section className="mt-6 px-4 flex-shrink-0">
           <div className="flex justify-between items-center mb-3">
-            <h3 className="font-headline-sm text-xs text-on-surface font-bold uppercase tracking-wider">Explore Temples</h3>
+            <h3 className="font-headline-sm text-xs text-on-surface font-bold uppercase tracking-wider">
+              {searchQuery.trim() ? `Temples (${filteredTemples.length})` : 'Explore Temples'}
+            </h3>
             <button
               onClick={() => pushScreen('temples-list')}
               className="text-gold-primary text-[10px] font-bold uppercase tracking-widest hover:text-gold-secondary transition-colors flex items-center gap-0.5"
@@ -592,43 +494,51 @@ export default function HomeScreen() {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            {templesData.slice(0, 8).map((temple) => (
-              <div
-                key={temple.id}
-                onClick={() => {
-                  setSelectedTemple(temple);
-                  pushScreen('temple-detail');
-                }}
-                className="w-full bg-navy-surface rounded-xl overflow-hidden border border-white-muted/10 shadow-sm flex flex-col cursor-pointer group hover:border-gold-primary/40 transition-all transform active:scale-95"
-              >
-                <div className="h-28 w-full relative overflow-hidden">
-                  <img
-                    alt={temple.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    src={temple.img}
-                  />
-                  <div className="absolute top-2 right-2 bg-navy-bg/85 backdrop-blur-md px-1.5 py-0.5 rounded text-[9px] border border-white-muted/10 flex items-center gap-0.5 shadow">
-                    <span className="material-symbols-outlined text-gold-primary text-[10px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                    <span className="font-bold text-on-surface">{temple.rating}</span>
+          {filteredTemples.length > 0 ? (
+            <div className="grid grid-cols-2 gap-3">
+              {(searchQuery.trim() ? filteredTemples : filteredTemples.slice(0, 8)).map((temple) => (
+                <div
+                  key={temple.id}
+                  onClick={() => {
+                    setSelectedTemple(temple);
+                    pushScreen('temple-detail');
+                  }}
+                  className="w-full bg-navy-surface rounded-xl overflow-hidden border border-white-muted/10 shadow-sm flex flex-col cursor-pointer group hover:border-gold-primary/40 transition-all transform active:scale-95"
+                >
+                  <div className="h-28 w-full relative overflow-hidden">
+                    <img
+                      alt={temple.name}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      src={temple.img}
+                    />
+                    <div className="absolute top-2 right-2 bg-navy-bg/85 backdrop-blur-md px-1.5 py-0.5 rounded text-[9px] border border-white-muted/10 flex items-center gap-0.5 shadow">
+                      <span className="material-symbols-outlined text-gold-primary text-[10px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                      <span className="font-bold text-on-surface">{temple.rating}</span>
+                    </div>
+                  </div>
+                  <div className="p-2.5 flex-grow flex flex-col justify-between gap-1">
+                    <div>
+                      <h4 className="font-headline-sm text-xs text-gold-primary leading-snug truncate uppercase font-semibold">{temple.name}</h4>
+                      <p className="text-[10px] text-white-muted truncate flex items-center gap-0.5 mt-0.5">
+                        <span className="material-symbols-outlined text-[10px] text-gold-primary/80">location_on</span>
+                        {temple.location.split(',').slice(-2).join(',').trim()}
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-between mt-1 pt-1 border-t border-white-muted/10">
+                      <span className="text-[9px] font-bold text-white-muted/80 uppercase tracking-wide">{temple.distance}</span>
+                      <span className="material-symbols-outlined text-[12px] text-gold-primary group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+                    </div>
                   </div>
                 </div>
-                <div className="p-2.5 flex-grow flex flex-col justify-between gap-1">
-                  <div>
-                    <h4 className="font-headline-sm text-xs text-gold-primary leading-snug truncate uppercase font-semibold">{temple.name}</h4>
-                    <p className="text-[10px] text-white-muted truncate flex items-center gap-0.5 mt-0.5">
-                      <span className="material-symbols-outlined text-[10px] text-gold-primary/80">location_on</span>
-                      {temple.location.split(',').slice(-2).join(',').trim()}
-                    </p>
-                  </div>
-                  <div className="flex items-center justify-between mt-1 pt-1 border-t border-white-muted/10">
-                    <span className="text-[9px] font-bold text-white-muted/80 uppercase tracking-wide">{temple.distance}</span>
-                    <span className="material-symbols-outlined text-[12px] text-gold-primary group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="bg-navy-surface/50 border border-white-muted/10 rounded-xl p-5 text-center flex flex-col items-center justify-center gap-2">
+              <span className="material-symbols-outlined text-3xl text-gold-primary/40">temple_hindu</span>
+              <p className="text-xs text-on-surface font-semibold">No temples found matching "{searchQuery}"</p>
+              <p className="text-[10px] text-white-muted">Try searching with a different temple name or location.</p>
+            </div>
+          )}
         </section>
 
         {/* Sacred Offers & Updates Section (Moved below temples section with Auto-Loop) */}
@@ -690,7 +600,9 @@ export default function HomeScreen() {
         {/* Popular Sevas List with Auto-Loop */}
         <section className="mt-6 px-4 flex-shrink-0">
           <div className="flex justify-between items-center mb-3">
-            <h3 className="font-headline-sm text-xs text-on-surface font-bold uppercase tracking-wider">Popular Sevas</h3>
+            <h3 className="font-headline-sm text-xs text-on-surface font-bold uppercase tracking-wider">
+              {searchQuery.trim() ? `Matching Sevas (${filteredSevas.length})` : 'Popular Sevas'}
+            </h3>
             <button
               onClick={() => {
                 setSelectedTemple(templesData[0]);
@@ -701,39 +613,45 @@ export default function HomeScreen() {
               Bookings
             </button>
           </div>
-          <div
-            ref={sevasCarouselRef}
-            className="flex overflow-x-auto gap-4 pb-2 scrollbar-none snap-x snap-mandatory"
-          >
-            {popularSevas.map((seva, idx) => (
-              <div
-                key={idx}
-                onClick={() => {
-                  const target = templesData.find(t => t.id === seva.templeId) || templesData[0];
-                  setSelectedTemple(target);
-                  setActiveBooking(prev => ({ ...prev, temple: target.name, service: { name: seva.name, price: seva.price } }));
-                  pushScreen('calendar-selection');
-                }}
-                className="flex-shrink-0 w-52 bg-navy-surface p-3 rounded-xl border border-white-muted/10 flex flex-col justify-between gap-3 shadow-md hover:border-gold-primary/30 transition-all cursor-pointer group snap-center"
-              >
-                <div className="flex items-start gap-2.5">
-                  <div className="w-9 h-9 rounded-lg bg-gold-primary/10 border border-gold-primary/25 flex items-center justify-center text-gold-primary group-hover:bg-gold-primary group-hover:text-navy-bg transition-colors">
-                    <span className="material-symbols-outlined text-lg">{seva.icon}</span>
+          {filteredSevas.length > 0 ? (
+            <div
+              ref={sevasCarouselRef}
+              className="flex overflow-x-auto gap-4 pb-2 scrollbar-none snap-x snap-mandatory"
+            >
+              {filteredSevas.map((seva, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => {
+                    const target = templesData.find(t => t.id === seva.templeId) || templesData[0];
+                    setSelectedTemple(target);
+                    setActiveBooking(prev => ({ ...prev, temple: target.name, service: { name: seva.name, price: seva.price } }));
+                    pushScreen('calendar-selection');
+                  }}
+                  className="flex-shrink-0 w-52 bg-navy-surface p-3 rounded-xl border border-white-muted/10 flex flex-col justify-between gap-3 shadow-md hover:border-gold-primary/30 transition-all cursor-pointer group snap-center"
+                >
+                  <div className="flex items-start gap-2.5">
+                    <div className="w-9 h-9 rounded-lg bg-gold-primary/10 border border-gold-primary/25 flex items-center justify-center text-gold-primary group-hover:bg-gold-primary group-hover:text-navy-bg transition-colors">
+                      <span className="material-symbols-outlined text-lg">{seva.icon}</span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-headline-sm text-[11px] text-on-surface font-bold leading-tight truncate uppercase">{seva.name}</h4>
+                      <p className="text-[9px] text-white-muted truncate mt-0.5">{seva.templeName}</p>
+                    </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h4 className="font-headline-sm text-[11px] text-on-surface font-bold leading-tight truncate uppercase">{seva.name}</h4>
-                    <p className="text-[9px] text-white-muted truncate mt-0.5">{seva.templeName}</p>
+                  <div className="flex justify-between items-center mt-1">
+                    <span className="font-headline-md text-xs text-gold-primary font-bold">₹{seva.price}</span>
+                    <button className="bg-gold-primary/20 text-gold-primary hover:bg-gold-primary hover:text-navy-bg font-bold text-[9px] uppercase tracking-wider px-2.5 py-1 rounded transition-colors">
+                      Quick Book
+                    </button>
                   </div>
                 </div>
-                <div className="flex justify-between items-center mt-1">
-                  <span className="font-headline-md text-xs text-gold-primary font-bold">₹{seva.price}</span>
-                  <button className="bg-gold-primary/20 text-gold-primary hover:bg-gold-primary hover:text-navy-bg font-bold text-[9px] uppercase tracking-wider px-2.5 py-1 rounded transition-colors">
-                    Quick Book
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="bg-navy-surface/50 border border-white-muted/10 rounded-xl p-4 text-center">
+              <p className="text-xs text-white-muted font-medium">No sevas found matching "{searchQuery}"</p>
+            </div>
+          )}
         </section>
 
         {/* Devotional Music Quick Player & Insights */}

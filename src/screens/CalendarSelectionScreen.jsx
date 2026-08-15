@@ -54,14 +54,70 @@ export default function CalendarSelectionScreen() {
   const { activeBooking, popScreen, pushScreen, setActiveBooking } = useContext(AppContext);
   const service = activeBooking.service || { name: 'Archana Pooja', capacity: 20 };
 
+  const category = (service.category || service.type || 'Daily').toLowerCase();
+  const selectedDays = service.selectedDays || [];
+  const selectedDate = service.selectedDate || null;
+  const dateFrom = service.dateFrom || null;
+  const dateTo = service.dateTo || null;
+
   // Navigation states
   const [currentDate, setCurrentDate] = useState(() => {
+    if ((category === 'monthly' || category === 'annually' || category === 'special') && selectedDate) {
+      const parsed = new Date(selectedDate);
+      if (!isNaN(parsed.getTime())) {
+        return parsed;
+      }
+    }
+    if (category === 'dhanur masa' && dateFrom) {
+      const parsed = new Date(dateFrom);
+      if (!isNaN(parsed.getTime())) {
+        return parsed;
+      }
+    }
     const now = new Date();
     if (now.getFullYear() < 2026) {
       return new Date(2026, 6, 25); // July 25, 2026
     }
     return now;
   });
+
+  // Dynamic date locking based on Seva category and constraints
+  const isDateLocked = (dateStr, cellDate) => {
+    if (category === 'weekly') {
+      let days = selectedDays;
+      if (!days || days.length === 0) {
+        const fullDayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const matched = fullDayNames.filter(d => 
+          service.name?.toLowerCase().includes(d.toLowerCase()) || 
+          service.desc?.toLowerCase().includes(d.toLowerCase()) ||
+          service.instructions?.toLowerCase().includes(d.toLowerCase())
+        );
+        if (matched.length > 0) {
+          days = matched;
+        }
+      }
+
+      if (days && days.length > 0) {
+        const fullDayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const dayName = fullDayNames[cellDate.getDay()];
+        const selectedDaysLower = days.map(d => String(d).toLowerCase());
+        return !selectedDaysLower.includes(dayName.toLowerCase());
+      }
+    }
+    
+    if (category === 'monthly' || category === 'annually' || category === 'special') {
+      if (selectedDate) {
+        return dateStr !== selectedDate;
+      }
+    }
+    
+    if (category === 'dhanur masa') {
+      if (dateFrom && dateStr < dateFrom) return true;
+      if (dateTo && dateStr > dateTo) return true;
+    }
+    
+    return false;
+  };
 
   const [selectedDateStr, setSelectedDateStr] = useState(null);
   const [showBottomSheet, setShowBottomSheet] = useState(false);
@@ -322,6 +378,7 @@ export default function CalendarSelectionScreen() {
 
               const isPast = cellDate < today;
               const isSelected = selectedDateStr === cell.dateStr;
+              const isLocked = isDateLocked(cell.dateStr, cellDate);
               const status = getDayStatus(cell.dateStr);
 
               let statusDotColor = 'bg-emerald-500';
@@ -337,7 +394,7 @@ export default function CalendarSelectionScreen() {
               return (
                 <button
                   key={idx}
-                  disabled={!cell.isCurrentMonth || isPast}
+                  disabled={!cell.isCurrentMonth || isPast || isLocked}
                   onClick={() => {
                     if (isFullyBooked) {
                       setError('This date is fully booked. Please select another date.');
@@ -349,7 +406,7 @@ export default function CalendarSelectionScreen() {
                   }}
                   className={`flex flex-col items-center justify-between py-1.5 h-12 rounded-lg border transition-all ${!cell.isCurrentMonth
                       ? 'border-transparent text-white-muted/20 opacity-0 pointer-events-none'
-                      : isPast
+                      : (isPast || isLocked)
                         ? 'border-transparent bg-white-muted/5 text-black/30 cursor-not-allowed opacity-30'
                         : isSelected
                           ? 'border-gold-primary bg-gold-primary/10 text-gold-primary font-bold shadow-md'
@@ -359,7 +416,7 @@ export default function CalendarSelectionScreen() {
                     }`}
                 >
                   <span className="font-semibold text-[11px]">{cell.date.getDate()}</span>
-                  {!isPast ? (
+                  {!isPast && !isLocked ? (
                     <span className={`w-1.5 h-1.5 rounded-full ${statusDotColor}`}></span>
                   ) : (
                     <span className="w-1.5 h-1.5 bg-transparent"></span>

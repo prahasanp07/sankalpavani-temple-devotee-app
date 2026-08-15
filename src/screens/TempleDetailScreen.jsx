@@ -155,6 +155,7 @@ export default function TempleDetailScreen() {
         capacity: 15,
         timings: '08:00 AM - 10:30 AM',
         type: 'Weekly',
+        selectedDays: ['Friday'],
         instructions: 'Holy prasadam and vastram will be distributed after the bathing ritual.\nDress code: Saree/Salwar for women, Dhoti/Veshti with shalya for men.'
       },
       { 
@@ -166,6 +167,7 @@ export default function TempleDetailScreen() {
         capacity: 30,
         timings: '03:00 PM - 04:30 PM',
         type: 'Weekly',
+        selectedDays: ['Tuesday', 'Friday'],
         instructions: 'Performed during Rahukalam on Tuesdays and Fridays.\nDress code: Traditional attire.'
       },
       { 
@@ -284,7 +286,8 @@ export default function TempleDetailScreen() {
         type: 'Dhanur Masa',
         instructions: 'Prasadam distribution sponsorship.\nDress code: Traditional attire.'
       }
-    ]
+    ],
+    'Annually': []
   };
 
   const renderDarshanTimings = () => {
@@ -481,7 +484,7 @@ export default function TempleDetailScreen() {
   return (
     <div className="bg-navy-bg text-on-surface font-body-md antialiased pb-24 h-full overflow-y-auto relative">
       {/* Full Width Header Image */}
-      <header className="relative w-full h-[40vh] min-h-[300px]">
+      <header className="relative w-full h-64 overflow-hidden">
         <img 
           alt={selectedTemple.name} 
           className="w-full h-full object-cover" 
@@ -579,7 +582,7 @@ export default function TempleDetailScreen() {
             <p className="text-[10px] text-white-muted/70 mt-0.5">Click on a category pill below to view and book specific sevas.</p>
           </div>
           <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
-            {['All', 'Daily', 'Weekly', 'Monthly', 'Special', 'Dhanur Masa'].map((type) => {
+            {['All', 'Daily', 'Weekly', 'Monthly', 'Annually', 'Special', 'Dhanur Masa'].map((type) => {
               const isActive = selectedSevaType === type;
               return (
                 <button

@@ -48,6 +48,7 @@ const allServices = [
     capacity: 15,
     timings: '08:00 AM - 10:30 AM',
     type: 'Weekly',
+    selectedDays: ['Friday'],
     instructions: 'Holy prasadam and vastram will be distributed after the bathing ritual.\nDress code: Saree/Salwar for women, Dhoti/Veshti with shalya for men.'
   },
   {
@@ -93,7 +94,7 @@ export default function ServicesListScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const categories = ['All', 'Daily', 'Weekly', 'Monthly', 'Special', 'Dhanur Masa'];
+  const categories = ['All', 'Daily', 'Weekly', 'Monthly', 'Annually', 'Special', 'Dhanur Masa'];
 
   const filteredServices = allServices.filter(service => {
     const matchesSearch = service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||

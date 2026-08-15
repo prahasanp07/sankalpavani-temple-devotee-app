@@ -146,7 +146,7 @@ export const AppProvider = ({ children }) => {
 
   const confirmBooking = () => {
     const basePrice = activeBooking.service.price || 0;
-    const basePersons = activeBooking.service.persons || 1;
+    const basePersons = activeBooking.service.personsPerSeva || activeBooking.service.persons || 1;
     const extraPersonCost = activeBooking.service.extraPersonCost || 0;
     const totalDevotees = activeBooking.devotees.length || 1;
     const extraDevotees = Math.max(0, totalDevotees - basePersons);

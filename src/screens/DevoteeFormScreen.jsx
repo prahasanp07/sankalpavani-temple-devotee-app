@@ -28,7 +28,7 @@ export default function DevoteeFormScreen() {
   const { activeBooking, popScreen, saveDevotees, currentUser } = useContext(AppContext);
   const service = activeBooking.service || {};
   const basePrice = service.price || 500;
-  const basePersons = service.persons || 1;
+  const basePersons = service.personsPerSeva || service.persons || 1;
   const extraPersonCost = service.extraPersonCost || 0;
 
   // Primary Devotee State (Fetched from User Registration / currentUser)
@@ -399,9 +399,13 @@ export default function DevoteeFormScreen() {
           </p>
           <div className="flex flex-col">
             <p className="font-headline-sm text-xl text-gold-primary font-bold">₹{totalPrice}</p>
-            {extraDevotees > 0 && (
+            {extraDevotees > 0 ? (
               <p className="text-[9px] text-white-muted">
-                (Base: {basePersons} + {extraDevotees} extra @ ₹{extraPersonCost}/each)
+                (Base: ₹{basePrice} for {basePersons} + {extraDevotees} extra @ ₹{extraPersonCost}/each)
+              </p>
+            ) : (
+              <p className="text-[9px] text-white-muted">
+                (Base allocation: up to {basePersons} {basePersons === 1 ? 'devotee' : 'devotees'})
               </p>
             )}
           </div>

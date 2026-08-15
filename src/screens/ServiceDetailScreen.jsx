@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
 export default function ServiceDetailScreen() {
-  const { activeBooking, popScreen, pushScreen, setActiveBooking } = useContext(AppContext);
+  const { activeBooking, popScreen, pushScreen, setActiveBooking, selectedTemple } = useContext(AppContext);
   const service = activeBooking.service || { 
     name: 'Maha Aarti', 
     price: 501, 
@@ -27,17 +27,29 @@ export default function ServiceDetailScreen() {
   ];
 
   return (
-    <div className="bg-navy-bg text-on-surface h-full pb-24 pt-16 flex flex-col overflow-y-auto">
-      {/* Top Header */}
-      <header className="fixed top-0 w-full max-w-md z-45 bg-surface/85 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex justify-between items-center px-margin-main h-16">
-        <button 
-          onClick={popScreen}
-          className="text-white-muted hover:text-gold-secondary transition-colors"
-        >
-          <span className="material-symbols-outlined">arrow_back</span>
-        </button>
-        <h1 className="font-headline-md text-base text-gold-primary uppercase tracking-widest truncate max-w-[200px]">{service.name}</h1>
-        <div className="w-6"></div>
+    <div className="bg-navy-bg text-on-surface h-full pb-24 flex flex-col overflow-y-auto relative">
+      {/* Full Width Header Image (Hero Banner) */}
+      <header className="relative w-full h-64 overflow-hidden">
+        <img 
+          alt={service.name} 
+          className="w-full h-full object-cover" 
+          src={selectedTemple.img}
+        />
+        {/* Top Nav Icons (Overlay) */}
+        <div className="absolute top-0 left-0 w-full p-4 flex justify-between items-center z-10 bg-gradient-to-b from-black/60 to-transparent">
+          <button 
+            onClick={popScreen}
+            className="material-symbols-outlined text-white text-2xl drop-shadow-md hover:text-gold-primary transition-colors"
+            aria-label="Back"
+          >
+            arrow_back
+          </button>
+        </div>
+        
+        {/* Bottom Gradient & Service Title */}
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-bg via-navy-bg/85 to-transparent pt-20 pb-4 px-margin-main flex flex-col justify-end">
+          <h1 className="font-headline-lg text-lg text-white uppercase font-bold tracking-widest drop-shadow-md truncate">{service.name}</h1>
+        </div>
       </header>
 
       {/* Main Content */}
@@ -58,11 +70,11 @@ export default function ServiceDetailScreen() {
           )}
         </section>
 
-        {/* About Seva Section */}
+        {/* About Seva (Sthala Mahime) Section */}
         <section className="space-y-2">
-          <h3 className="font-headline-sm text-xs font-bold text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1">About Seva</h3>
-          <p className="font-body-md text-sm text-white-muted leading-relaxed">
-            {service.desc || service.about || 'No details available.'}
+          <h3 className="font-headline-sm text-xs font-bold text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1">About Seva (Sthala Mahime)</h3>
+          <p className="font-body-md text-sm text-white-muted leading-relaxed bg-navy-surface/40 p-3.5 rounded-xl border border-white-muted/5 whitespace-pre-line">
+            {service.sthalaMahime || service.aboutSeva || service.desc || service.about || 'No mythological details or background available for this seva.'}
           </p>
         </section>
 
@@ -82,12 +94,15 @@ export default function ServiceDetailScreen() {
           </div>
         </section>
 
-        {/* Instructions Section */}
+        {/* Instructions & Arrival Guidelines Section */}
         <section className="space-y-2">
-          <h3 className="font-headline-sm text-xs font-bold text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1">Instructions</h3>
-          <p className="font-body-md text-xs text-white-muted leading-relaxed bg-navy-surface p-4 rounded-xl border border-white-muted/5 whitespace-pre-line">
-            {service.instructions || 'Please wear traditional dress and report 45 minutes before the seva start time.'}
-          </p>
+          <h3 className="font-headline-sm text-xs font-bold text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1">Instructions & Arrival Guidelines</h3>
+          <div className="bg-navy-surface border border-gold-primary/30 p-4 rounded-xl shadow-md flex items-start gap-3">
+            <span className="material-symbols-outlined text-gold-primary text-lg mt-0.5 shrink-0">info</span>
+            <p className="font-body-md text-xs text-white-muted leading-relaxed whitespace-pre-line">
+              {service.instructions || service.guidelines || 'Please wear traditional dress (Dhoti/Kurta for men, Saree/Salwar for women) and report 45 minutes before the seva start time.'}
+            </p>
+          </div>
         </section>
 
         {/* Prasadam Shipping Toggle */}
