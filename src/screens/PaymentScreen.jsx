@@ -66,10 +66,10 @@ export default function PaymentScreen() {
   }, [loading, isDonation, confirmBooking, confirmDonation, pushScreen]);
 
   return (
-    <div className="bg-navy-bg text-on-surface font-body-md antialiased min-h-screen flex flex-col pt-16 pb-24 h-full overflow-y-auto">
+    <div className="bg-navy-bg text-on-surface font-body-md antialiased min-h-screen flex flex-col pt-24 pb-24 h-full overflow-y-auto">
       {/* Loader Modal Overlay */}
       {loading && (
-        <div className="absolute inset-0 bg-black/80 z-50 flex flex-col items-center justify-center gap-4">
+        <div className="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex flex-col items-center justify-center gap-4">
           <div className="w-16 h-16 rounded-full border-4 border-gold-primary border-t-transparent animate-spin"></div>
           <p className="font-headline-sm text-gold-primary uppercase tracking-widest text-sm">Processing Transaction...</p>
           <p className="text-xs text-white-muted">Do not press back or refresh this page.</p>
@@ -77,19 +77,21 @@ export default function PaymentScreen() {
       )}
 
       {/* Top Header */}
-      <header className="fixed top-0 w-full max-w-md z-45 bg-surface/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm px-margin-main h-16 flex items-center justify-between">
-        <button 
-          onClick={popScreen}
-          className="text-gold-primary hover:text-gold-secondary transition-colors"
-          aria-label="Go Back"
-        >
-          <span className="material-symbols-outlined text-2xl">arrow_back</span>
-        </button>
-        <h1 className="font-headline-md text-base text-gold-primary uppercase tracking-widest text-center flex-1">Secure Checkout</h1>
-        <div className="w-6"></div>
+      <header className="fixed top-0 inset-x-0 w-full z-45 bg-surface/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3 flex items-center">
+        <div className="max-w-4xl mx-auto w-full flex items-center justify-between">
+          <button 
+            onClick={popScreen}
+            className="text-gold-primary hover:text-gold-secondary transition-colors"
+            aria-label="Go Back"
+          >
+            <span className="material-symbols-outlined text-2xl">arrow_back</span>
+          </button>
+          <h1 className="font-headline-md text-base text-gold-primary uppercase tracking-widest text-center flex-1">Secure Checkout</h1>
+          <div className="w-6"></div>
+        </div>
       </header>
 
-      <main className="flex-1 px-margin-main py-6 max-w-lg mx-auto w-full flex flex-col gap-6">
+      <main className="flex-1 px-margin-main py-6 w-full max-w-xl mx-auto md:p-8 md:border md:border-white-muted/10 md:rounded-2xl md:bg-navy-surface md:shadow-sm md:mt-6 flex flex-col gap-6">
         {/* Total Summary */}
         <section className="bg-navy-surface p-4 rounded-xl border border-border-subtle flex justify-between items-center shadow-md">
           <div>
@@ -227,13 +229,15 @@ export default function PaymentScreen() {
       </main>
 
       {/* Floating CTA Pay Button */}
-      <div className="fixed bottom-0 w-full max-w-md bg-navy-bg border-t border-white-muted/10 p-margin-main pb-safe flex gap-4 z-40">
-        <button 
-          onClick={handlePay}
-          className="flex-grow bg-gold-primary text-navy-bg font-headline-sm text-sm py-4 rounded-xl uppercase tracking-wider hover:bg-gold-secondary transition-colors font-bold shadow-md active:scale-95"
-        >
-          Pay ₹{totalAmount}
-        </button>
+      <div className="fixed bottom-0 inset-x-0 w-full bg-navy-bg border-t border-white-muted/10 p-margin-main pb-safe flex justify-center z-40">
+        <div className="max-w-4xl w-full flex gap-4">
+          <button 
+            onClick={handlePay}
+            className="flex-grow bg-gold-primary text-navy-bg font-headline-sm text-sm py-4 rounded-xl uppercase tracking-wider hover:bg-gold-secondary transition-colors font-bold shadow-md active:scale-95"
+          >
+            Pay ₹{totalAmount}
+          </button>
+        </div>
       </div>
     </div>
   );

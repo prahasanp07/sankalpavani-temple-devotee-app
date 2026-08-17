@@ -71,21 +71,23 @@ export default function DevotionalAggregatorScreen() {
   };
 
   return (
-    <div className="bg-navy-bg text-on-surface h-full pb-[100px] pt-16 flex flex-col overflow-y-auto">
+    <div className="bg-navy-bg text-on-surface h-full pb-[100px] pt-24 flex flex-col overflow-y-auto">
       {/* Top Header */}
-      <header className="fixed top-0 w-full max-w-md z-45 bg-surface/85 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex justify-between items-center px-margin-main h-16">
-        <button 
-          onClick={() => pushScreen('home')}
-          className="text-white-muted hover:text-gold-secondary transition-colors"
-        >
-          <span className="material-symbols-outlined">arrow_back</span>
-        </button>
-        <h1 className="font-display-vertical text-display-vertical text-gold-primary tracking-[0.2em] uppercase">SANKALPAVANI</h1>
-        <div className="w-6"></div>
+      <header className="fixed top-0 inset-x-0 w-full z-45 bg-surface/85 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex items-center px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3">
+        <div className="max-w-4xl mx-auto w-full flex justify-between items-center">
+          <button 
+            onClick={() => pushScreen('home')}
+            className="text-white-muted hover:text-gold-secondary transition-colors"
+          >
+            <span className="material-symbols-outlined">arrow_back</span>
+          </button>
+          <h1 className="font-display-vertical text-display-vertical text-gold-primary tracking-[0.2em] uppercase">SANKALPAVANI</h1>
+          <div className="w-6"></div>
+        </div>
       </header>
 
       {/* Main Content */}
-      <main className="px-margin-main max-w-lg mx-auto mt-6 flex flex-col gap-6 w-full">
+      <main className="px-margin-main max-w-4xl mx-auto mt-6 flex flex-col gap-6 w-full">
         {/* Header Title */}
         <section className="text-center">
           <h2 className="font-headline-lg text-2xl text-gold-primary tracking-wide">DEVOTIONAL HUB</h2>
@@ -221,7 +223,7 @@ export default function DevotionalAggregatorScreen() {
       </main>
 
       {/* Floating Embossed Bottom Nav Bar */}
-      <div className="fixed bottom-4 inset-x-0 z-45 px-4 max-w-md mx-auto">
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-md mx-auto z-50">
         <nav className="bg-navy-surface/95 backdrop-blur-md border border-white-muted/10 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex justify-around items-center h-16 px-4">
           {/* HOME */}
           <button

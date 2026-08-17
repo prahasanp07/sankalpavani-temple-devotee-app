@@ -296,20 +296,22 @@ export default function CalendarSelectionScreen() {
   const selectedStats = getOccupancyStats(selectedDateStr);
 
   return (
-    <div className="bg-navy-bg font-body-md text-on-surface antialiased min-h-screen flex flex-col pt-16 pb-24 h-full overflow-y-auto">
+    <div className="bg-navy-bg font-body-md text-on-surface antialiased min-h-screen flex flex-col pt-24 pb-24 h-full overflow-y-auto">
       {/* TopAppBar */}
-      <header className="fixed top-0 w-full max-w-md z-45 bg-surface/80 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex justify-between items-center px-margin-main h-16">
-        <button
-          onClick={popScreen}
-          className="text-white-muted hover:text-gold-secondary transition-colors"
-        >
-          <span className="material-symbols-outlined">arrow_back</span>
-        </button>
-        <h1 className="font-display-vertical text-display-vertical uppercase tracking-widest text-gold-primary tracking-[0.1em]">SELECT DATE</h1>
-        <div className="w-6"></div>
+      <header className="fixed top-0 inset-x-0 w-full z-45 bg-surface/80 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex items-center px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3">
+        <div className="max-w-4xl mx-auto w-full flex justify-between items-center">
+          <button
+            onClick={popScreen}
+            className="text-white-muted hover:text-gold-secondary transition-colors"
+          >
+            <span className="material-symbols-outlined">arrow_back</span>
+          </button>
+          <h1 className="font-display-vertical text-display-vertical uppercase tracking-widest text-gold-primary tracking-[0.1em]">SELECT DATE</h1>
+          <div className="w-6"></div>
+        </div>
       </header>
 
-      <main className="flex-grow px-margin-main py-6 flex flex-col gap-6 max-w-3xl mx-auto w-full">
+      <main className="flex-grow px-margin-main py-6 flex flex-col gap-6 max-w-4xl mx-auto w-full">
         {/* Context header */}
         <section className="text-center space-y-1">
           <h2 className="font-headline-lg text-lg text-gold-primary uppercase font-bold">{service.name}</h2>
@@ -430,12 +432,12 @@ export default function CalendarSelectionScreen() {
 
       {/* Premium Time Slots Bottom Sheet Modal */}
       {showBottomSheet && selectedDateStr && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-end justify-center">
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-end md:items-center justify-center p-0 md:p-4">
           {/* Backdrop click closes sheet */}
           <div className="absolute inset-0" onClick={() => setShowBottomSheet(false)}></div>
 
           {/* Sheet Container */}
-          <div className="relative w-full max-w-md bg-navy-bg border-t border-white-muted/10 rounded-t-3xl p-6 space-y-6 z-50 shadow-2xl max-h-[85vh] overflow-y-auto animate-[slideUp_0.25s_ease-out]">
+          <div className="relative w-full max-w-lg mx-auto bg-navy-bg border border-white-muted/10 rounded-t-3xl md:rounded-3xl md:mb-8 p-6 space-y-6 z-50 shadow-2xl max-h-[85vh] overflow-y-auto animate-[slideUp_0.25s_ease-out]">
 
             {/* Grab Handle */}
             <div className="w-12 h-1 bg-white-muted/20 rounded-full mx-auto -mt-2 mb-2"></div>

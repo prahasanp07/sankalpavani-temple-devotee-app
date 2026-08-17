@@ -12,38 +12,41 @@ export default function SplashScreen() {
   }, [pushScreen]);
 
   return (
-    <div className="bg-navy-bg h-full w-full flex flex-col items-center justify-center relative overflow-hidden">
+    <div className="bg-navy-bg min-h-[100dvh] w-full flex flex-col items-center justify-center p-6 relative overflow-hidden">
       {/* Background overlay for depth */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-surface/50 to-navy-bg pointer-events-none z-0"></div>
       
-      {/* Main Content Container */}
-      <div className="z-10 flex flex-col items-center justify-center flex-1 w-full px-margin-main relative">
-        {/* Logo Area */}
-        <div className="flex flex-col items-center justify-center fade-in-up delay-100 mb-stack-md">
-          {/* Icon placeholder - represents the temple/spiritual motif */}
-          <div className="w-32 h-32 mb-stack-sm rounded-full bg-navy-surface border border-gold-primary/20 flex items-center justify-center shadow-[0_0_40px_rgba(220,176,107,0.15)] pulse-gold relative">
-            <span className="material-symbols-outlined text-gold-primary" style={{ fontSize: '64px', fontVariationSettings: "'FILL' 1" }}>
-              temple_hindu
-            </span>
-            <div className="absolute inset-0 rounded-full border border-gold-primary/30 animate-[spin_10s_linear_infinite] border-t-transparent border-l-transparent"></div>
-          </div>
-          {/* Brand Typography */}
-          <h1 className="font-headline-lg text-headline-lg text-gold-primary tracking-widest uppercase text-center mt-stack-sm">
+      {/* Main Content Flex Flow */}
+      <div className="z-10 flex flex-col items-center justify-center gap-6 w-full max-w-sm mx-auto text-center my-auto">
+        {/* Animated Temple Icon */}
+        <div className="w-28 h-28 md:w-36 md:h-36 rounded-full bg-navy-surface border border-gold-primary/30 flex items-center justify-center shadow-[0_0_50px_rgba(220,176,107,0.2)] relative">
+          <span className="material-symbols-outlined text-gold-primary text-5xl md:text-6xl" style={{ fontVariationSettings: "'FILL' 1" }}>
+            temple_hindu
+          </span>
+          <div className="absolute inset-0 rounded-full border-2 border-gold-primary/40 animate-[spin_10s_linear_infinite] border-t-transparent border-l-transparent"></div>
+        </div>
+
+        {/* Brand Typography */}
+        <div className="flex flex-col items-center gap-2">
+          <h1 className="font-headline-lg text-2xl md:text-3xl text-gold-primary tracking-widest uppercase font-bold">
             Sankalpavani
           </h1>
-          <div className="h-[2px] w-16 bg-gold-secondary/50 mt-stack-sm rounded-full"></div>
+          <div className="h-0.5 w-16 bg-gold-secondary/50 rounded-full"></div>
+          <p className="text-xs text-white-muted uppercase tracking-wider mt-1">
+            Devotee Rituals & Darshan
+          </p>
         </div>
-      </div>
-      
-      {/* Loading State at bottom */}
-      <div className="z-10 absolute bottom-stack-lg w-full flex flex-col items-center justify-center fade-in-up delay-500">
-        <p className="font-label-caps text-label-caps text-white-muted uppercase tracking-[0.2em] mb-4">
-          Awakening...
-        </p>
-        <div className="flex gap-2 items-center">
-          <div className="w-2 h-2 rounded-full bg-gold-primary pulse-gold" style={{ animationDelay: '0s' }}></div>
-          <div className="w-2 h-2 rounded-full bg-gold-primary pulse-gold" style={{ animationDelay: '0.2s' }}></div>
-          <div className="w-2 h-2 rounded-full bg-gold-primary pulse-gold" style={{ animationDelay: '0.4s' }}></div>
+
+        {/* Loading Indicator */}
+        <div className="flex flex-col items-center gap-3 mt-4">
+          <p className="text-xs font-semibold text-gold-primary/80 uppercase tracking-[0.25em]">
+            Awakening...
+          </p>
+          <div className="flex gap-2 items-center">
+            <div className="w-2 h-2 rounded-full bg-gold-primary animate-pulse" style={{ animationDelay: '0s' }}></div>
+            <div className="w-2 h-2 rounded-full bg-gold-primary animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+            <div className="w-2 h-2 rounded-full bg-gold-primary animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+          </div>
         </div>
       </div>
     </div>

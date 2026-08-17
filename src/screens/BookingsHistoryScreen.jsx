@@ -44,21 +44,23 @@ export default function BookingsHistoryScreen() {
   };
 
   return (
-    <div className="bg-navy-bg text-on-surface h-full pb-[100px] pt-16 flex flex-col overflow-y-auto">
+    <div className="bg-navy-bg text-on-surface h-full pb-[100px] pt-24 flex flex-col overflow-y-auto">
       {/* Top Header */}
-      <header className="fixed top-0 w-full max-w-md z-40 bg-surface/85 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex justify-between items-center px-margin-main h-16">
-        <button 
-          onClick={() => pushScreen('home')}
-          className="text-white-muted hover:text-gold-secondary transition-colors"
-        >
-          <span className="material-symbols-outlined">arrow_back</span>
-        </button>
-        <h1 className="font-display-vertical text-display-vertical text-gold-primary tracking-[0.2em] uppercase">SANKALPAVANI</h1>
-        <div className="w-6"></div>
+      <header className="fixed top-0 inset-x-0 w-full z-40 bg-surface/85 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex items-center px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3">
+        <div className="max-w-4xl mx-auto w-full flex justify-between items-center">
+          <button 
+            onClick={() => pushScreen('home')}
+            className="text-white-muted hover:text-gold-secondary transition-colors"
+          >
+            <span className="material-symbols-outlined">arrow_back</span>
+          </button>
+          <h1 className="font-display-vertical text-display-vertical text-gold-primary tracking-[0.2em] uppercase">SANKALPAVANI</h1>
+          <div className="w-6"></div>
+        </div>
       </header>
 
       {/* Main Content */}
-      <main className="px-margin-main max-w-lg mx-auto mt-6 flex flex-col gap-6 w-full">
+      <main className="px-margin-main max-w-4xl mx-auto mt-6 flex flex-col gap-6 w-full">
         {/* Header Title */}
         <section className="text-center">
           <h2 className="font-headline-lg text-2xl text-gold-primary tracking-wide">MY BOOKINGS</h2>
@@ -143,17 +145,24 @@ export default function BookingsHistoryScreen() {
         </section>
       </main>
 
-      {/* Ticket E-Ticket Dialog Modal */}
+      {/* Sacred E-Receipt Detail Modal */}
       {selectedTicket && (
-        <div className="absolute inset-0 bg-black/75 z-50 flex items-center justify-center p-6">
-          <div className="bg-navy-surface border border-gold-primary/20 rounded-xl w-full max-w-sm overflow-hidden shadow-2xl relative text-black">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+          {/* Backdrop click to dismiss */}
+          <div className="absolute inset-0" onClick={() => setSelectedTicket(null)}></div>
+
+          <div className="relative bg-navy-surface border border-gold-primary/30 rounded-2xl w-full max-w-sm md:max-w-md overflow-hidden shadow-2xl z-10 text-black my-auto">
             <div className="p-4 border-b border-white-muted/10 flex justify-between items-center bg-navy-bg">
-              <h3 className="font-headline-sm text-gold-primary">Sacred E-Receipt</h3>
-              <button onClick={() => setSelectedTicket(null)} className="text-white-muted hover:text-white">
-                <span className="material-symbols-outlined">close</span>
+              <h3 className="font-headline-sm text-gold-primary font-bold">Sacred E-Receipt</h3>
+              <button 
+                onClick={() => setSelectedTicket(null)} 
+                className="text-white-muted hover:text-white p-1 rounded-full hover:bg-white-muted/10 transition-colors"
+                aria-label="Close"
+              >
+                <span className="material-symbols-outlined text-lg">close</span>
               </button>
             </div>
-            <div className="p-5 flex flex-col gap-4 text-left w-full">
+            <div className="p-5 flex flex-col gap-4 text-left w-full max-h-[80vh] overflow-y-auto">
               {/* Seva details */}
               <div className="text-center pb-2 border-b border-dashed border-white-muted/15">
                 <h4 className="text-black font-bold text-sm uppercase">{selectedTicket.temple}</h4>
@@ -224,7 +233,7 @@ export default function BookingsHistoryScreen() {
       )}
 
       {/* Floating Embossed Bottom Nav Bar */}
-      <div className="fixed bottom-4 inset-x-0 z-45 px-4 max-w-md mx-auto">
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-md mx-auto z-50">
         <nav className="bg-navy-surface/95 backdrop-blur-md border border-white-muted/10 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex justify-around items-center h-16 px-4">
           {/* HOME */}
           <button

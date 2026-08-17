@@ -484,14 +484,14 @@ export default function TempleDetailScreen() {
   return (
     <div className="bg-navy-bg text-on-surface font-body-md antialiased pb-24 h-full overflow-y-auto relative">
       {/* Full Width Header Image */}
-      <header className="relative w-full h-64 overflow-hidden">
+      <header className="relative w-full aspect-video md:aspect-[21/9] max-h-[380px] overflow-hidden">
         <img 
           alt={selectedTemple.name} 
           className="w-full h-full object-cover" 
           src={selectedTemple.img}
         />
         {/* Top Nav Icons (Overlay) */}
-        <div className="absolute top-0 left-0 w-full p-4 flex justify-between items-center z-10 bg-gradient-to-b from-black/60 to-transparent">
+        <div className="absolute top-0 left-0 w-full p-4 pt-[max(env(safe-area-inset-top),1.5rem)] flex justify-between items-center z-10 bg-gradient-to-b from-black/70 to-transparent">
           <button 
             onClick={popScreen}
             className="material-symbols-outlined text-white text-2xl drop-shadow-md hover:text-gold-primary transition-colors"
@@ -670,27 +670,29 @@ export default function TempleDetailScreen() {
       </main>
       
       {/* Fixed CTA Footer */}
-      <div className="fixed bottom-0 w-full max-w-md bg-navy-bg border-t border-white-muted/10 p-margin-main pb-safe flex gap-4 z-40">
-        <button 
-          onClick={() => pushScreen('services-list')}
-          className="flex-1 bg-gold-primary text-navy-bg font-headline-sm text-lg font-bold uppercase py-3.5 rounded-xl hover:bg-gold-secondary transition-colors"
-        >
-          BOOK SEVA
-        </button>
+      <div className="fixed bottom-0 inset-x-0 w-full bg-navy-bg border-t border-white-muted/10 p-margin-main pb-safe flex justify-center z-40">
+        <div className="max-w-4xl w-full flex gap-4">
+          <button 
+            onClick={() => pushScreen('services-list')}
+            className="flex-1 bg-gold-primary text-navy-bg font-headline-sm text-lg font-bold uppercase py-3.5 rounded-xl hover:bg-gold-secondary transition-colors"
+          >
+            BOOK SEVA
+          </button>
+        </div>
       </div>
 
       {/* Slide-Up Bottom Sheet Modal Backdrop */}
       {activeModal && (
-        <div 
-          onClick={() => setActiveModal(null)}
-          className="fixed inset-0 bg-black/60 z-45 max-w-md mx-auto transition-opacity duration-300"
-        />
-      )}
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-end md:items-center justify-center p-0 md:p-4">
+          <div 
+            onClick={() => setActiveModal(null)}
+            className="absolute inset-0"
+          />
 
-      {/* Slide-Up Bottom Sheet Modal */}
-      <div 
-        className={`fixed bottom-0 left-0 right-0 max-w-md mx-auto z-50 bg-navy-bg rounded-t-3xl pt-3 px-6 pb-6 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border-t border-white-muted/10 transition-transform duration-300 ease-out transform ${activeModal ? 'translate-y-0' : 'translate-y-full'}`}
-      >
+          {/* Slide-Up Bottom Sheet Modal */}
+          <div 
+            className="relative w-full max-w-lg mx-auto bg-navy-bg rounded-t-3xl md:rounded-3xl md:mb-8 pt-3 px-6 pb-6 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border border-white-muted/10 z-10 max-h-[85vh] overflow-y-auto animate-[slideUp_0.25s_ease-out]"
+          >
         {/* Drag Indicator */}
         <div className="w-12 h-1 bg-white-muted/20 rounded-full mx-auto mb-4"></div>
 
@@ -720,5 +722,7 @@ export default function TempleDetailScreen() {
         </div>
       </div>
     </div>
-  );
+  )}
+</div>
+);
 }

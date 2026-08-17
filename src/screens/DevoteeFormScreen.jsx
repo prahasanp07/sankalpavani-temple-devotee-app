@@ -158,21 +158,23 @@ export default function DevoteeFormScreen() {
   const totalPrice = basePrice + (extraDevotees * extraPersonCost);
 
   return (
-    <div className="bg-navy-bg text-on-surface font-body-md antialiased min-h-screen flex flex-col pt-16 pb-24 h-full overflow-y-auto">
+    <div className="bg-navy-bg text-on-surface font-body-md antialiased min-h-screen flex flex-col pt-24 pb-24 h-full overflow-y-auto">
       {/* Top Header */}
-      <header className="fixed top-0 w-full max-w-md z-45 bg-surface/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm px-margin-main h-16 flex items-center justify-between">
-        <button 
-          onClick={popScreen}
-          className="text-gold-primary hover:text-gold-secondary transition-colors"
-          aria-label="Go Back"
-        >
-          <span className="material-symbols-outlined text-2xl">arrow_back</span>
-        </button>
-        <h1 className="font-headline-md text-base text-gold-primary uppercase tracking-widest text-center flex-1">Devotee Details</h1>
-        <div className="w-6"></div> {/* Spacer */}
+      <header className="fixed top-0 inset-x-0 w-full z-45 bg-surface/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3 flex items-center">
+        <div className="max-w-4xl mx-auto w-full flex items-center justify-between">
+          <button 
+            onClick={popScreen}
+            className="text-gold-primary hover:text-gold-secondary transition-colors"
+            aria-label="Go Back"
+          >
+            <span className="material-symbols-outlined text-2xl">arrow_back</span>
+          </button>
+          <h1 className="font-headline-md text-base text-gold-primary uppercase tracking-widest text-center flex-1">Devotee Details</h1>
+          <div className="w-6"></div> {/* Spacer */}
+        </div>
       </header>
 
-      <main className="flex-1 px-margin-main py-6 max-w-2xl mx-auto w-full flex flex-col gap-6">
+      <main className="flex-1 px-margin-main py-6 w-full max-w-xl mx-auto md:p-8 md:border md:border-white-muted/10 md:rounded-2xl md:bg-navy-surface md:shadow-sm md:mt-6 flex flex-col gap-6">
         
         {error && (
           <div className="bg-error-container/20 border border-error/20 text-error p-3 rounded-lg text-center text-xs">
@@ -248,7 +250,7 @@ export default function DevoteeFormScreen() {
             </button>
           </div>
 
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {familyMembers.map((member, idx) => (
               <div 
                 key={member.id}
@@ -392,30 +394,32 @@ export default function DevoteeFormScreen() {
       </main>
 
       {/* Dynamic Summary Floating Bar */}
-      <div className="fixed bottom-0 w-full max-w-md bg-navy-bg border-t border-white-muted/10 p-margin-main pb-safe flex items-center justify-between gap-4 z-40">
-        <div>
-          <p className="font-label-caps text-[10px] text-white-muted uppercase">
-            Total ({totalDevotees} Devotee{totalDevotees > 1 ? 's' : ''})
-          </p>
-          <div className="flex flex-col">
-            <p className="font-headline-sm text-xl text-gold-primary font-bold">₹{totalPrice}</p>
-            {extraDevotees > 0 ? (
-              <p className="text-[9px] text-white-muted">
-                (Base: ₹{basePrice} for {basePersons} + {extraDevotees} extra @ ₹{extraPersonCost}/each)
-              </p>
-            ) : (
-              <p className="text-[9px] text-white-muted">
-                (Base allocation: up to {basePersons} {basePersons === 1 ? 'devotee' : 'devotees'})
-              </p>
-            )}
+      <div className="fixed bottom-0 inset-x-0 w-full bg-navy-bg border-t border-white-muted/10 p-margin-main pb-safe flex justify-center z-40">
+        <div className="max-w-4xl w-full flex items-center justify-between gap-4">
+          <div>
+            <p className="font-label-caps text-[10px] text-white-muted uppercase">
+              Total ({totalDevotees} Devotee{totalDevotees > 1 ? 's' : ''})
+            </p>
+            <div className="flex flex-col">
+              <p className="font-headline-sm text-xl text-gold-primary font-bold">₹{totalPrice}</p>
+              {extraDevotees > 0 ? (
+                <p className="text-[9px] text-white-muted">
+                  (Base: ₹{basePrice} for {basePersons} + {extraDevotees} extra @ ₹{extraPersonCost}/each)
+                </p>
+              ) : (
+                <p className="text-[9px] text-white-muted">
+                  (Base allocation: up to {basePersons} {basePersons === 1 ? 'devotee' : 'devotees'})
+                </p>
+              )}
+            </div>
           </div>
+          <button 
+            onClick={handleProceed}
+            className="bg-gold-primary text-navy-bg font-headline-sm text-sm font-bold uppercase py-3.5 px-6 rounded-xl hover:bg-gold-secondary transition-colors"
+          >
+            Proceed to Review
+          </button>
         </div>
-        <button 
-          onClick={handleProceed}
-          className="bg-gold-primary text-navy-bg font-headline-sm text-sm font-bold uppercase py-3.5 px-6 rounded-xl hover:bg-gold-secondary transition-colors"
-        >
-          Proceed to Review
-        </button>
       </div>
     </div>
   );

@@ -90,17 +90,9 @@ function AppContent() {
   };
 
   return (
-    /* Center the mobile layout inside a nice mockup container on large monitors */
-    <div className="min-h-screen w-full bg-slate-950 flex items-center justify-center p-0 md:p-6 font-sans">
-      {/* Mockup Outer Bezel Border (visible on desktop) */}
-      <div className="w-full h-screen md:h-[880px] max-w-md bg-navy-bg relative md:rounded-[40px] md:border-[10px] md:border-slate-800 md:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col">
-        {/* Mockup Camera Notch (visible on desktop) */}
-        <div className="hidden md:block absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-slate-800 rounded-b-2xl z-50"></div>
-        
-        {/* Dynamic Active Screen Container */}
-        <div className="flex-1 w-full h-full relative overflow-hidden bg-navy-bg">
-          {renderScreen()}
-        </div>
+    <div className="flex flex-col min-h-[100dvh] bg-navy-bg text-on-surface overflow-hidden font-sans pt-[max(env(safe-area-inset-top),1.5rem)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]">
+      <div className="flex-1 overflow-y-auto w-full max-w-7xl mx-auto relative bg-navy-bg">
+        {renderScreen()}
       </div>
     </div>
   );

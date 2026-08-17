@@ -50,31 +50,32 @@ export default function OnboardingScreen() {
   };
 
   return (
-    <div className="bg-navy-bg text-on-background h-full flex flex-col justify-between overflow-hidden relative">
+    <div className="bg-navy-bg text-on-background min-h-screen w-full flex flex-col justify-center items-center px-6 py-12 relative overflow-y-auto font-body-md">
       {/* Decorative Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-gold-primary/5 blur-[100px]"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-surface-container-lowest/50 blur-[120px]"></div>
       </div>
 
-      <main className="flex-grow flex flex-col items-center justify-center relative px-margin-main pb-[100px] z-10">
-        <div className="w-full max-w-md mx-auto flex flex-col items-center z-10">
-          {/* Carousel Image */}
-          <div className="relative w-64 h-64 mb-section-gap rounded-full overflow-hidden border-4 border-gold-primary shadow-[0_0_40px_rgba(220,176,107,0.2)]">
-            <img 
-              alt={slides[currentSlide].alt} 
-              className="w-full h-full object-cover animate-subtle-scale" 
-              src={slides[currentSlide].img}
-            />
-            <div className="absolute inset-0 border-[6px] border-surface-container-lowest/30 rounded-full pointer-events-none"></div>
-          </div>
+      <main className="w-full max-w-lg mx-auto flex flex-col items-center justify-center relative z-10 my-auto">
+        {/* Responsive Circular Carousel Image */}
+        <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-gold-primary shadow-[0_0_40px_rgba(220,176,107,0.25)] shrink-0 transition-all duration-300">
+          <img 
+            alt={slides[currentSlide].alt} 
+            className="w-full h-full object-cover animate-subtle-scale" 
+            src={slides[currentSlide].img}
+          />
+          <div className="absolute inset-0 border-[6px] border-surface-container-lowest/30 rounded-full pointer-events-none"></div>
+        </div>
 
+        {/* Text and Actions Flow Container with Flex Gap */}
+        <div className="flex flex-col items-center text-center gap-6 w-full max-w-md mt-6 md:mt-8">
           {/* Carousel Progress Indicators */}
-          <div className="flex gap-2 mb-stack-md">
+          <div className="flex gap-2">
             {slides.map((_, index) => (
               <div 
                 key={index}
-                className={`h-1 rounded-full transition-all duration-300 ${
+                className={`h-1.5 rounded-full transition-all duration-300 ${
                   index === currentSlide ? 'w-8 bg-gold-primary' : 'w-2 bg-white-muted/20'
                 }`}
               ></div>
@@ -82,36 +83,32 @@ export default function OnboardingScreen() {
           </div>
 
           {/* Carousel Content */}
-          <div className="text-center w-full px-4 min-h-[140px]">
-            <h1 className="font-headline-lg text-headline-lg text-gold-primary mb-stack-sm tracking-wide transition-all uppercase">
+          <div className="space-y-2 px-2">
+            <h1 className="font-headline-lg text-2xl md:text-3xl lg:text-4xl text-gold-primary tracking-wide transition-all uppercase font-bold">
               {slides[currentSlide].title}
             </h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-[280px] mx-auto leading-relaxed transition-all">
+            <p className="text-sm md:text-base text-on-surface-variant max-w-[340px] md:max-w-md mx-auto leading-relaxed transition-all">
               {slides[currentSlide].desc}
             </p>
           </div>
-        </div>
-      </main>
 
-      {/* Fixed Bottom Actions */}
-      <div className="absolute bottom-0 left-0 w-full p-margin-main bg-gradient-to-t from-navy-bg via-navy-bg to-transparent pb-safe z-20">
-        <div className="max-w-md mx-auto w-full">
-          <button 
-            onClick={handleNext}
-            className="w-full h-14 bg-gold-primary text-navy-bg font-headline-sm text-headline-sm uppercase tracking-wider rounded-lg flex items-center justify-center hover:bg-gold-secondary transition-colors duration-300 shadow-[0_4px_14px_rgba(220,176,107,0.3)] active:scale-95"
-          >
-            {currentSlide === slides.length - 1 ? 'Get Started' : 'Next'}
-          </button>
-          <div className="mt-4 text-center">
+          {/* Actions: Next & Skip Buttons */}
+          <div className="w-full max-w-sm flex flex-col items-center gap-3 pt-2">
+            <button 
+              onClick={handleNext}
+              className="w-full py-4 bg-gold-primary text-navy-bg font-headline-sm text-sm uppercase tracking-wider rounded-xl font-bold flex items-center justify-center hover:bg-gold-secondary transition-colors duration-300 shadow-[0_4px_14px_rgba(220,176,107,0.3)] active:scale-95 cursor-pointer"
+            >
+              {currentSlide === slides.length - 1 ? 'Get Started' : 'Next'}
+            </button>
             <button 
               onClick={handleSkip}
-              className="font-label-caps text-label-caps text-white-muted hover:text-gold-primary transition-colors uppercase tracking-widest"
+              className="font-label-caps text-xs text-white-muted hover:text-gold-primary transition-colors uppercase tracking-widest py-1 cursor-pointer"
             >
               Skip Introduction
             </button>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

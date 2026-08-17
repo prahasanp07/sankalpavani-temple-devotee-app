@@ -29,14 +29,14 @@ export default function ServiceDetailScreen() {
   return (
     <div className="bg-navy-bg text-on-surface h-full pb-24 flex flex-col overflow-y-auto relative">
       {/* Full Width Header Image (Hero Banner) */}
-      <header className="relative w-full h-64 overflow-hidden">
+      <header className="relative w-full aspect-video md:aspect-[21/9] max-h-[380px] overflow-hidden">
         <img 
           alt={service.name} 
           className="w-full h-full object-cover" 
           src={selectedTemple.img}
         />
         {/* Top Nav Icons (Overlay) */}
-        <div className="absolute top-0 left-0 w-full p-4 flex justify-between items-center z-10 bg-gradient-to-b from-black/60 to-transparent">
+        <div className="absolute top-0 left-0 w-full p-4 pt-[max(env(safe-area-inset-top),1.5rem)] flex justify-between items-center z-10 bg-gradient-to-b from-black/70 to-transparent">
           <button 
             onClick={popScreen}
             className="material-symbols-outlined text-white text-2xl drop-shadow-md hover:text-gold-primary transition-colors"
@@ -53,7 +53,7 @@ export default function ServiceDetailScreen() {
       </header>
 
       {/* Main Content */}
-      <main className="px-margin-main max-w-lg mx-auto mt-6 flex flex-col gap-6 w-full">
+      <main className="px-margin-main max-w-4xl mx-auto mt-6 flex flex-col gap-6 w-full">
         
         {/* Seva Title & Price Row */}
         <section className="space-y-2">
@@ -149,17 +149,19 @@ export default function ServiceDetailScreen() {
       </main>
 
       {/* Floating Price & Select Slot Actions */}
-      <div className="fixed bottom-0 w-full max-w-md bg-navy-bg border-t border-white-muted/10 p-margin-main pb-safe flex items-center justify-between gap-4 z-40">
-        <div>
-          <p className="font-label-caps text-[10px] text-white-muted uppercase">Seva Price</p>
-          <p className="font-headline-sm text-lg text-gold-primary font-bold">₹{service.price}</p>
+      <div className="fixed bottom-0 inset-x-0 w-full bg-navy-bg border-t border-white-muted/10 p-margin-main pb-safe flex justify-center z-40">
+        <div className="max-w-4xl w-full flex items-center justify-between gap-4">
+          <div>
+            <p className="font-label-caps text-[10px] text-white-muted uppercase">Seva Price</p>
+            <p className="font-headline-sm text-lg text-gold-primary font-bold">₹{service.price}</p>
+          </div>
+          <button 
+            onClick={() => pushScreen('calendar-selection')}
+            className="bg-gold-primary text-navy-bg font-headline-sm text-sm font-bold uppercase py-3.5 px-6 rounded-xl hover:bg-gold-secondary transition-colors"
+          >
+            Select Date & Time
+          </button>
         </div>
-        <button 
-          onClick={() => pushScreen('calendar-selection')}
-          className="bg-gold-primary text-navy-bg font-headline-sm text-sm font-bold uppercase py-3.5 px-6 rounded-xl hover:bg-gold-secondary transition-colors"
-        >
-          Select Date & Time
-        </button>
       </div>
     </div>
   );

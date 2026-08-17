@@ -88,7 +88,7 @@ export default function PaymentSuccessScreen() {
       )}
 
       <main className="flex-grow flex flex-col items-center justify-center px-margin-main py-section-gap pt-16 z-10">
-        <div className="w-full max-w-md mx-auto flex flex-col items-center text-center gap-6">
+        <div className="w-full max-w-lg mx-auto flex flex-col items-center text-center gap-6">
           {/* Animated/Glowing Checkmark */}
           <div className="w-24 h-24 rounded-full bg-navy-surface border-2 border-gold-primary flex items-center justify-center shadow-[0_0_30px_rgba(220,176,107,0.25)] animate-[pulse_1.5s_infinite] relative">
             <span className="material-symbols-outlined text-gold-primary text-[50px] font-bold">check</span>
@@ -216,7 +216,7 @@ export default function PaymentSuccessScreen() {
       </main>
 
       {/* Action Buttons Footer */}
-      <div className="w-full max-w-md mx-auto px-margin-main flex flex-col gap-3">
+      <div className="w-full max-w-lg mx-auto px-margin-main flex flex-col gap-3">
         <button
           onClick={handleGoToBookings}
           className="w-full bg-gold-primary text-navy-bg font-headline-sm text-sm uppercase tracking-wider py-4 rounded-xl font-bold hover:bg-gold-secondary transition-colors active:scale-95 shadow-md"

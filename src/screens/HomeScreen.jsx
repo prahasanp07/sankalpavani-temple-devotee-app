@@ -334,41 +334,43 @@ export default function HomeScreen() {
   };
 
   return (
-    <div className="bg-navy-bg text-on-surface flex flex-col h-full relative overflow-hidden">
+    <div className="bg-navy-bg text-on-surface flex flex-col h-full w-full relative overflow-hidden">
       {/* Top Profile Welcome Bar */}
-      <header className="fixed top-0 w-full max-w-md z-40 bg-navy-bg/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex justify-between items-center px-4 h-16">
-        <div className="flex items-center gap-3">
-          {/* Interactive Profile Picture (Clicking opens side drawer menu) */}
-          <div
-            onClick={() => setIsMenuOpen(true)}
-            className="w-10 h-10 rounded-full overflow-hidden border-2 border-gold-primary shadow-md cursor-pointer hover:border-gold-secondary transition-all active:scale-95"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
-              alt="Prahasan P"
-              className="w-full h-full object-cover"
-            />
+      <header className="fixed top-0 inset-x-0 w-full z-40 bg-navy-bg/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm px-4 pt-[max(env(safe-area-inset-top),1rem)] pb-3 flex items-center">
+        <div className="max-w-4xl mx-auto w-full flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            {/* Interactive Profile Picture (Clicking opens side drawer menu) */}
+            <div
+              onClick={() => setIsMenuOpen(true)}
+              className="w-10 h-10 rounded-full overflow-hidden border-2 border-gold-primary shadow-md cursor-pointer hover:border-gold-secondary transition-all active:scale-95"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
+                alt="Prahasan P"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            {/* Welcome User Text */}
+            <div>
+              <p className="text-[10px] text-white-muted uppercase tracking-wider font-semibold">Welcome Back</p>
+              <h3 className="font-extrabold text-sm text-gold-primary tracking-wide">Prahasan P</h3>
+            </div>
           </div>
-          {/* Welcome User Text */}
-          <div>
-            <p className="text-[10px] text-white-muted uppercase tracking-wider font-semibold">Welcome Back</p>
-            <h3 className="font-extrabold text-sm text-gold-primary tracking-wide">Prahasan P</h3>
-          </div>
-        </div>
 
-        {/* Notification bell button */}
-        <button
-          onClick={() => setShowNotifications(prev => !prev)}
-          className="w-10 h-10 rounded-full bg-navy-surface border border-white-muted/10 flex items-center justify-center text-white-muted hover:text-gold-primary relative shadow-sm transition-colors"
-          aria-label="Notifications"
-        >
-          <span className="material-symbols-outlined text-lg">notifications</span>
-          <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
-        </button>
+          {/* Notification bell button */}
+          <button
+            onClick={() => setShowNotifications(prev => !prev)}
+            className="w-10 h-10 rounded-full bg-navy-surface border border-white-muted/10 flex items-center justify-center text-white-muted hover:text-gold-primary relative shadow-sm transition-colors"
+            aria-label="Notifications"
+          >
+            <span className="material-symbols-outlined text-lg">notifications</span>
+            <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+          </button>
+        </div>
       </header>
 
       {/* Main Content Area - Scrollable for home screen content */}
-      <main className={`flex-grow pt-16 pb-28 no-scrollbar scroll-smooth relative z-10 flex flex-col justify-start ${isScrollEnabled ? 'overflow-y-auto' : 'overflow-hidden'}`}>
+      <main className={`flex-grow pt-24 pb-28 no-scrollbar scroll-smooth relative z-10 flex flex-col justify-start max-w-4xl mx-auto w-full ${isScrollEnabled ? 'overflow-y-auto' : 'overflow-hidden'}`}>
 
         {/* Search temples and sevas */}
         <div className="px-4 mt-4">
@@ -495,7 +497,7 @@ export default function HomeScreen() {
           </div>
 
           {filteredTemples.length > 0 ? (
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 w-full">
               {(searchQuery.trim() ? filteredTemples : filteredTemples.slice(0, 8)).map((temple) => (
                 <div
                   key={temple.id}
@@ -707,7 +709,7 @@ export default function HomeScreen() {
         </section>
 
         {/* Selected Temple Slide-up Bottom Sheet Modal */}
-        <div className={`fixed bottom-20 left-0 right-0 max-w-md mx-auto z-40 bg-navy-bg rounded-t-3xl pt-2 px-margin-main pb-4 shadow-[0_-10px_40px_rgba(0,0,0,0.6)] border-t border-white-muted/10 transition-transform duration-300 ease-out transform ${(isSheetOpen && selectedTemple) ? 'translate-y-0' : 'translate-y-full opacity-0 pointer-events-none'}`}>
+        <div className={`fixed bottom-20 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-lg mx-auto z-40 bg-navy-bg rounded-t-3xl md:rounded-3xl md:mb-4 pt-2 px-margin-main pb-4 shadow-[0_-10px_40px_rgba(0,0,0,0.6)] border border-white-muted/10 transition-transform duration-300 ease-out transform ${(isSheetOpen && selectedTemple) ? 'translate-y-0' : 'translate-y-full opacity-0 pointer-events-none'}`}>
           {/* Pull Bar Handle and Close Button */}
           <div className="relative flex justify-between items-center mb-3 pt-1">
             <div className="w-12 h-1.5 bg-white-muted/20 rounded-full mx-auto cursor-pointer" onClick={() => setIsSheetOpen(false)}></div>
@@ -772,11 +774,12 @@ export default function HomeScreen() {
 
       {/* Notifications Dialog overlay */}
       {showNotifications && (
-        <div className="absolute inset-0 bg-black/60 z-50 flex items-center justify-center p-6">
-          <div className="bg-navy-surface border border-white-muted/15 rounded-xl w-full max-w-sm overflow-hidden shadow-2xl">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0" onClick={() => setShowNotifications(false)}></div>
+          <div className="relative bg-navy-surface border border-white-muted/15 rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl z-10">
             <div className="p-4 border-b border-white-muted/10 flex justify-between items-center bg-navy-bg">
               <h3 className="font-headline-sm text-gold-primary">Spiritual Updates</h3>
-              <button onClick={() => setShowNotifications(false)} className="text-white-muted hover:text-white">
+              <button onClick={() => setShowNotifications(false)} className="text-white-muted hover:text-white p-1">
                 <span className="material-symbols-outlined">close</span>
               </button>
             </div>
@@ -796,8 +799,9 @@ export default function HomeScreen() {
 
       {/* Side Menu Drawer */}
       {isMenuOpen && (
-        <div className="absolute inset-0 z-50 flex">
-          <div className="w-64 bg-navy-bg border-r border-white-muted/10 h-full flex flex-col justify-between p-6 shadow-2xl">
+        <div className="fixed inset-0 z-50 flex">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setIsMenuOpen(false)}></div>
+          <div className="relative w-64 bg-navy-bg border-r border-white-muted/10 h-full flex flex-col justify-between p-6 shadow-2xl z-10">
             <div className="space-y-8">
               <div className="flex justify-between items-center">
                 <div className="font-display-vertical text-headline-sm text-gold-primary tracking-widest uppercase">
@@ -854,7 +858,7 @@ export default function HomeScreen() {
       )}
 
       {/* Floating Embossed Bottom Nav Bar */}
-      <div className="fixed bottom-4 inset-x-0 z-40 px-4 max-w-md mx-auto">
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-md mx-auto z-50">
         <nav className="bg-navy-surface/95 backdrop-blur-md border border-white-muted/10 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex justify-around items-center h-16 px-4">
           {/* HOME */}
           <button

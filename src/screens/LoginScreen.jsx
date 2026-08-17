@@ -83,20 +83,17 @@ export default function LoginScreen() {
   };
 
   return (
-    <div className="bg-navy-bg text-on-surface h-full flex flex-col font-body-md relative overflow-hidden">
-      {/* Top minimal brand anchor */}
-      <header className="absolute top-0 w-full z-50 flex justify-center items-center px-margin-main h-16 bg-navy-bg/85 backdrop-blur-md border-b border-white-muted/5">
-        <div className="font-display-vertical text-display-vertical text-gold-primary tracking-[0.2em] flex items-center gap-2">
-          <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>temple_hindu</span>
-          SANKALPAVANI
-        </div>
-      </header>
+    <div className="min-h-[100dvh] flex flex-col justify-center items-center px-4 pb-12 w-full bg-navy-bg text-on-surface font-body-md relative overflow-y-auto">
+      {/* Atmospheric Background Elements */}
+      <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold-primary/20 via-navy-bg to-navy-bg z-0"></div>
+      
+      {/* Brand Anchor Header */}
+      <div className="font-display-vertical text-display-vertical text-gold-primary tracking-[0.2em] flex items-center justify-center gap-2 mb-6 z-10">
+        <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>temple_hindu</span>
+        SANKALPAVANI
+      </div>
 
-      <main className="flex-grow flex flex-col items-center justify-center px-margin-main py-section-gap pt-24 relative overflow-hidden z-10">
-        {/* Atmospheric Background Elements */}
-        <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold-primary/20 via-navy-bg to-navy-bg z-0"></div>
-        
-        <div className="w-full max-w-md relative z-10 flex flex-col gap-6">
+      <div className="w-full max-w-md mx-auto relative z-10 flex flex-col gap-6 p-6 md:p-8 border border-white-muted/10 rounded-2xl bg-navy-surface shadow-2xl">
           {/* Header Section */}
           <div className="text-center space-y-2">
             <h1 className="font-headline-lg text-headline-lg text-on-surface uppercase tracking-wide">
@@ -232,7 +229,7 @@ export default function LoginScreen() {
           </div>
 
           {/* Secondary Action */}
-          <div className="text-center z-10">
+          <div className="text-center pt-2">
             <button 
               className="font-body-md text-body-md text-white-muted hover:text-gold-primary transition-colors inline-flex items-center gap-1 group"
               onClick={handleSignUpClick}
@@ -241,7 +238,6 @@ export default function LoginScreen() {
             </button>
           </div>
         </div>
-      </main>
     </div>
   );
 }

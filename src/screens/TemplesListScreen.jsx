@@ -19,22 +19,24 @@ export default function TemplesListScreen() {
   return (
     <div className="bg-navy-bg text-on-surface min-h-screen flex flex-col h-full relative overflow-hidden font-body-md">
       {/* Fixed Top Header */}
-      <header className="fixed top-0 w-full max-w-md z-40 bg-surface/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex items-center justify-between px-margin-main h-16">
-        <button
-          onClick={popScreen}
-          className="text-gold-primary hover:text-gold-secondary transition-colors p-1.5 -ml-2 rounded-full focus:outline-none"
-          aria-label="Go back"
-        >
-          <span className="material-symbols-outlined text-xl">arrow_back</span>
-        </button>
-        <h1 className="font-display-vertical text-display-vertical text-gold-primary tracking-[0.2em] uppercase text-center flex-grow">
-          BENGALURU TEMPLES
-        </h1>
-        <div className="w-8"></div>
+      <header className="fixed top-0 inset-x-0 w-full z-40 bg-surface/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex items-center px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3">
+        <div className="max-w-4xl mx-auto w-full flex items-center justify-between">
+          <button
+            onClick={popScreen}
+            className="text-gold-primary hover:text-gold-secondary transition-colors p-1.5 -ml-2 rounded-full focus:outline-none"
+            aria-label="Go back"
+          >
+            <span className="material-symbols-outlined text-xl">arrow_back</span>
+          </button>
+          <h1 className="font-display-vertical text-display-vertical text-gold-primary tracking-[0.2em] uppercase text-center flex-grow">
+            BENGALURU TEMPLES
+          </h1>
+          <div className="w-8"></div>
+        </div>
       </header>
 
       {/* Main Scrollable Content */}
-      <main className="flex-grow pt-20 pb-24 px-margin-main overflow-y-auto no-scrollbar relative z-10 flex flex-col gap-5">
+      <main className="flex-grow pt-24 pb-24 px-margin-main max-w-4xl mx-auto w-full overflow-y-auto no-scrollbar relative z-10 flex flex-col gap-5">
         {/* Search Bar */}
         <div className="relative w-full">
           <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gold-primary text-sm">
@@ -81,9 +83,9 @@ export default function TemplesListScreen() {
           <span className="text-gold-primary text-[10px]">Bengaluru Local Shrines</span>
         </div>
 
-        {/* 2-Column Temples Grid */}
+        {/* Responsive Temples Fluid Grid */}
         {filteredTemples.length > 0 ? (
-          <div className="grid grid-cols-2 gap-3.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 w-full">
             {filteredTemples.map((temple) => (
               <div
                 key={temple.id}
@@ -93,7 +95,7 @@ export default function TemplesListScreen() {
                 }}
                 className="w-full bg-navy-surface rounded-xl overflow-hidden border border-white-muted/10 shadow-md flex flex-col cursor-pointer group hover:border-gold-primary/40 transition-all transform active:scale-95"
               >
-                <div className="h-32 w-full relative overflow-hidden">
+                <div className="aspect-video w-full relative overflow-hidden">
                   <img
                     alt={temple.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
