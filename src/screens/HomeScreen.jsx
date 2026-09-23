@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { AppContext } from '../context/AppContext';
 import indiaMapClean from '../assets/india_map_clean.png';
+import lakshmiNarayana1Img from '../assets/lakshmi-narayana-1.jpg';
+import lakshmiNarayana2Img from '../assets/lakshmi-narayana-2.jpg';
 import { templesData } from './templesData';
 
 const mapBounds = {
@@ -22,21 +24,21 @@ const getPinPositionFromLatLng = (lat, lng) => {
 const featuredBanners = [
   {
     id: 'b1',
-    title: 'Benne Alankara Special',
-    subtitle: '100kg Butter Puja at Dodda Ganesha',
-    tag: 'SPECIAL PUJA',
-    img: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=600&q=80',
+    title: 'Sri Lakshmi Narayana Heritage',
+    subtitle: 'Trikuta Mahapuja at Eshwarahalli (Chikkamagaluru)',
+    tag: 'HERITAGE PUJA',
+    img: lakshmiNarayana1Img,
     cta: 'Book Seva',
-    templeId: 'dodda-ganesha-basavanagudi'
+    templeId: 'sri-lakshmi-narayana-eshwarahalli'
   },
   {
     id: 'b2',
-    title: 'Kadalekai Parishe Heritage',
-    subtitle: 'Nandi Archana at Bull Temple',
-    tag: 'LIMITED SLOTS',
-    img: 'https://images.unsplash.com/photo-1600100397990-14b5850b5e6b?auto=format&fit=crop&w=600&q=80',
+    title: 'Gudadha Ranganatha Cave Puja',
+    subtitle: 'Hari-Hara Darshana at Eshwarahalli Hillock',
+    tag: 'MYSTICAL CAVE',
+    img: lakshmiNarayana2Img,
     cta: 'Check Slots',
-    templeId: 'bull-temple-basavanagudi'
+    templeId: 'shree-gudadha-ranganatha-eshwarahalli'
   },
   {
     id: 'b3',
@@ -51,16 +53,16 @@ const featuredBanners = [
 
 const popularSevas = [
   {
-    name: 'Benne Alankara Seva',
-    templeName: 'Dodda Ganesha Temple',
-    templeId: 'dodda-ganesha-basavanagudi',
+    name: 'Sri Lakshmi Narayana Mahapuja',
+    templeName: 'Sri Lakshmi Narayana Temple',
+    templeId: 'sri-lakshmi-narayana-eshwarahalli',
     price: 501,
     icon: 'volunteer_activism'
   },
   {
-    name: 'Maha Nandi Abhisheka',
-    templeName: 'Bull Temple (Basavanagudi)',
-    templeId: 'bull-temple-basavanagudi',
+    name: 'Hari-Hara Cave Archana',
+    templeName: 'Shree Gudadha Ranganatha Swamy Temple',
+    templeId: 'shree-gudadha-ranganatha-eshwarahalli',
     price: 350,
     icon: 'temple_hindu'
   },
@@ -81,7 +83,7 @@ const popularSevas = [
 ];
 
 export default function HomeScreen() {
-  const { pushScreen, logout, selectedTemple, setSelectedTemple, setActiveBooking, playlist, currentTrackIndex, isPlaying, setIsPlaying } = useContext(AppContext);
+  const { currentUser, pushScreen, logout, selectedTemple, setSelectedTemple, setActiveBooking, playlist, currentTrackIndex, isPlaying, setIsPlaying, favorites = [], toggleFavorite } = useContext(AppContext);
 
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -346,14 +348,20 @@ export default function HomeScreen() {
             >
               <img
                 src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
-                alt="Prahasan P"
+                alt={currentUser?.name || "Prahasan P"}
                 className="w-full h-full object-cover"
               />
             </div>
             {/* Welcome User Text */}
-            <div>
+            <div
+              onClick={() => pushScreen('profile')}
+              className="cursor-pointer group"
+            >
               <p className="text-[10px] text-white-muted uppercase tracking-wider font-semibold">Welcome Back</p>
-              <h3 className="font-extrabold text-sm text-gold-primary tracking-wide">Prahasan P</h3>
+              <h3 className="font-extrabold text-sm text-gold-primary tracking-wide flex items-center gap-1 group-hover:text-gold-secondary transition-colors">
+                <span>{currentUser?.name || "Prahasan P"}</span>
+                <span className="material-symbols-outlined text-xs text-gold-primary">chevron_right</span>
+              </h3>
             </div>
           </div>
 
@@ -370,10 +378,10 @@ export default function HomeScreen() {
       </header>
 
       {/* Main Content Area - Scrollable for home screen content */}
-      <main className={`flex-grow pt-24 pb-28 no-scrollbar scroll-smooth relative z-10 flex flex-col justify-start max-w-4xl mx-auto w-full ${isScrollEnabled ? 'overflow-y-auto' : 'overflow-hidden'}`}>
+      <main className={`flex-grow pt-16 pb-28 no-scrollbar scroll-smooth relative z-10 flex flex-col justify-start max-w-4xl mx-auto w-full ${isScrollEnabled ? 'overflow-y-auto' : 'overflow-hidden'}`}>
 
         {/* Search temples and sevas */}
-        <div className="px-4 mt-4">
+        <div className="px-4">
           <div className="w-full bg-navy-surface border border-white-muted/10 focus-within:border-gold-primary/50 rounded-xl px-3.5 py-2 flex items-center gap-2 shadow-inner transition-colors">
             <span className="material-symbols-outlined text-white-muted text-base">search</span>
             <input
@@ -419,23 +427,23 @@ export default function HomeScreen() {
             {/* Left side: content */}
             <div className="flex-1 flex flex-col justify-between gap-4 z-10">
               <div className="space-y-2">
-                <span className="inline-block bg-navy-bg/85 backdrop-blur-sm text-gold-primary text-[8px] font-bold tracking-widest px-2.5 py-0.5 rounded-full uppercase">
-                  SankalpaVani App
-                </span>
+                {/* <span className="inline-block bg-navy-bg/85 backdrop-blur-sm text-gold-primary text-[8px] font-bold tracking-widest px-2.5 py-0.5 rounded-full uppercase">
+                  SankalpaVani - 
+                </span> */}
                 <h3 className="font-display-vertical text-base font-extrabold text-navy-bg leading-snug uppercase">
-                  Your Gateway to Divine Blessings
+                  SankalpaVani - Gateway to Divine Blessings
                 </h3>
-                <p className="text-[10px] text-navy-bg/85 leading-relaxed font-semibold">
-                  Book authentic sevas, check live darshan timings, and track your spiritual journey.
+                <p className="text-[14px] text-center text-navy-bg/85 leading-relaxed font-semibold">
+                  A Handbook to your spiritual journey
                 </p>
               </div>
 
-              <button
+              {/* <button
                 onClick={() => pushScreen('about-sankalpavani')}
                 className="bg-navy-bg text-gold-primary hover:bg-navy-surface hover:text-black text-[10px] font-bold uppercase tracking-wider py-2.5 px-5 rounded-full w-max shadow-md transition-colors active:scale-95"
               >
                 Know More About Sankalpavani
-              </button>
+              </button> */}
             </div>
 
             {/* Right side: Temple Gopuram silhouette SVG */}
@@ -497,7 +505,7 @@ export default function HomeScreen() {
           </div>
 
           {filteredTemples.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 w-full">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 w-full">
               {(searchQuery.trim() ? filteredTemples : filteredTemples.slice(0, 8)).map((temple) => (
                 <div
                   key={temple.id}
@@ -507,26 +515,41 @@ export default function HomeScreen() {
                   }}
                   className="w-full bg-navy-surface rounded-xl overflow-hidden border border-white-muted/10 shadow-sm flex flex-col cursor-pointer group hover:border-gold-primary/40 transition-all transform active:scale-95"
                 >
-                  <div className="h-28 w-full relative overflow-hidden">
+                  <div className="h-36 sm:h-44 w-full relative overflow-hidden bg-navy-bg/40">
                     <img
                       alt={temple.name}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       src={temple.img}
                     />
-                    <div className="absolute top-2 right-2 bg-navy-bg/85 backdrop-blur-md px-1.5 py-0.5 rounded text-[9px] border border-white-muted/10 flex items-center gap-0.5 shadow">
-                      <span className="material-symbols-outlined text-gold-primary text-[10px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                      <span className="font-bold text-on-surface">{temple.rating}</span>
-                    </div>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavorite(temple.id);
+                      }}
+                      className={`absolute top-2 right-2 backdrop-blur-md p-1.5 rounded-full border shadow transition-all duration-200 active:scale-125 z-10 flex items-center justify-center ${favorites.includes(temple.id)
+                        ? 'bg-red-500/25 border-red-500/50 text-red-500 shadow-[0_0_8px_rgba(239,68,68,0.4)]'
+                        : 'bg-navy-bg/75 border-white-muted/20 text-white/75 hover:text-red-400 hover:bg-navy-bg/90'
+                        }`}
+                      aria-label={favorites.includes(temple.id) ? "Remove from favorites" : "Add to favorites"}
+                    >
+                      <span
+                        className="material-symbols-outlined text-[15px] leading-none transition-transform"
+                        style={{ fontVariationSettings: favorites.includes(temple.id) ? "'FILL' 1" : "'FILL' 0" }}
+                      >
+                        favorite
+                      </span>
+                    </button>
                   </div>
-                  <div className="p-2.5 flex-grow flex flex-col justify-between gap-1">
+                  <div className="p-2.5 sm:p-3 flex-grow flex flex-col justify-between gap-1.5">
                     <div>
-                      <h4 className="font-headline-sm text-xs text-gold-primary leading-snug truncate uppercase font-semibold">{temple.name}</h4>
-                      <p className="text-[10px] text-white-muted truncate flex items-center gap-0.5 mt-0.5">
-                        <span className="material-symbols-outlined text-[10px] text-gold-primary/80">location_on</span>
-                        {temple.location.split(',').slice(-2).join(',').trim()}
+                      <h4 className="font-headline-sm text-xs text-gold-primary leading-snug line-clamp-2 uppercase font-semibold group-hover:text-gold-secondary transition-colors">{temple.name}</h4>
+                      <p className="text-[10px] text-white-muted truncate flex items-center gap-0.5 mt-1">
+                        <span className="material-symbols-outlined text-[10px] text-gold-primary/80 shrink-0">location_on</span>
+                        <span className="truncate">{temple.location.split(',').slice(-2).join(',').trim()}</span>
                       </p>
                     </div>
-                    <div className="flex items-center justify-between mt-1 pt-1 border-t border-white-muted/10">
+                    <div className="flex items-center justify-between mt-1 pt-1.5 border-t border-white-muted/10">
                       <span className="text-[9px] font-bold text-white-muted/80 uppercase tracking-wide">{temple.distance}</span>
                       <span className="material-symbols-outlined text-[12px] text-gold-primary group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
                     </div>
@@ -799,7 +822,7 @@ export default function HomeScreen() {
 
       {/* Side Menu Drawer */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-50 flex">
+        <div className="fixed inset-0 z-[60] flex animate-[fadeIn_0.2s_ease-out]">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setIsMenuOpen(false)}></div>
           <div className="relative w-64 bg-navy-bg border-r border-white-muted/10 h-full flex flex-col justify-between p-6 shadow-2xl z-10">
             <div className="space-y-8">
@@ -841,6 +864,13 @@ export default function HomeScreen() {
                   <span className="material-symbols-outlined">history</span>
                   My Bookings
                 </button>
+                <button
+                  onClick={() => { setIsMenuOpen(false); pushScreen('profile'); }}
+                  className="flex items-center gap-3 text-white-muted hover:text-gold-primary font-body-lg text-left w-full py-2 transition-colors"
+                >
+                  <span className="material-symbols-outlined">account_circle</span>
+                  My Profile
+                </button>
               </nav>
             </div>
 
@@ -858,12 +888,13 @@ export default function HomeScreen() {
       )}
 
       {/* Floating Embossed Bottom Nav Bar */}
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-md mx-auto z-50">
+      <div className={`fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-md mx-auto z-40 transition-all duration-300 ${isMenuOpen ? 'opacity-0 pointer-events-none translate-y-8' : 'opacity-100 translate-y-0'
+        }`}>
         <nav className="bg-navy-surface/95 backdrop-blur-md border border-white-muted/10 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex justify-around items-center h-16 px-4">
           {/* HOME */}
           <button
             onClick={() => pushScreen('home')}
-            className="flex flex-col items-center justify-center text-gold-primary gap-1 transition-transform duration-300 active:scale-90 w-1/4"
+            className="flex flex-col items-center justify-center text-gold-primary gap-1 transition-transform duration-300 active:scale-90 w-1/5"
           >
             <span className="material-symbols-outlined text-[22px]" style={{ fontVariationSettings: "'FILL' 1" }}>distance</span>
             <span className="text-[8px] text-gold-primary font-bold uppercase tracking-wider">HOME</span>
@@ -872,7 +903,7 @@ export default function HomeScreen() {
           {/* BOOKINGS */}
           <button
             onClick={() => pushScreen('bookings-history')}
-            className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
+            className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/5"
           >
             <span className="material-symbols-outlined text-[22px]">event_upcoming</span>
             <span className="text-[8px] font-medium uppercase tracking-wider">BOOKINGS</span>
@@ -881,7 +912,7 @@ export default function HomeScreen() {
           {/* HUB */}
           <button
             onClick={() => pushScreen('devotional-aggregator')}
-            className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
+            className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/5"
           >
             <span className="material-symbols-outlined text-[22px]">library_music</span>
             <span className="text-[8px] font-medium uppercase tracking-wider">HUB</span>
@@ -890,10 +921,19 @@ export default function HomeScreen() {
           {/* DONATE */}
           <button
             onClick={() => pushScreen('donation')}
-            className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
+            className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/5"
           >
             <span className="material-symbols-outlined text-[22px]">volunteer_activism</span>
             <span className="text-[8px] font-medium uppercase tracking-wider">DONATE</span>
+          </button>
+
+          {/* PROFILE */}
+          <button
+            onClick={() => pushScreen('profile')}
+            className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/5"
+          >
+            <span className="material-symbols-outlined text-[22px]">account_circle</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">PROFILE</span>
           </button>
         </nav>
       </div>

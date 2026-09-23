@@ -3,6 +3,46 @@ import { AppContext } from '../context/AppContext';
 
 const allServices = [
   {
+    id: 'SV-SV-1787581117591',
+    name: 'Suprabhata Seva',
+    desc: 'Morning awakening and daily worship of the Lord.',
+    price: 150,
+    persons: 5,
+    extraPersonCost: 0,
+    capacity: 20,
+    timings: '08:00 AM - 08:30 PM',
+    type: 'Daily',
+    instructions: 'Morning awakening and daily worship of the Lord.',
+    status: 'Active'
+  },
+  {
+    id: 'SV-SV-1787581225681',
+    name: 'Sahasranama Archane',
+    desc: "Chanting of the Lord's holy names.",
+    price: 150,
+    persons: 5,
+    extraPersonCost: 5,
+    capacity: 'Unlimited',
+    timings: '08:00 AM - 09:30 PM',
+    type: 'Daily',
+    instructions: "Chanting of the Lord's holy names.",
+    status: 'Active'
+  },
+  {
+    id: 'SV-SV-1787581326760',
+    name: 'Amrutha Kalasha Prarthana',
+    desc: 'Devotees offer special prayers to Goddess Mahalakshmi. It is a strong local belief that invoking the Goddess, who has an Amrutha Kalasha (pot of nectar) below her lotus feet, fulfills the true desires of the devotee',
+    price: 150,
+    persons: 2,
+    extraPersonCost: 100,
+    capacity: 5,
+    timings: '08:00 AM - 10:30 PM',
+    type: 'Weekly',
+    selectedDays: ['Saturday', 'Sunday'],
+    instructions: 'Devotees offer special prayers to Goddess Mahalakshmi. It is a strong local belief that invoking the Goddess, who has an Amrutha Kalasha (pot of nectar) below her lotus feet, fulfills the true desires of the devotee',
+    status: 'Active'
+  },
+  {
     id: 'maha-aarti',
     name: 'Maha Aarti',
     desc: 'A grand evening devotion featuring elaborate lamp offerings, chanting, and divine blessings.',

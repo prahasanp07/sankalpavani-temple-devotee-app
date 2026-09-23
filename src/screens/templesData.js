@@ -1,23 +1,40 @@
-﻿export const templesData = [
+import marenahalliImg from '../assets/marenahalli-1.jpeg';
+import lakshmiNarayana1Img from '../assets/lakshmi-narayana-1.jpg';
+import lakshmiNarayana2Img from '../assets/lakshmi-narayana-2.jpg';
+
+export const templesData = [
   {
-    id: 'dodda-ganesha-basavanagudi',
-    name: 'Dodda Ganesha Temple',
-    location: 'Basavanagudi, Bengaluru',
+    id: 'sri-lakshmi-narasimha-marenahalli',
+    name: 'Sri Lakshmi Narasimha Swamy Temple',
+    location: 'Marehalli',
     rating: '4.9',
     reviews: '2.4k',
-    distance: '3.5 km',
-    img: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=600&q=80',
+    distance: '14.5 km',
+    img: marenahalliImg,
     lat: 12.9416,
     lng: 77.5684
   },
   {
-    id: 'bull-temple-basavanagudi',
-    name: 'Bull Temple (Nandi Temple)',
-    location: 'Bugle Rock, Basavanagudi, Bengaluru',
+    id: 'sri-lakshmi-narayana-eshwarahalli',
+    name: 'Sri Lakshmi Narayana Temple',
+    location: 'Eshwarahalli, Chikkamagaluru',
     rating: '4.9',
-    reviews: '3.8k',
-    distance: '3.6 km',
-    img: 'https://images.unsplash.com/photo-1600100397990-14b5850b5e6b?auto=format&fit=crop&w=600&q=80',
+    reviews: '2.1k',
+    distance: '35 km',
+    img: lakshmiNarayana1Img,
+    mapUrl: 'https://maps.app.goo.gl/minKJeAv2oJC8mZs5',
+    lat: 12.9480,
+    lng: 77.5720
+  },
+  {
+    id: 'shree-gudadha-ranganatha-eshwarahalli',
+    name: 'Shree Gudadha Ranganatha Swamy Temple',
+    location: 'Eshwarahalli Hillock, Chikkamagaluru',
+    rating: '4.9',
+    reviews: '1.9k',
+    distance: '36 km',
+    img: lakshmiNarayana2Img,
+    mapUrl: 'https://maps.app.goo.gl/minKJeAv2oJC8mZs5',
     lat: 12.9418,
     lng: 77.5682
   },

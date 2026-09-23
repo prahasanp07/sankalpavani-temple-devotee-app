@@ -3,7 +3,7 @@ import { AppContext } from '../context/AppContext';
 import { templesData } from './templesData';
 
 export default function TemplesListScreen() {
-  const { popScreen, pushScreen, setSelectedTemple } = useContext(AppContext);
+  const { popScreen, pushScreen, setSelectedTemple, favorites = [], toggleFavorite } = useContext(AppContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('All');
 
@@ -101,12 +101,26 @@ export default function TemplesListScreen() {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     src={temple.img}
                   />
-                  <div className="absolute top-2 right-2 bg-navy-bg/85 backdrop-blur-md px-1.5 py-0.5 rounded text-[9px] border border-white-muted/10 flex items-center gap-0.5 shadow">
-                    <span className="material-symbols-outlined text-gold-primary text-[10px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-                      star
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFavorite(temple.id);
+                    }}
+                    className={`absolute top-2 right-2 backdrop-blur-md p-1.5 rounded-full border shadow transition-all duration-200 active:scale-125 z-10 flex items-center justify-center ${
+                      favorites.includes(temple.id)
+                        ? 'bg-red-500/25 border-red-500/50 text-red-500 shadow-[0_0_8px_rgba(239,68,68,0.4)]'
+                        : 'bg-navy-bg/75 border-white-muted/20 text-white/75 hover:text-red-400 hover:bg-navy-bg/90'
+                    }`}
+                    aria-label={favorites.includes(temple.id) ? "Remove from favorites" : "Add to favorites"}
+                  >
+                    <span 
+                      className="material-symbols-outlined text-[15px] leading-none transition-transform"
+                      style={{ fontVariationSettings: favorites.includes(temple.id) ? "'FILL' 1" : "'FILL' 0" }}
+                    >
+                      favorite
                     </span>
-                    <span className="font-bold text-on-surface">{temple.rating}</span>
-                  </div>
+                  </button>
                 </div>
                 <div className="p-3 flex-grow flex flex-col justify-between gap-1.5">
                   <div>

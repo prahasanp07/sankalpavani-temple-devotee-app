@@ -17,7 +17,7 @@ export default function BookingDetailScreen() {
   const extraDevotees = Math.max(0, totalDevotees - basePersons);
   const sevaFare = basePrice + (extraDevotees * extraPersonCost);
 
-  const convenienceFee = 45;
+  const convenienceFee = 1;
   const gstAmount = Math.round(sevaFare * 0.18);
   const totalAmount = sevaFare + convenienceFee + gstAmount;
 
@@ -32,7 +32,7 @@ export default function BookingDetailScreen() {
       {/* Top Header */}
       <header className="fixed top-0 inset-x-0 w-full z-45 bg-surface/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3 flex items-center">
         <div className="max-w-4xl mx-auto w-full flex items-center justify-between">
-          <button 
+          <button
             onClick={popScreen}
             className="text-gold-primary hover:text-gold-secondary transition-colors"
             aria-label="Go Back"
@@ -140,8 +140,8 @@ export default function BookingDetailScreen() {
 
           {/* Terms Agreement Checkbox */}
           <section className="flex items-start gap-3 px-1">
-            <input 
-              type="checkbox" 
+            <input
+              type="checkbox"
               id="terms"
               checked={agreed}
               onChange={(e) => setAgreed(e.target.checked)}
@@ -154,14 +154,13 @@ export default function BookingDetailScreen() {
 
           {/* Inline CTA on large screens */}
           <div className="hidden lg:block pt-2">
-            <button 
+            <button
               onClick={handleProceed}
               disabled={!agreed}
-              className={`w-full font-headline-sm text-sm py-4 rounded-xl uppercase tracking-wider transition-colors font-bold shadow-lg ${
-                agreed 
-                  ? 'bg-gold-primary text-navy-bg hover:bg-gold-secondary cursor-pointer' 
-                  : 'bg-white-muted/10 text-white-muted/30 cursor-not-allowed'
-              }`}
+              className={`w-full font-headline-sm text-sm py-4 rounded-xl uppercase tracking-wider transition-colors font-bold shadow-lg ${agreed
+                ? 'bg-gold-primary text-navy-bg hover:bg-gold-secondary cursor-pointer'
+                : 'bg-white-muted/10 text-white-muted/30 cursor-not-allowed'
+                }`}
             >
               Proceed to Payment
             </button>
@@ -172,14 +171,13 @@ export default function BookingDetailScreen() {
       {/* Fixed bottom button on mobile / tablet portrait */}
       <div className="lg:hidden fixed bottom-0 inset-x-0 w-full bg-navy-bg border-t border-white-muted/10 p-margin-main pb-safe flex justify-center z-40">
         <div className="max-w-4xl w-full flex gap-4">
-          <button 
+          <button
             onClick={handleProceed}
             disabled={!agreed}
-            className={`flex-grow font-headline-sm text-sm py-4 rounded-xl uppercase tracking-wider transition-colors font-bold ${
-              agreed 
-                ? 'bg-gold-primary text-navy-bg hover:bg-gold-secondary cursor-pointer' 
-                : 'bg-white-muted/10 text-white-muted/30 cursor-not-allowed'
-            }`}
+            className={`flex-grow font-headline-sm text-sm py-4 rounded-xl uppercase tracking-wider transition-colors font-bold ${agreed
+              ? 'bg-gold-primary text-navy-bg hover:bg-gold-secondary cursor-pointer'
+              : 'bg-white-muted/10 text-white-muted/30 cursor-not-allowed'
+              }`}
           >
             Proceed to Payment
           </button>

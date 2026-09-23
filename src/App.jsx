@@ -19,6 +19,7 @@ import BookingsHistoryScreen from './screens/BookingsHistoryScreen';
 import DevotionalAggregatorScreen from './screens/DevotionalAggregatorScreen';
 import DonationScreen from './screens/DonationScreen';
 import TemplesListScreen from './screens/TemplesListScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 function AppContent() {
   const { currentScreen, popScreen, currentScreenStack } = useContext(AppContext);
@@ -84,13 +85,15 @@ function AppContent() {
         return <DevotionalAggregatorScreen />;
       case 'donation':
         return <DonationScreen />;
+      case 'profile':
+        return <ProfileScreen />;
       default:
         return <HomeScreen />;
     }
   };
 
   return (
-    <div className="flex flex-col min-h-[100dvh] bg-navy-bg text-on-surface overflow-hidden font-sans pt-[max(env(safe-area-inset-top),1.5rem)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]">
+    <div className="flex flex-col min-h-[100dvh] bg-navy-bg text-on-surface overflow-hidden font-sans pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]">
       <div className="flex-1 overflow-y-auto w-full max-w-7xl mx-auto relative bg-navy-bg">
         {renderScreen()}
       </div>

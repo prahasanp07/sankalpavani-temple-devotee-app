@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import lakshmiNarayana1Img from '../assets/lakshmi-narayana-1.jpg';
 
 export const AppContext = createContext();
 
@@ -91,13 +92,24 @@ export const AppProvider = ({ children }) => {
 
   // Selected temple state (used globally across home and detail screens)
   const [selectedTemple, setSelectedTemple] = useState({
-    id: 'dodda-ganesha-basavanagudi',
-    name: 'Dodda Ganesha Temple',
-    location: 'Basavanagudi, Bengaluru',
+    id: 'sri-lakshmi-narayana-eshwarahalli',
+    name: 'Sri Lakshmi Narayana Temple',
+    location: 'Eshwarahalli, Chikkamagaluru',
     rating: '4.9',
-    reviews: '2.4k',
-    distance: '3.5 km',
-    img: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=600&q=80'
+    reviews: '2.1k',
+    distance: '35 km',
+    img: lakshmiNarayana1Img,
+    mapUrl: 'https://maps.app.goo.gl/minKJeAv2oJC8mZs5'
+  });
+
+  // Favorite temples state (persisted per device/devotee)
+  const [favorites, setFavorites] = useState(() => {
+    try {
+      const saved = localStorage.getItem('sankalpavani_favorites');
+      return saved ? JSON.parse(saved) : ['sri-lakshmi-narayana-eshwarahalli', 'sri-lakshmi-narasimha-marenahalli'];
+    } catch (e) {
+      return ['sri-lakshmi-narayana-eshwarahalli', 'sri-lakshmi-narasimha-marenahalli'];
+    }
   });
 
   // Save states to local storage
@@ -116,6 +128,16 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('sankalpavani_donations', JSON.stringify(donationsHistory));
   }, [donationsHistory]);
+
+  useEffect(() => {
+    localStorage.setItem('sankalpavani_favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  const toggleFavorite = (templeId) => {
+    setFavorites(prev => 
+      prev.includes(templeId) ? prev.filter(id => id !== templeId) : [...prev, templeId]
+    );
+  };
 
   // Actions
   const login = (phone) => {
@@ -198,6 +220,7 @@ export const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         currentUser,
+        setCurrentUser,
         login,
         logout,
         bookingsHistory,
@@ -217,6 +240,8 @@ export const AppProvider = ({ children }) => {
         confirmDonation,
         selectedTemple,
         setSelectedTemple,
+        favorites,
+        toggleFavorite,
         
         // Playlist state
         playlist,
