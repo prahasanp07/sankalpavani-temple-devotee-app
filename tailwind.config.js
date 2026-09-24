@@ -77,13 +77,13 @@ export default {
         "gutter-grid": "16px"
       },
       fontFamily: {
-        "headline-sm": ["Oswald", "sans-serif"],
-        "label-caps": ["Inter", "sans-serif"],
-        "headline-lg": ["Oswald", "sans-serif"],
-        "body-lg": ["Inter", "sans-serif"],
-        "headline-md": ["Oswald", "sans-serif"],
-        "body-md": ["Inter", "sans-serif"],
-        "display-vertical": ["Oswald", "sans-serif"]
+        "headline-sm": ["Oswald", "Noto Sans Kannada", "sans-serif"],
+        "label-caps": ["Inter", "Noto Sans Kannada", "sans-serif"],
+        "headline-lg": ["Oswald", "Noto Sans Kannada", "sans-serif"],
+        "body-lg": ["Inter", "Noto Sans Kannada", "sans-serif"],
+        "headline-md": ["Oswald", "Noto Sans Kannada", "sans-serif"],
+        "body-md": ["Inter", "Noto Sans Kannada", "sans-serif"],
+        "display-vertical": ["Oswald", "Noto Sans Kannada", "sans-serif"]
       },
       fontSize: {
         "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],

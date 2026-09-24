@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AppContext } from '../context/AppContext';
 import indiaMapClean from '../assets/india_map_clean.png';
 import lakshmiNarayana1Img from '../assets/lakshmi-narayana-1.jpg';
@@ -83,6 +84,7 @@ const popularSevas = [
 ];
 
 export default function HomeScreen() {
+  const { t } = useTranslation();
   const { currentUser, pushScreen, logout, selectedTemple, setSelectedTemple, setActiveBooking, playlist, currentTrackIndex, isPlaying, setIsPlaying, favorites = [], toggleFavorite } = useContext(AppContext);
 
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -357,7 +359,7 @@ export default function HomeScreen() {
               onClick={() => pushScreen('profile')}
               className="cursor-pointer group"
             >
-              <p className="text-[10px] text-white-muted uppercase tracking-wider font-semibold">Welcome Back</p>
+              <p className="text-[10px] text-white-muted uppercase tracking-wider font-semibold">{t('home.greeting')}</p>
               <h3 className="font-extrabold text-sm text-gold-primary tracking-wide flex items-center gap-1 group-hover:text-gold-secondary transition-colors">
                 <span>{currentUser?.name || "Prahasan P"}</span>
                 <span className="material-symbols-outlined text-xs text-gold-primary">chevron_right</span>
@@ -388,7 +390,7 @@ export default function HomeScreen() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search temples and sevas..."
+              placeholder={t('home.searchPlaceholder')}
               className="w-full bg-transparent text-xs text-on-surface focus:outline-none placeholder:text-white-muted/40 font-medium"
             />
             {searchQuery && (
@@ -494,13 +496,13 @@ export default function HomeScreen() {
         <section className="mt-6 px-4 flex-shrink-0">
           <div className="flex justify-between items-center mb-3">
             <h3 className="font-headline-sm text-xs text-on-surface font-bold uppercase tracking-wider">
-              {searchQuery.trim() ? `Temples (${filteredTemples.length})` : 'Explore Temples'}
+              {searchQuery.trim() ? `Temples (${filteredTemples.length})` : t('home.exploreTemples')}
             </h3>
             <button
               onClick={() => pushScreen('temples-list')}
               className="text-gold-primary text-[10px] font-bold uppercase tracking-widest hover:text-gold-secondary transition-colors flex items-center gap-0.5"
             >
-              View All <span className="material-symbols-outlined text-[12px]">chevron_right</span>
+              {t('common.viewAll')} <span className="material-symbols-outlined text-[12px]">chevron_right</span>
             </button>
           </div>
 
@@ -569,7 +571,7 @@ export default function HomeScreen() {
         {/* Sacred Offers & Updates Section (Moved below temples section with Auto-Loop) */}
         <section className="mt-6 px-4 flex-shrink-0">
           <div className="flex justify-between items-center mb-3">
-            <h3 className="font-headline-sm text-xs text-on-surface font-bold uppercase tracking-wider">Sacred Offers & Updates</h3>
+            <h3 className="font-headline-sm text-xs text-on-surface font-bold uppercase tracking-wider">{t('home.featuredPuja')}</h3>
             <div className="flex gap-1.5">
               {featuredBanners.map((_, idx) => (
                 <span
@@ -626,7 +628,7 @@ export default function HomeScreen() {
         <section className="mt-6 px-4 flex-shrink-0">
           <div className="flex justify-between items-center mb-3">
             <h3 className="font-headline-sm text-xs text-on-surface font-bold uppercase tracking-wider">
-              {searchQuery.trim() ? `Matching Sevas (${filteredSevas.length})` : 'Popular Sevas'}
+              {searchQuery.trim() ? `Matching Sevas (${filteredSevas.length})` : t('home.popularSevas')}
             </h3>
             <button
               onClick={() => {
@@ -897,7 +899,7 @@ export default function HomeScreen() {
             className="flex flex-col items-center justify-center text-gold-primary gap-1 transition-transform duration-300 active:scale-90 w-1/5"
           >
             <span className="material-symbols-outlined text-[22px]" style={{ fontVariationSettings: "'FILL' 1" }}>distance</span>
-            <span className="text-[8px] text-gold-primary font-bold uppercase tracking-wider">HOME</span>
+            <span className="text-[8px] text-gold-primary font-bold uppercase tracking-wider">{t('nav.home')}</span>
           </button>
 
           {/* BOOKINGS */}
@@ -906,7 +908,7 @@ export default function HomeScreen() {
             className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/5"
           >
             <span className="material-symbols-outlined text-[22px]">event_upcoming</span>
-            <span className="text-[8px] font-medium uppercase tracking-wider">BOOKINGS</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">{t('nav.bookings')}</span>
           </button>
 
           {/* HUB */}
@@ -915,7 +917,7 @@ export default function HomeScreen() {
             className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/5"
           >
             <span className="material-symbols-outlined text-[22px]">library_music</span>
-            <span className="text-[8px] font-medium uppercase tracking-wider">HUB</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">{t('nav.hub')}</span>
           </button>
 
           {/* DONATE */}
@@ -924,7 +926,7 @@ export default function HomeScreen() {
             className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/5"
           >
             <span className="material-symbols-outlined text-[22px]">volunteer_activism</span>
-            <span className="text-[8px] font-medium uppercase tracking-wider">DONATE</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">{t('nav.donate')}</span>
           </button>
 
           {/* PROFILE */}
@@ -933,7 +935,7 @@ export default function HomeScreen() {
             className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/5"
           >
             <span className="material-symbols-outlined text-[22px]">account_circle</span>
-            <span className="text-[8px] font-medium uppercase tracking-wider">PROFILE</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">{t('nav.profile')}</span>
           </button>
         </nav>
       </div>

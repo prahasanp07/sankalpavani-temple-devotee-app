@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AppContext } from '../context/AppContext';
 
 const festivals = [
@@ -8,6 +9,7 @@ const festivals = [
 ];
 
 export default function DevotionalAggregatorScreen() {
+  const { t } = useTranslation();
   const { 
     pushScreen,
     playlist, 
@@ -231,7 +233,7 @@ export default function DevotionalAggregatorScreen() {
             className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
           >
             <span className="material-symbols-outlined text-[22px]">distance</span>
-            <span className="text-[8px] font-medium uppercase tracking-wider">HOME</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">{t('nav.home')}</span>
           </button>
           
           {/* BOOKINGS */}
@@ -240,7 +242,7 @@ export default function DevotionalAggregatorScreen() {
             className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
           >
             <span className="material-symbols-outlined text-[22px]">event_upcoming</span>
-            <span className="text-[8px] font-medium uppercase tracking-wider">BOOKINGS</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">{t('nav.bookings')}</span>
           </button>
           
           {/* HUB */}
@@ -249,7 +251,7 @@ export default function DevotionalAggregatorScreen() {
             className="flex flex-col items-center justify-center text-gold-primary gap-1 transition-transform duration-300 active:scale-90 w-1/4"
           >
             <span className="material-symbols-outlined text-[22px]" style={{ fontVariationSettings: "'FILL' 1" }}>library_music</span>
-            <span className="text-[8px] text-gold-primary font-bold uppercase tracking-wider">HUB</span>
+            <span className="text-[8px] text-gold-primary font-bold uppercase tracking-wider">{t('nav.hub')}</span>
           </button>
 
           {/* DONATE */}
@@ -258,7 +260,7 @@ export default function DevotionalAggregatorScreen() {
             className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
           >
             <span className="material-symbols-outlined text-[22px]">volunteer_activism</span>
-            <span className="text-[8px] font-medium uppercase tracking-wider">DONATE</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">{t('nav.donate')}</span>
           </button>
         </nav>
       </div>

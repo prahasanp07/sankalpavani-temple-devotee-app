@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AppContext } from '../context/AppContext';
 
 const gotramsList = [
@@ -33,26 +34,27 @@ const rashisList = [
 const languagesList = [
   { code: 'en', name: 'English', native: 'English' },
   { code: 'kn', name: 'Kannada', native: 'ಕನ್ನಡ' },
-  { code: 'te', name: 'Telugu', native: 'తెలుగు' },
-  { code: 'ta', name: 'Tamil', native: 'தமிழ்' },
-  { code: 'hi', name: 'Hindi', native: 'हिन्दी' }
+  // { code: 'te', name: 'Telugu', native: 'తెలుగు' },
+  // { code: 'ta', name: 'Tamil', native: 'தமிழ்' },
+  // { code: 'hi', name: 'Hindi', native: 'हिन्दी' }
 ];
 
 export default function ProfileScreen() {
-  const { 
-    currentUser, 
-    setCurrentUser, 
-    popScreen, 
-    pushScreen, 
-    logout, 
-    bookingsHistory = [], 
+  const { t, i18n } = useTranslation();
+  const {
+    currentUser,
+    setCurrentUser,
+    popScreen,
+    pushScreen,
+    logout,
+    bookingsHistory = [],
     donationsHistory = [],
-    favorites = [] 
+    favorites = []
   } = useContext(AppContext);
 
   const [isEditing, setIsEditing] = useState(false);
   const [saveSuccessMessage, setSaveSuccessMessage] = useState('');
-  
+
   // Profile form state
   const [formData, setFormData] = useState({
     name: currentUser?.name || 'Prahasan P',
@@ -91,7 +93,15 @@ export default function ProfileScreen() {
   const [showAddMemberModal, setShowAddMemberModal] = useState(false);
 
   // App settings & preferences
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const currentLang = (i18n.language || 'en').split('-')[0];
+  const handleLanguageChange = (langCode) => {
+    i18n.changeLanguage(langCode);
+    try {
+      localStorage.setItem('sankalpavani_language', langCode);
+    } catch (e) {
+      console.error(e);
+    }
+  };
   const [panchangAlerts, setPanchangAlerts] = useState(true);
   const [sevaReminders, setSevaReminders] = useState(true);
   const [audioAutoplay, setAudioAutoplay] = useState(false);
@@ -143,9 +153,9 @@ export default function ProfileScreen() {
           >
             <span className="material-symbols-outlined text-2xl">arrow_back</span>
           </button>
-          
+
           <h1 className="font-headline-sm text-sm font-bold text-on-surface uppercase tracking-wider">
-            Devotee Profile
+            {t('profile.title')}
           </h1>
 
           <button
@@ -153,7 +163,7 @@ export default function ProfileScreen() {
             className="text-gold-primary hover:text-gold-secondary text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-gold-primary/30 bg-gold-primary/10 transition-colors flex items-center gap-1"
           >
             <span className="material-symbols-outlined text-sm">{isEditing ? 'close' : 'edit'}</span>
-            <span>{isEditing ? 'Cancel' : 'Edit'}</span>
+            <span>{isEditing ? t('common.cancel') : t('common.edit')}</span>
           </button>
         </div>
       </header>
@@ -170,11 +180,11 @@ export default function ProfileScreen() {
 
       {/* Main Content Area */}
       <main className="max-w-4xl mx-auto w-full px-4 py-5 space-y-6">
-        
+
         {/* Devotee Avatar & Identity Card */}
         <section className="bg-gradient-to-br from-navy-surface via-navy-surface/95 to-navy-bg border border-gold-primary/30 rounded-2xl p-5 md:p-6 shadow-xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-36 h-36 bg-gold-primary/10 rounded-full blur-2xl pointer-events-none"></div>
-          
+
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 md:gap-6 relative z-10">
             {/* Avatar with gold ring */}
             <div className="relative group">
@@ -224,21 +234,21 @@ export default function ProfileScreen() {
 
           {/* Quick Spiritual Activity Summary */}
           <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-6 pt-5 border-t border-white-muted/10 text-center">
-            <div 
+            <div
               onClick={() => pushScreen('bookings-history')}
               className="bg-navy-bg/60 p-2.5 rounded-xl border border-white-muted/10 hover:border-gold-primary/40 cursor-pointer transition-colors"
             >
               <p className="font-headline-md text-base sm:text-lg font-bold text-gold-primary">{bookingsHistory.length}</p>
               <p className="text-[10px] text-white-muted uppercase tracking-wider font-semibold mt-0.5">Sevas Booked</p>
             </div>
-            <div 
+            <div
               onClick={() => pushScreen('donation')}
               className="bg-navy-bg/60 p-2.5 rounded-xl border border-white-muted/10 hover:border-gold-primary/40 cursor-pointer transition-colors"
             >
               <p className="font-headline-md text-base sm:text-lg font-bold text-gold-primary">₹{totalDonationsAmount.toLocaleString('en-IN')}</p>
               <p className="text-[10px] text-white-muted uppercase tracking-wider font-semibold mt-0.5">Contributions</p>
             </div>
-            <div 
+            <div
               onClick={() => pushScreen('temples-list')}
               className="bg-navy-bg/60 p-2.5 rounded-xl border border-white-muted/10 hover:border-gold-primary/40 cursor-pointer transition-colors"
             >
@@ -250,7 +260,7 @@ export default function ProfileScreen() {
 
         {/* Edit / View Devotee Details Form */}
         <form onSubmit={handleSaveProfile} className="space-y-6">
-          
+
           {/* Section 1: Spiritual & Sankalpa Credentials */}
           <section className="bg-navy-surface/50 border border-white-muted/10 rounded-2xl p-5 shadow-sm space-y-4">
             <div className="flex items-center justify-between border-b border-white-muted/10 pb-2.5">
@@ -474,7 +484,7 @@ export default function ProfileScreen() {
               <span className="material-symbols-outlined text-gold-primary text-xl">family_restroom</span>
               <div>
                 <h3 className="font-headline-sm text-xs font-bold text-on-surface uppercase tracking-wider">
-                  Saved Family Registry
+                  {t('profile.familyMembers')}
                 </h3>
                 <p className="text-[10px] text-white-muted">Quickly add family members into puja bookings</p>
               </div>
@@ -486,13 +496,13 @@ export default function ProfileScreen() {
               className="text-gold-primary hover:text-gold-secondary text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-xl border border-gold-primary/30 bg-gold-primary/10 transition-colors flex items-center gap-1"
             >
               <span className="material-symbols-outlined text-sm">add</span>
-              <span>Add Member</span>
+              <span>{t('profile.addFamilyMember')}</span>
             </button>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {familyMembers.map((member) => (
-              <div 
+              <div
                 key={member.id}
                 className="bg-navy-bg p-3.5 rounded-xl border border-white-muted/10 flex justify-between items-center group hover:border-gold-primary/30 transition-colors"
               >
@@ -528,7 +538,7 @@ export default function ProfileScreen() {
           <div className="flex items-center gap-2 border-b border-white-muted/10 pb-2.5">
             <span className="material-symbols-outlined text-gold-primary text-xl">tune</span>
             <h3 className="font-headline-sm text-xs font-bold text-on-surface uppercase tracking-wider">
-              Preferences & App Settings
+              {t('profile.preferences')}
             </h3>
           </div>
 
@@ -536,12 +546,12 @@ export default function ProfileScreen() {
             {/* Preferred Language */}
             <div className="pt-2 flex justify-between items-center">
               <div>
-                <p className="text-xs font-bold text-on-surface">App Language</p>
-                <p className="text-[10px] text-white-muted">Choose your preferred devotional language</p>
+                <p className="text-xs font-bold text-on-surface">{t('profile.appLanguage')}</p>
+                <p className="text-[10px] text-white-muted">{t('profile.chooseLanguage')}</p>
               </div>
               <select
-                value={selectedLanguage}
-                onChange={(e) => setSelectedLanguage(e.target.value)}
+                value={currentLang}
+                onChange={(e) => handleLanguageChange(e.target.value)}
                 className="bg-navy-bg border border-white-muted/20 text-gold-primary text-xs font-bold rounded-lg px-2.5 py-1.5 focus:outline-none"
               >
                 {languagesList.map(lang => (
@@ -555,15 +565,14 @@ export default function ProfileScreen() {
             {/* Daily Panchang Notifications */}
             <div className="pt-3 flex justify-between items-center">
               <div>
-                <p className="text-xs font-bold text-on-surface">Daily Panchang & Tithi Alerts</p>
-                <p className="text-[10px] text-white-muted">Receive morning Rahukala and auspicious muhurta alerts</p>
+                <p className="text-xs font-bold text-on-surface">{t('profile.panchangAlerts')}</p>
+                <p className="text-[10px] text-white-muted">{t('profile.panchangAlertsDesc')}</p>
               </div>
               <button
                 type="button"
                 onClick={() => setPanchangAlerts(!panchangAlerts)}
-                className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors ${
-                  panchangAlerts ? 'bg-gold-primary justify-end' : 'bg-navy-bg border border-white-muted/20 justify-start'
-                }`}
+                className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors ${panchangAlerts ? 'bg-gold-primary justify-end' : 'bg-navy-bg border border-white-muted/20 justify-start'
+                  }`}
               >
                 <div className={`w-4 h-4 rounded-full ${panchangAlerts ? 'bg-navy-bg' : 'bg-white-muted'}`} />
               </button>
@@ -578,9 +587,8 @@ export default function ProfileScreen() {
               <button
                 type="button"
                 onClick={() => setSevaReminders(!sevaReminders)}
-                className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors ${
-                  sevaReminders ? 'bg-gold-primary justify-end' : 'bg-navy-bg border border-white-muted/20 justify-start'
-                }`}
+                className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors ${sevaReminders ? 'bg-gold-primary justify-end' : 'bg-navy-bg border border-white-muted/20 justify-start'
+                  }`}
               >
                 <div className={`w-4 h-4 rounded-full ${sevaReminders ? 'bg-navy-bg' : 'bg-white-muted'}`} />
               </button>
@@ -595,9 +603,8 @@ export default function ProfileScreen() {
               <button
                 type="button"
                 onClick={() => setAudioAutoplay(!audioAutoplay)}
-                className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors ${
-                  audioAutoplay ? 'bg-gold-primary justify-end' : 'bg-navy-bg border border-white-muted/20 justify-start'
-                }`}
+                className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors ${audioAutoplay ? 'bg-gold-primary justify-end' : 'bg-navy-bg border border-white-muted/20 justify-start'
+                  }`}
               >
                 <div className={`w-4 h-4 rounded-full ${audioAutoplay ? 'bg-navy-bg' : 'bg-white-muted'}`} />
               </button>
@@ -645,7 +652,7 @@ export default function ProfileScreen() {
               className="w-full bg-rose-950/40 hover:bg-rose-900/60 border border-rose-500/30 text-rose-300 font-headline-sm text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition-colors flex items-center justify-center gap-2"
             >
               <span className="material-symbols-outlined text-base">logout</span>
-              Sign Out from Device
+              {t('profile.logout')}
             </button>
           </div>
         </section>

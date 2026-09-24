@@ -1,7 +1,9 @@
 import React, { useState, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AppContext } from '../context/AppContext';
 
 export default function BookingsHistoryScreen() {
+  const { t } = useTranslation();
   const { bookingsHistory, pushScreen } = useContext(AppContext);
   const [activeTab, setActiveTab] = useState('upcoming');
   const [selectedTicket, setSelectedTicket] = useState(null);
@@ -63,8 +65,8 @@ export default function BookingsHistoryScreen() {
       <main className="px-margin-main max-w-4xl mx-auto mt-6 flex flex-col gap-6 w-full">
         {/* Header Title */}
         <section className="text-center">
-          <h2 className="font-headline-lg text-2xl text-gold-primary tracking-wide">MY BOOKINGS</h2>
-          <p className="font-body-md text-sm text-white-muted">Manage your upcoming and past temple sevas.</p>
+          <h2 className="font-headline-lg text-2xl text-gold-primary tracking-wide">{t('bookings.title')}</h2>
+          <p className="font-body-md text-sm text-white-muted">{t('bookings.subtitle')}</p>
         </section>
 
         {/* Tab Toggle */}
@@ -75,7 +77,7 @@ export default function BookingsHistoryScreen() {
               activeTab === 'upcoming' ? 'text-gold-primary border-gold-primary' : 'text-white-muted border-transparent hover:text-white'
             }`}
           >
-            Upcoming Sevas ({upcomingBookings.length})
+            {t('bookings.upcoming')} ({upcomingBookings.length})
           </button>
           <button 
             onClick={() => { setActiveTab('past'); setSelectedTicket(null); }}
@@ -83,7 +85,7 @@ export default function BookingsHistoryScreen() {
               activeTab === 'past' ? 'text-gold-primary border-gold-primary' : 'text-white-muted border-transparent hover:text-white'
             }`}
           >
-            Past Sevas ({pastBookings.length})
+            {t('bookings.completed')} ({pastBookings.length})
           </button>
         </div>
 
@@ -241,7 +243,7 @@ export default function BookingsHistoryScreen() {
             className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
           >
             <span className="material-symbols-outlined text-[22px]">distance</span>
-            <span className="text-[8px] font-medium uppercase tracking-wider">HOME</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">{t('nav.home')}</span>
           </button>
           
           {/* BOOKINGS */}
@@ -250,7 +252,7 @@ export default function BookingsHistoryScreen() {
             className="flex flex-col items-center justify-center text-gold-primary gap-1 transition-transform duration-300 active:scale-90 w-1/4"
           >
             <span className="material-symbols-outlined text-[22px]" style={{ fontVariationSettings: "'FILL' 1" }}>event_upcoming</span>
-            <span className="text-[8px] text-gold-primary font-bold uppercase tracking-wider">BOOKINGS</span>
+            <span className="text-[8px] text-gold-primary font-bold uppercase tracking-wider">{t('nav.bookings')}</span>
           </button>
           
           {/* HUB */}
@@ -259,7 +261,7 @@ export default function BookingsHistoryScreen() {
             className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
           >
             <span className="material-symbols-outlined text-[22px]">library_music</span>
-            <span className="text-[8px] font-medium uppercase tracking-wider">HUB</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">{t('nav.hub')}</span>
           </button>
 
           {/* DONATE */}
@@ -268,7 +270,7 @@ export default function BookingsHistoryScreen() {
             className="flex flex-col items-center justify-center text-white-muted gap-1 hover:text-gold-primary/85 transition-transform duration-300 active:scale-90 w-1/4"
           >
             <span className="material-symbols-outlined text-[22px]">volunteer_activism</span>
-            <span className="text-[8px] font-medium uppercase tracking-wider">DONATE</span>
+            <span className="text-[8px] font-medium uppercase tracking-wider">{t('nav.donate')}</span>
           </button>
         </nav>
       </div>

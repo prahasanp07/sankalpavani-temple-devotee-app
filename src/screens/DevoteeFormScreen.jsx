@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AppContext } from '../context/AppContext';
 
 const gotramsList = [
@@ -25,6 +26,7 @@ const nakshatramsList = [
 ];
 
 export default function DevoteeFormScreen() {
+  const { t } = useTranslation();
   const { activeBooking, popScreen, saveDevotees, currentUser } = useContext(AppContext);
   const service = activeBooking.service || {};
   const basePrice = service.price || 500;
@@ -169,7 +171,7 @@ export default function DevoteeFormScreen() {
           >
             <span className="material-symbols-outlined text-2xl">arrow_back</span>
           </button>
-          <h1 className="font-headline-md text-base text-gold-primary uppercase tracking-widest text-center flex-1">Devotee Details</h1>
+          <h1 className="font-headline-md text-base text-gold-primary uppercase tracking-widest text-center flex-1">{t('devoteeForm.title')}</h1>
           <div className="w-6"></div> {/* Spacer */}
         </div>
       </header>
@@ -186,11 +188,11 @@ export default function DevoteeFormScreen() {
         <section className="space-y-3">
           <div className="flex items-center gap-3">
             <span className="material-symbols-outlined text-gold-primary">person</span>
-            <h2 className="font-headline-sm text-sm text-on-surface uppercase font-bold">Primary Devotee</h2>
+            <h2 className="font-headline-sm text-sm text-on-surface uppercase font-bold">{t('devoteeForm.primaryDevotee')}</h2>
           </div>
           <div className="bg-navy-surface rounded-xl p-4 border border-border-subtle shadow-md space-y-4">
             <div>
-              <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase" htmlFor="fullName">Full Name *</label>
+              <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase" htmlFor="fullName">{t('devoteeForm.name')} *</label>
               <input 
                 className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
                 id="fullName" 
@@ -203,7 +205,7 @@ export default function DevoteeFormScreen() {
             
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase" htmlFor="gotram">Gotram *</label>
+                <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase" htmlFor="gotram">{t('devoteeForm.gotram')} *</label>
                 <select
                   className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
                   id="gotram"
@@ -217,7 +219,7 @@ export default function DevoteeFormScreen() {
                 </select>
               </div>
               <div>
-                <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase" htmlFor="nakshatram">Nakshatram</label>
+                <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase" htmlFor="nakshatram">{t('devoteeForm.nakshatram')}</label>
                 <select
                   className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
                   id="nakshatram"
@@ -239,14 +241,14 @@ export default function DevoteeFormScreen() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <span className="material-symbols-outlined text-gold-primary">group</span>
-              <h2 className="font-headline-sm text-sm text-on-surface uppercase font-bold">Family Members</h2>
+              <h2 className="font-headline-sm text-sm text-on-surface uppercase font-bold">{t('devoteeForm.familyMembersTitle')}</h2>
             </div>
             <button 
               type="button"
               onClick={handleAddMember}
               className="text-gold-primary font-label-caps text-xs uppercase hover:text-gold-secondary transition-colors flex items-center gap-1 font-bold"
             >
-              <span className="material-symbols-outlined text-sm font-bold">add</span> Add New
+              <span className="material-symbols-outlined text-sm font-bold">add</span> {t('devoteeForm.addFamilyMember')}
             </button>
           </div>
 
@@ -417,7 +419,7 @@ export default function DevoteeFormScreen() {
             onClick={handleProceed}
             className="bg-gold-primary text-navy-bg font-headline-sm text-sm font-bold uppercase py-3.5 px-6 rounded-xl hover:bg-gold-secondary transition-colors"
           >
-            Proceed to Review
+            {t('devoteeForm.proceedToSummary')}
           </button>
         </div>
       </div>
