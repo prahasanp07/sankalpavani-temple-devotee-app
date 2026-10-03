@@ -5,25 +5,29 @@
 
 ### Executive Summary
 
-**Sankalpavani Devotee App (v0.2)** is a mobile-first and tablet-responsive devotional application designed for devotees across India to explore temples, book sacred sevas (puja, abhishekam, kalyanotsavam, homam), stream devotional music and stotras, check daily Panchangam, make tax-exempt donations, and access digital e-passes. Built with React, Tailwind CSS, and Capacitor for Android compilation, it delivers native-level mobile interaction with a custom equirectangular map engine, real-time multi-attribute search filtering, category taxonomy management, dynamic calendar constraint locking, rich Sthala Mahime mythological narratives, precise pilgrim capacity surcharge calculations, full hardware safe-area status bar compliance, and fluid responsive multi-column layouts across mobile and tablet form factors.
+**Sankalpavani Devotee App (v0.2)** is a mobile-first devotional application designed for devotees across India to explore sacred shrines, book temple sevas (puja, abhishekam, kalyanotsavam), stream devotional music and stotras, check daily Panchangam, make tax-exempt donations, order home-delivered prasadam, and access digital e-passes with QR code verification. Built with React 18, Tailwind CSS, `i18next` for seamless bilingual localization (English & Kannada / ಕನ್ನಡ), and Capacitor JS for native Android compilation, it delivers a fluid mobile experience with a custom equirectangular map engine, pinch-to-zoom bounding algorithms, touch interaction scroll locks, and custom audio player pipelines.
 
 ---
 
 ## 1. Application Architecture & Tech Stack
 
 * **Frontend Framework**: React 18 with Vite fast bundler.
-* **Styling Engine**: Tailwind CSS with custom design system tokens (`bg-navy-bg` dark background, `text-gold-primary` gold accents, `bg-navy-surface` dark surfaces, and custom typography curves).
-* **Native Mobile Wrapper**: Capacitor JS v8 (`@capacitor/app`, `@capacitor/haptics`, `@capacitor/keyboard`, `@capacitor/status-bar`) compiling directly to Android native APK (`gradlew assembleDebug`).
-* **State Management**: Centralized React Context (`AppContext.jsx`) with `localStorage` fallback persistence and synchronization across devotee and admin datasets.
-* **Routing Architecture**: Custom Stack-based Navigation Router (`screenStack`, `pushScreen`, `popScreen`, `resetNavigation`) supporting smooth CSS slide transitions.
-* **Viewport & Safe Area Architecture**: Dynamic Viewport Height (`min-h-[100dvh]`), `viewport-fit=cover` meta configuration, and dynamic safe-area insets (`pt-[max(env(safe-area-inset-top),1.5rem)]`, `pb-[env(safe-area-inset-bottom)]`, `pl-[env(safe-area-inset-left)]`, `pr-[env(safe-area-inset-right)]`) ensuring zero collision with native device status bars, pinhole cameras, or landscape camera notches.
-* **Responsive Breakpoint Strategy**: Fluid mobile-to-tablet/desktop layout transitions using Tailwind responsive grid layouts (`sm:`, `md:`, `lg:`, `xl:`), constrained form wrappers (`max-w-xl mx-auto`), 2-column checkout reviews, and centered floating navigation docks (`max-w-md mx-auto`).
+* **Styling Engine**: Tailwind CSS with custom design system tokens (`#90D5FF` celestial sky-blue primary background, `#dcb06b` gold accents, `#0c1322` dark surfaces, and custom typography curves).
+* **Internationalization & Localization (i18n)**:
+  * Powered by `i18next` and `react-i18next`.
+  * Complete bilingual locale dictionaries for **English (`en`)** and **Kannada (`kn`)** stored in `src/locales/`.
+  * Automatic language preference persistence in `localStorage` under `sankalpavani_language` with instant UI re-rendering without reloading.
+  * Multi-entry language switchers: Top navigation bar pill toggle, Side Navigation Drawer toggle buttons, Login Screen top toggle, and Profile Screen settings.
+* **Native Mobile Wrapper**: Capacitor JS v8 (`@capacitor/app`) compiling directly to Android native APK (`gradlew.bat assembleDebug`). Includes native Android hardware back-button listener handling hierarchical stack popping and root screen minimization.
+* **State Management**: Centralized React Context (`AppContext.jsx`) with `localStorage` fallback persistence (`sankalpavani_user`, `sankalpavani_bookings`, `sankalpavani_donations`, `sankalpavani_language`).
+* **Routing Architecture**: Custom Stack-based Navigation Router (`currentScreen`, `screenStack`, `pushScreen`, `popScreen`, `resetNavigation`) supporting smooth CSS slide transitions across 17 dedicated screens.
+* **Desktop Preview Harness**: Responsive mobile mockup frame in `App.jsx` with hardware bezel and camera notch for desktop testing.
 
 ---
 
 ## 2. Screen-by-Screen Detailed Functional Breakdown
 
-The application features **14 dedicated screens**, providing a streamlined booking and devotional experience:
+The application features **17 dedicated screens**, each providing specialized functionality:
 
 ```
                                   ┌──────────────────┐
@@ -35,218 +39,241 @@ The application features **14 dedicated screens**, providing a streamlined booki
                                   └────────┬─────────┘
                                            │
                                   ┌────────▼─────────┐
-                                  │   LoginScreen    │
+                                  │   LoginScreen    │ (Bilingual switcher pill)
                                   └────────┬─────────┘
                                            │
-  ┌───────────────────┬────────────────────┼────────────────────┬───────────────────┐
-  │                   │                    │                    │                   │
-┌─▼────────┐ ┌────────▼─────────┐ ┌────────▼──────────┐ ┌───────▼───────────┐ ┌─────▼──────┐
-│HomeScreen│ │ServicesListScreen│ │DevotionalAggregator│ │BookingsHistory    │ │DonationPage│
-└────┬─────┘ └───────┬─────────┘ └────────────────────┘ └───────────────────┘ └────────────┘
-     │               │
-┌────▼─────────┐ ┌───▼─────────┐
-│TempleDetail  │ │ServiceDetail│
+ ┌───────────────────┬─────────────────────┼─────────────────────┬───────────────────┬─────────────────┐
+ │                   │                     │                     │                   │                 │
+┌▼─────────┐ ┌───────▼─────────┐ ┌─────────▼───────────┐ ┌───────▼───────────┐ ┌─────▼──────┐ ┌───────▼────────┐
+│HomeScreen│ │ServicesListScreen│ │DevotionalAggregator│ │BookingsHistory    │ │ProfileScreen│ │TemplesList     │
+└────┬─────┘ └───────┬─────────┘ └─────────────────────┘ └───────────────────┘ └────────────┘ └───────┬────────┘
+     │               │                                                                                 │
+┌────▼─────────┐ ┌───▼─────────┐                                                                       │
+│TempleDetail  │ │ServiceDetail│◄──────────────────────────────────────────────────────────────────────┘
 └──────────────┘ └───┬─────────┘
                      │
-             ┌───────▼─────────────┐
-             │CalendarSelection    │ (With dynamic Seva Type locking & Slot Selection Sheet)
-             └───────┬─────────────┘
+             ┌───────▼─────────────────┐
+             │ CalendarSelectionScreen │
+             └───────┬─────────────────┘
                      │
-             ┌───────▼─────────────┐
-             │ DevoteeFormScreen   │ (With dynamic pilgrim surcharge floating bar)
-             └───────┬─────────────┘
+             ┌───────▼─────────────────┐
+             │ DevoteeFormScreen       │ (Devotee details + optional Prasadam shipping)
+             └───────┬─────────────────┘
                      │
-             ┌───────▼─────────────┐
-             │ BookingDetailScreen │ (2-Column Responsive Checkout on larger screens)
-             └───────┬─────────────┘
+             ┌───────▼─────────────────┐
+             │ BookingDetailScreen     │
+             └───────┬─────────────────┘
                      │
-             ┌───────▼─────────────┐
-             │    PaymentScreen    │
-             └───────┬─────────────┘
+             ┌───────▼─────────────────┐
+             │    PaymentScreen        │
+             └───────┬─────────────────┘
                      │
-             ┌───────▼─────────────┐
-             │PaymentSuccessScreen │
-             └─────────────────────┘
+             ┌───────▼─────────────────┐
+             │  PaymentSuccessScreen   │
+             └─────────────────────────┘
 ```
 
 ---
 
 ### 2.1. Splash Screen (`SplashScreen.jsx`)
 * **Visual Presentation**: Animated glowing gold temple emblem (`pulse-gold`), vertical typography branding (`SANKALPAVANI`), and tagline *"Your Gateway to Divine Grace"*.
-* **Status Bar & Text Overlap Resolution**: Restructured with a natural vertical flex layout, eliminating absolute positioning text collisions between the loading indicator and brand typography.
 * **Automatic Routing Logic**: Reads `localStorage` for `sankalpavani_user`. If user is logged in, auto-navigates to `HomeScreen`; otherwise redirects to `OnboardingScreen` after a 2.5-second timer.
+* **Localized**: Animated tagline translated dynamically into the user's preferred language.
 
 ### 2.2. Onboarding Screen (`OnboardingScreen.jsx`)
-* **Dynamic Centering & Responsive Scaling**: Outermost container uses `min-h-[100dvh] flex flex-col justify-center items-center px-6 py-12` with responsive hero imagery (`w-52 h-52 md:w-72 md:h-72`) preventing button-text overlaps on compact screens and excess whitespace on tablets.
 * **3-Page Feature Carousel**:
   1. *Explore Sacred Shrines*: Interactive map of ancient temples across India.
   2. *Hassle-Free Seva Bookings*: Guaranteed slots, instant e-passes, and live updates.
   3. *Devotional Audio & Panchangam*: Listen to daily Suprabhatam, stotras, and astrological timings.
-* **Navigation Controls**: Active dot indicators, "Skip" button to jump directly to login, and "Next / Get Started" CTA button.
+* **Navigation Controls**: Active dot indicators, "Skip" button to jump directly to login, and "Next / Get Started" CTA button. Fully localized in English and Kannada.
 
 ### 2.3. Login Screen (`LoginScreen.jsx`)
-* **Vertical Viewport Centering & Constrained Width**: Centered within `min-h-[100dvh]` and constrained to `w-full max-w-md mx-auto` preventing wide stretching on tablets.
+* **Bilingual Switcher Pill**: Top-right toggle (`English | ಕನ್ನಡ`) enabling instant language switching before logging in.
 * **Country Code Prefill**: Fixed `+91` (India) input field with validation (10-digit mobile number requirement).
 * **2-Step OTP Authentication**:
-  * Step 1: Mobile number entry with "Send OTP" button.
+  * Step 1: Mobile number entry with "Send OTP" trigger.
   * Step 2: 4-Digit OTP box inputs with automatic focus advancement, resend timer countdown (30s), and "Verify & Proceed" trigger.
 * **Legal Terms Checkbox**: Terms of Service and Privacy Policy confirmation.
 
 ### 2.4. Home Screen (`HomeScreen.jsx`) — *Core Hub*
-* **Status-Bar-Safe Welcome Header**:
-  - Integrated dynamic top padding `pt-[max(env(safe-area-inset-top),1rem)] pb-3` on the fixed top header.
-  - Profile avatar toggles side drawer menu; greeting text `"Welcome Back, Prahasan P"` with gold typography; notification button with unread indicator.
-* **Real-time Multi-Condition Search Engine**:
-  - Live filtering input with search icon, real-time debounce, and an instant clear (`close`) button.
-  - Searches dynamically across **Temple Name**, **Locality/Address**, and **Associated Seva Names**.
-  - Renders an active search result indicator showing total matching counts with a 1-tap "Clear / Reset" action.
-* **Prominent Brand Hero Card**:
-  - Gold-to-amber gradient promotional card titled *"Your Gateway to Divine Blessings"*.
-  - Left column: Detailed features description and a clear CTA button redirecting users to the About SankalpaVani screen.
-  - Right column: Custom vector Temple Gopuram SVG graphic.
-* **Fluid Multi-Column Explore Temples Grid**:
-  - Responsive multi-column layout (`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6`) dynamically adapting from single-column on mobile to 2, 3, or 4 columns on tablets and landscape mode.
-  - Displays star ratings, review counts, distances, location tags, and quick redirection to `TempleDetailScreen`.
-* **Sacred Offers & Updates Section**:
-  - Horizontally scrolling auto-looping promotional banners with special event tags.
-* **Popular Sevas Interactive Carousel**:
-  - Auto-scrolling carousel displaying popular rituals and pujas.
-  - Filters in real-time when the devotee enters a search query with direct "Quick Book" navigation to Calendar Selection.
-* **Devotional Music Quick Player & Insights**:
-  - Background chant audio player widget with animated rotating disc and Mantra of the Day Upanishadic reflection card.
-* **Centered Floating Navigation Dock**:
-  - Constrained curved floating pill navigation dock (`fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-md mx-auto z-50`) maintaining optimal touch ergonomics without stretching across widescreen tablets.
-* **Fixed Viewport Modals & Drawers**:
-  - Notifications modal and Side Drawer use `fixed inset-0 bg-black/80 backdrop-blur-sm z-50` with backdrop click dismissals.
+* **Top Navigation Bar**: Brand logo, Side menu hamburger toggle, notification bell icon, and **Quick Language Switcher Pill** (`EN | ಕನ್ನಡ`).
+* **Interactive Clean India Map Container**:
+  * **Custom Graphic Asset**: `india_map_clean.png` loaded in 1:1 aspect ratio container.
+  * **Real Coordinates Engine**: Projects geographical latitude and longitude onto `%` coordinates via:
+    $$\text{top} = \frac{\text{North} - \text{Lat}}{\text{North} - \text{South}} \times 100, \quad \text{left} = \frac{\text{Lng} - \text{West}}{\text{East} - \text{West}} \times 100$$
+    *(Calibrated bounds: North 39.4, South 6.4, West 65.2, East 93.8)*.
+  * **13 Geographically Placed Temples**:
+    1. Sri Venkateswara Temple (Tirupati, AP)
+    2. Somnath Jyotirlinga (Gujarat)
+    3. Kedarnath Temple (Uttarakhand)
+    4. Chamundeshwari Temple (Mysuru, KA)
+    5. Udupi Sri Krishna Temple (Udupi, KA)
+    6. Murudeshwar Shiva Temple (Bhatkal, KA)
+    7. Virupaksha Temple (Hampi, KA)
+    8. Kollur Mookambika Temple (Kollur, KA)
+    9. Kukke Subramanya Temple (Subramanya, KA)
+    10. Dharmasthala Manjunatha Temple (Dharmasthala, KA)
+    11. Belur Chennakeshava Temple (Belur, KA)
+    12. Halebidu Hoysaleswara Temple (Halebidu, KA)
+    13. Gokarna Mahabaleshwar Temple (Gokarna, KA)
+  * **Vector Pin Styling**: Teardrop CSS marker with glowing selection aura, temple icon, and bouncing label tooltip.
+  * **Zoom & Pan Engine**: Floating `+` and `-` zoom controls, double-touch pinch-to-zoom support, and mathematically bounded dragging to prevent map borders from exiting the frame.
+  * **Selection Centering**: Tapping a pin smooth-pans the map to position the selected pin in the exact center of the container at `scale: 2.2`.
+  * **Touch Interaction Scroll Lock**: Non-passive `touchmove` listener (`e.preventDefault()`) toggling `overflow-hidden` on the parent scroll view while interacting with the map, preventing janky page scrolls.
+* **Selected Temple Bottom Sheet**: Floating sheet displaying temple photo, location, rating, distance, and quick "Book Seva" action.
+* **Side Navigation Drawer**:
+  * User avatar and greeting.
+  * Navigation links to Profile, Booking History, Temples Directory, Audio Player, Donations, and Logout.
+  * **Drawer Language Switcher**: Bilingual toggle buttons (`English` / `ಕನ್ನಡ`) with active indicator.
+* **Scrollable Dashboard Sections**:
+  * **Featured Banners Carousel**: Horizontally scrolling promo banners with special event tags.
+  * **Explore Temples List**: Cards showing star ratings, review counts, distances, and photos with "View All" linking to `TemplesListScreen`.
+  * **Popular Sevas Grid**: Seva cards with duration, price, and instant booking CTA.
+  * **Mini Audio Player Card**: Play/pause toggle and track progress indicator.
+  * **Mantra of the Day**: Daily spiritual quote card with Sanskrit shloka and localized meaning.
 
 ### 2.5. Temples List Screen (`TemplesListScreen.jsx`)
-* **Status-Bar-Safe Fixed Header**: Fixed top header uses `pt-[max(env(safe-area-inset-top),1.5rem)] pb-3` and content uses `pt-24`.
-* **Locality Search Bar**: Filter temples instantly by name or specific location matching the search term.
-* **Anti-Collapse Region Chips**: Horizontally scrollable capsule-shaped selector chips (`All`, `Basavanagudi`, `Malleswaram`, `Gavipuram`, `Ulsoor`, `Jayanagar`) styled with `shrink-0` layout flags.
-* **Fluid Multi-Column Grid**: Responsive `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6` with `aspect-video` card preview imagery.
+* **Dedicated Temple Directory**: Complete catalog of partner and featured shrines.
+* **Search & Filters**: Real-time name search and state filter chips (All, Karnataka, Andhra Pradesh, Gujarat, Uttarakhand).
+* **Temple Cards**: Rich imagery, main deity badge, architectural style, distance indicator, and direct navigation to `TempleDetailScreen`.
 
-### 2.6. Services List Screen (`ServicesListScreen.jsx`)
-* **Status-Bar-Safe Fixed Header**: Fixed top bar with `pt-[max(env(safe-area-inset-top),1.5rem)] pb-3` and `pt-24` main container.
-* **Real-time Search Bar**: Instant filtering of temple services by name or keyword.
-* **Expanded Category Taxonomy**: Standardized category filter pills aligned with the Admin Portal:
-  `['All', 'Daily', 'Weekly', 'Monthly', 'Annually', 'Special', 'Dhanur Masa']`.
-* **Fluid Multi-Column Sevas Grid**: Responsive `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6`.
-* **Centered Floating Navigation Dock**: Uses `max-w-md mx-auto` floating pill dock.
+### 2.6. Temple Detail Screen (`TempleDetailScreen.jsx`)
+* **Heritage Overview**: High-definition hero header, founding century, architectural style (e.g., Dravidian, Hoysala, Vijayanagara), main deity.
+* **Detailed History & Legends**: In-depth narrative about the shrine's origin and spiritual significance.
+* **Temple Specific Sevas List**: Direct booking links for rituals offered at this specific shrine.
+* **Travel Guide**: How to reach by Air, Train, or Road, best months to visit, and opening hours.
 
-### 2.7. Temple Detail Screen (`TempleDetailScreen.jsx`)
-* **Cinematic Widescreen Hero Banner**:
-  - Upgraded from fixed heights to cinematic aspect ratio: `aspect-video md:aspect-[21/9] max-h-[380px] overflow-hidden` with `w-full h-full object-cover`.
-  - Overlaid top navigation controls use `pt-[max(env(safe-area-inset-top),1.5rem)]` so the back button sits safely below the status bar while maintaining full-bleed hero aesthetics.
-* **Darshan Timings**: High-contrast timing cards with gold solar/lunar icons (`wb_sunny`, `bedtime`).
-* **2-Line Seva Type Category Filters**:
-  - Horizontally scrollable selector pills (`All`, `Daily`, `Weekly`, `Monthly`, `Annually`, `Special`, `Dhanur Masa`).
-* **Centered Modal Sheets**:
-  - Modal sheets transformed to centered dialogs on tablets (`max-w-lg mx-auto bg-navy-surface rounded-t-3xl md:rounded-3xl md:mb-8`).
+### 2.7. Services List Screen (`ServicesListScreen.jsx`)
+* **Real-time Search Bar**: Instant filtering by seva name or deity keyword.
+* **Category Pill Filters**: "All", "Abhishekam", "Puja", "Kalyanotsavam", "Special".
+* **Seva Item Cards**: Title, duration, timing, price badge, short description, and "Book Seva" CTA.
 
 ### 2.8. Service Detail Screen (`ServiceDetailScreen.jsx`)
-* **Cinematic Widescreen Hero Banner & Safe Overlays**:
-  - Full-bleed banner with `aspect-video md:aspect-[21/9] max-h-[380px]` and `pt-[max(env(safe-area-inset-top),1.5rem)]` overlay padding for the back button.
-* **About Seva (Sthala Mahime) Narrative**:
-  - High-visibility descriptive section rendering the mythological background, significance, and history provided by temple authorities.
-* **Instructions & Arrival Guidelines Card**:
-  - High-visibility container framed with a gold accent border (`border-gold-primary/30`) and info icon.
-  - Outlines dress codes (e.g. Traditional Dhoti/Saree), reporting times, and sanctum rules.
-* **Prasadam Delivery Option**:
-  - Detects if the Seva includes physical Prasadam, providing a toggle for **"In-Person Attendance"** vs. **"Deliver Prasadam to Home"**.
-* **Fixed Bottom Action Bar**: Live pricing and "Select Date & Time" CTA.
+* **Hero Banner**: Full-width temple photo with gradient overlay and back navigation.
+* **Metadata Badges**: Duration (e.g., 45 mins), Timing (e.g., Morning 06:00 AM), Attire requirement (e.g., Traditional Dhoti/Saree).
+* **Inclusions List**: Prasadam details, sanctum access level, Vedic chanting specifics.
+* **Prerequisites & Guidelines**: Entry gate rules, ID requirements, photography restrictions.
+* **Fixed Bottom Bar**: Seva price display and "Select Date & Time" CTA navigating to `CalendarSelectionScreen`.
 
-### 2.9. Calendar Selection Screen (`CalendarSelectionScreen.jsx`)
-* **Status-Bar-Safe Fixed Header**: Fixed top header with `pt-[max(env(safe-area-inset-top),1.5rem)] pb-3` and `pt-24` main container.
-* **Dynamic Calendar Locking by Seva Type**:
-  - **Daily**: All future dates are open and selectable.
-  - **Weekly**: Checks `selectedDays` (e.g. `['Friday']`), disabling and greying out (`opacity-30 cursor-not-allowed`) all dates that do not fall on permitted weekdays.
-  - **Monthly, Annually, Special**: Locks calendar strictly to the exact fixed `selectedDate` string, greying out all other days.
-  - **Dhanur Masa**: Restricts selection strictly to the seasonal range (`dateFrom` to `dateTo`).
-* **Auto-Centering Calendar State**:
-  - Initial `currentDate` automatically centers the calendar to the target month of `selectedDate` or `dateFrom`.
-* **Centered Slot Selection Dialog on Tablets**:
-  - Bottom sheet behaves as a bottom sheet on mobile and transforms into a centered dialog modal on tablets (`w-full max-w-lg mx-auto bg-card rounded-t-3xl md:rounded-3xl`).
-  - Displays remaining slot capacity ratios (e.g. `15 / 20` slots) with sold-out indicator badges.
+### 2.9. Calendar & Slot Selection Screen (`CalendarSelectionScreen.jsx`)
+* **Interactive Month Calendar Grid**: Full monthly date picker highlighting available dates, blocked days, and selected date.
+* **Time Slot Categorization**:
+  * Morning Slots (e.g., 06:00 AM Suprabhatam, 08:30 AM Archana).
+  * Afternoon Slots (e.g., 12:00 PM Nitya Anna Danam).
+  * Evening Slots (e.g., 06:30 PM Unjal Seva, 08:00 PM Ekanta Seva).
+* **Live Slot Availability Indicator**: Remaining seat counters (e.g., *"12 slots left"* vs *"Filling Fast"*).
+* **Prasadam Postal Delivery Option**: Toggle allowing devotees to request energized prasadam shipped to their home address.
+* **Fixed Bottom Action**: Selected slot summary and "Continue to Devotee Details".
 
 ### 2.10. Devotee Form Screen (`DevoteeFormScreen.jsx`)
-* **Status-Bar-Safe Fixed Header**: Header padded with `pt-[max(env(safe-area-inset-top),1.5rem)] pb-3` and main content offset by `pt-24`.
-* **Constrained Form Width & Responsive Family Grid**:
-  - Form container constrained to `w-full max-w-xl mx-auto md:p-8 md:border md:border-white-muted/10 md:rounded-2xl md:bg-navy-surface md:shadow-sm md:mt-6`.
-  - Family members list renders in a 2-column grid on tablets (`grid grid-cols-1 md:grid-cols-2 gap-4`).
-* **Strict Devotee Schema Compliance**:
-  - Primary Devotee Age and Gender sourced directly from `currentUser` session context (input fields omitted).
-  - Family members collect only Name, Gotram, and Nakshatram without collecting Age or Gender.
-* **Dynamic Capacity & Surcharge Calculation**:
-  - Computes base ticket allowance (`personsPerSeva || persons`) and applies `extraPersonCost` only to pilgrims exceeding the base allowance:
-    $$\text{Total Fare} = \text{Base Price} + \max(0, \text{Total Devotees} - \text{Base Allowance}) \times \text{Extra Person Fee}$$
-* **Dynamic Floating Summary Bar**: Real-time breakdown of base fare and extra person surcharges.
-* **Prasadam Shipping Panel**: Full address form if home delivery is selected.
+* **Strict Schema & Business Rules Adherence**:
+  * **Primary Devotee**: Collects Full Name, Gotram (from comprehensive Vedic list), Nakshatram (27 astrological nakshatras dropdown), and Phone Number.
+  * **Age and Gender Policy**: **No input fields for Age or Gender exist on this form**. The primary devotee's Age and Gender are sourced strictly from the authenticated user's session context (`currentUser?.age`, `currentUser?.gender`) and passed automatically into the booking payload.
+  * **Family Members**: Devotees can add up to 4 additional family members. Family member cards collect **only Name, Gotram, and Nakshatram**; no Age or Gender is collected or validated for family members.
+* **Postal Prasadam Shipping Address Section**: Conditionally appears when postal delivery is selected, capturing Recipient Name, Street Address, City, State, 6-digit Pincode, and Contact Phone.
+* **Form Validation**: Real-time error handling with localized feedback messages.
+* **Calculated Price Bar**: Multiplies base seva price and handles extra person costs.
 
 ### 2.11. Booking Detail Screen (`BookingDetailScreen.jsx`)
-* **Status-Bar-Safe Fixed Header**: Header padded with `pt-[max(env(safe-area-inset-top),1.5rem)] pb-3` and `pt-24` main container.
-* **2-Column Responsive Checkout Layout**:
-  - Implements a modern responsive 2-column layout on larger screens (`flex flex-col lg:flex-row gap-6 w-full max-w-5xl mx-auto items-start`).
-  - Left column (`flex-1`): Seva summary, devotees roster, and shipping details.
-  - Right column (`w-full lg:w-96`): Itemized fare breakdown, terms agreement, and "Proceed to Pay" CTA.
-* **Itemized Fare Breakdown**: Base Seva Fare, Extra Pilgrim Surcharge, Convenience Fee (`₹45`), GST (`18%`), and Total Payable Amount.
+* **Summary Pass Card**: Visual recap of Temple, Seva, Date, Time Slot, and list of all registered pilgrims (Primary + Family members).
+* **Price & Fare Breakdown**:
+  * Base Seva Fee.
+  * Additional Person Charges (if applicable).
+  * Temple Administrative / Convenience Fee.
+  * GST / Taxes.
+  * Total Payable Amount.
+* **Terms Agreement Checkbox**: Cancellation and refund policy consent.
+* **Fixed Bottom Bar**: "Confirm & Pay" button navigating to `PaymentScreen`.
 
-### 2.12. Payment & Confirmation Flow (`PaymentScreen.jsx` & `PaymentSuccessScreen.jsx`)
-* **Status-Bar-Safe Fixed Header**: Header padded with `pt-[max(env(safe-area-inset-top),1.5rem)] pb-3` and `pt-24` body clearance.
-* **Constrained Payment Form**: Form wrapper constrained to `max-w-xl mx-auto`.
-* **Fixed Viewport Transaction Loader**: Animated spinner uses `fixed inset-0 bg-black/85 backdrop-blur-sm z-50`.
-* **Digital Seva Confirmation Receipt**:
-  - Clean text-based confirmation card with reference ID (`SV-XXXXXX`), primary devotee name/gotram, reporting time (30 mins before slot), and sanctum entry gate assignment.
-  - Direct navigation to "My Bookings" and "Home".
+### 2.12. Payment Screen (`PaymentScreen.jsx`)
+* **Payment Method Tabs**:
+  1. *UPI*: Instant apps (GPay, PhonePe, Paytm, BHIM) or custom VPA input field.
+  2. *Credit / Debit Cards*: Card number, expiry month/year, CVV, and cardholder name fields with luhn validation.
+  3. *Net Banking*: Popular banks grid (SBI, HDFC, ICICI, Axis).
+  4. *Wallets*: Amazon Pay, Mobikwik.
+* **Trust Badges**: 256-bit SSL Encryption and PCI-DSS compliance assurance.
+* **Simulated Payment Trigger**: Processing modal animation leading to confirmation and booking record persistence.
 
-### 2.13. Bookings History Screen (`BookingsHistoryScreen.jsx`)
-* **Status-Bar-Safe Fixed Header**: Header padded with `pt-[max(env(safe-area-inset-top),1.5rem)] pb-3` and `pt-24` scroll offset.
-* **Tab Selection**: "Upcoming Sevas" vs "Past Sevas".
-* **Fixed Viewport Sacred E-Receipt Modal**:
-  - Modal overlay updated to `fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto` with backdrop click dismissal.
-  - Renders instantly in the visible viewport without requiring scrolling through the screen.
-  - Internal receipt body constrained with `max-h-[80vh] overflow-y-auto` for smooth scrolling of multi-pilgrim bookings.
-* **Centered Floating Navigation Dock**: Uses `max-w-md mx-auto` floating pill dock.
+### 2.13. Payment Success Screen (`PaymentSuccessScreen.jsx`)
+* **Success Checkmark Animation**: Celebratory visual feedback with gold particles.
+* **Generated Booking ID**: Unique ticket reference code (e.g., `SV-849231`).
+* **Digital QR Code Pass**: Scannable QR code generated for fast-track entry scanning at temple gates.
+* **Action Buttons**:
+  * "Download e-Pass (PDF)".
+  * "Add to Google Calendar".
+  * "Return to Home".
 
-### 2.14. Devotional Aggregator (`DevotionalAggregatorScreen.jsx`) & Donations (`DonationScreen.jsx`)
-* **Status-Bar-Safe Fixed Headers**: Headers padded with `pt-[max(env(safe-area-inset-top),1.5rem)] pb-3` and containers with `pt-24`.
-* **Constrained Donation Form**: Form container constrained to `max-w-xl mx-auto md:p-8 md:border md:rounded-2xl md:bg-navy-surface`.
-* **Vedic Audio Hub**: Audio player with controls and stotra playlists.
-* **Daily Panchangam**: Tithi, Nakshatra, Rahu Kalam, Yamagandam, and Sunrise/Sunset.
-* **80G Tax Donations**: Preset and custom donation amounts with 80G tax receipt PAN collection.
-* **Centered Floating Navigation Dock**: Uses `max-w-md mx-auto` floating pill dock.
+### 2.14. Bookings History Screen (`BookingsHistoryScreen.jsx`)
+* **Tab Selection**: "Upcoming Bookings" vs "Completed / Past Bookings".
+* **Booking Cards**: Status badges (*Confirmed*, *Completed*, *Cancelled*), Date, Time, Seva Name, Total Pilgrims.
+* **QR Code Overlay Modal**: Allows opening and displaying the digital entry ticket anytime.
+* **Action Buttons**: "Download Receipt", "Cancel Booking", "Rebook Seva".
+
+### 2.15. Donation Screen (`DonationScreen.jsx`)
+* **Cause Selection**:
+  * *Annadanam*: Free meals for pilgrims.
+  * *Goshala*: Cow protection & shelter.
+  * *Veda Pathashala*: Vedic education support.
+  * *Temple Renovation*: Heritage preservation.
+* **Preset Amount Chips**: ₹501, ₹1008, ₹5001, ₹10008, or Custom Amount input.
+* **80G Tax Exemption Module**: Checkbox enabling PAN card number and full donor name fields for tax receipt generation.
+
+### 2.16. Devotional Aggregator Screen (`DevotionalAggregatorScreen.jsx`)
+* **Dedicated Music Hub**: Full audio player interface with album art, track duration slider, volume controls, play/pause, next/previous track.
+* **Vedic Audio Playlist**:
+  1. *Sri Venkateswara Suprabhatam* (M.S. Subbulakshmi)
+  2. *Vishnu Sahasranamam* (Traditional)
+  3. *Bhaja Govindam* (M.S. Subbulakshmi)
+  4. *Ganesha Pancharatnam* (S.P. Balasubrahmanyam)
+* **Daily Panchangam Widget**: Today's Tithi, Nakshatra, Rahu Kalam, Yamagandam, and Sunrise/Sunset times.
+* **E-Booklets**: Downloadable PDF stotras and spiritual literature.
+
+### 2.17. Profile Screen (`ProfileScreen.jsx`)
+* **Devotee Identity Card**: Displays Avatar, Name, Phone Number, and verification badge.
+* **Personal & Astrological Profile**: Editable / viewable fields for Gotram, Nakshatram, Age, Gender, and Residential Address.
+* **Dedicated Language Selector**: Interactive language selector cards for **English** and **ಕನ್ನಡ (Kannada)** with immediate language change and persistence.
+* **App Preferences**: Push notification toggles for daily Suprabhatam reminders, booking alerts, and festival announcements.
+* **Support & Legal**: Links to Help Center, FAQ, Privacy Policy, Terms of Service, and App Version details (`v0.2`).
+* **Session Management**: Secure "Log Out" trigger clearing session state.
 
 ---
 
-## 3. Core Technical & Architectural Features Matrix
+## 3. Core Minute Technical & UX Functionalities Matrix
 
-| Feature | Implementation & Architecture Details |
+| Functionality | Implementation & Architecture Details |
 | :--- | :--- |
-| **Safe-Area Status Bar Clearance** | Universal `pt-[max(env(safe-area-inset-top),1.5rem)]` on fixed headers and overlay controls ensuring zero status bar collision on Android/iOS native builds. |
-| **Dynamic Viewport Height (`100dvh`)** | Replaced rigid `h-screen` with `min-h-[100dvh]` in `App.jsx`, `LoginScreen.jsx`, and `OnboardingScreen.jsx` to handle software keyboards and orientation shifts. |
-| **Tablet & Landscape Fluid Grids** | Responsive CSS grids (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`) for temple listings and seva catalogs. |
-| **Cinematic Hero Banners** | Upgraded hero containers to `aspect-video md:aspect-[21/9] max-h-[380px]` with `object-cover` across detail screens. |
-| **Constrained Form Architecture** | Forms across login, devotee details, payment, and donations constrained to `max-w-xl mx-auto` (or `max-w-md`) with tablet card styling. |
-| **2-Column Responsive Checkout** | `BookingDetailScreen.jsx` uses `flex flex-col lg:flex-row gap-6 max-w-5xl mx-auto` separating seva info and payment action. |
-| **Centered Floating Navigation Dock** | Curved floating dock constrained to `w-[calc(100%-2rem)] max-w-md mx-auto z-50` centered at the bottom of the viewport. |
-| **Fixed Viewport Modals & Dialogs** | Modals across bookings history, calendar slot sheets, notifications, and loaders updated to `fixed inset-0 bg-black/80 backdrop-blur-sm z-50` with backdrop click dismissals. |
-| **Real-time Multi-Attribute Search** | Multi-attribute search across temple names, localities, and seva names with instant count indicators and clear button in `HomeScreen.jsx`. |
-| **Dynamic Calendar Locking** | Seva category constraints enforcement (`Daily`, `Weekly`, `Monthly`, `Annually`, `Special`, `Dhanur Masa`) greying out locked dates in `CalendarSelectionScreen.jsx`. |
-| **Calendar Auto-Centering** | Auto-snaps calendar month view to fixed `selectedDate` or `dateFrom` seasonal range. |
-| **Expanded Taxonomy** | Standardized category filter pills (`All`, `Daily`, `Weekly`, `Monthly`, `Annually`, `Special`, `Dhanur Masa`) across `ServicesListScreen` & `TempleDetailScreen`. |
-| **Sthala Mahime Narrative** | Rich descriptive section rendering mythological and historical context on `ServiceDetailScreen.jsx`. |
-| **Arrival Guidelines Card** | High-visibility card with accent icon and gold border (`border-gold-primary/30`) for dress codes and entry guidelines. |
-| **Dynamic Pilgrim Pricing** | Dynamic base allowance (`personsPerSeva || persons`) and extra pilgrim surcharges computed in `DevoteeFormScreen`, `BookingDetailScreen`, and `AppContext`. |
-| **Strict Devotee Schema** | Primary devotee Age/Gender sourced from `currentUser`; family members collect only Name, Gotram, Nakshatram (no age/gender fields). |
-| **Equirectangular Map Engine** | Mathematical latitude & longitude projection on custom SVG/PNG India map asset with pinch-to-zoom and touchmove scroll lock. |
-| **Digital Seva Confirmation Receipt** | Text-based confirmation receipts with calculated reporting times (30 min prior) and entry gate details. |
-| **Capacitor Mobile Wrapper** | Native bridge compiling web assets to Android APK via Gradle wrapper. |
+| **Complete Bilingual Localization** | Configured with `i18next` and `react-i18next`. Comprehensive English (`en`) and Kannada (`kn`) translations across all 17 screens, buttons, error messages, and modals. |
+| **Runtime Language Switching** | Instant language switching without app reloads via `i18n.changeLanguage(lang)`. Persists across sessions in `localStorage` under `sankalpavani_language`. |
+| **Multi-Location Language Switchers** | Quick toggle pills in `LoginScreen` and `HomeScreen` header, side drawer switcher buttons, and full selector card in `ProfileScreen`. |
+| **Strict Devotee Schema Compliance** | Primary devotee Age/Gender sourced directly from `currentUser` session context. No Age/Gender input fields in `DevoteeFormScreen`. Family members collect only Name, Gotram, and Nakshatram. |
+| **Clean India SVG/PNG Map Engine** | Aspect-ratio locked 1:1 container with custom `india_map_clean.png` asset. |
+| **Real Google Lat/Lng Projection** | Equirectangular formula mapping real latitude & longitude coordinates to `%` pin offsets inside map container. |
+| **Bounded Map Panning** | Boundary math (`getBoundedPosition`) keeping map edge overflow inside frame regardless of zoom level. |
+| **Pinch & Touch Zoom** | Multi-touch distance calculation (`Math.hypot`) scaling map between 1.0x and 4.0x. |
+| **Pin Center UX** | Tapping any temple pin smoothly translates map center directly onto pin coordinates at 2.2x scale. |
+| **Touchmove Scroll Lock** | Non-passive `touchmove` event listener calling `e.preventDefault()` and toggling `overflow-hidden` on parent container during map drag. |
+| **Global Navigation Router** | Stack-based state router (`pushScreen`, `popScreen`, `resetNavigation`) supporting 17 screens with slide animations. |
+| **Android Hardware Back Button** | Capacitor `backButton` native listener integrated in `App.jsx` for smooth pop navigation and root minimization. |
+| **Persistent Audio Player** | Context-driven audio state (`isPlaying`, `currentTrackIndex`, `trackProgress`) accessible across all screens. |
+| **Multi-Pilgrim Booking Engine** | Dynamic array state builder allowing up to 4 pilgrims per booking with individual Gotram/Nakshatram entries. |
+| **Prasadam Delivery Pipeline** | Optional postal address collection (recipient, address, city, state, 6-digit pin, phone) for doorstep delivery. |
+| **80G Tax Exemption Receipt Generator** | PAN card input validation and tax receipt log creation inside `donationsHistory`. |
+| **Digital QR Pass Generator** | Auto-generates unique `SV-XXXXXX` booking reference IDs and renders scannable QR ticket graphics. |
+| **LocalStorage State Fallback** | Automatic JSON serialization of `sankalpavani_user`, `sankalpavani_bookings`, `sankalpavani_donations`, and `sankalpavani_language`. |
+| **Native Capacitor Packaging** | Capacitor Android bridge configured for Android SDK, compiling clean native APK packages via Gradle (`gradlew.bat assembleDebug`). |
+| **Desktop Bezel Container** | Responsive max-width wrapper with curved corners and camera notch mimicking an iPhone/Android device on wide desktop screens. |
 
 ---
 
-## 4. Native Android APK Build & Testing Summary
+## 4. Native APK Build & Packaging Summary
 
-* **Build Tooling**: Android SDK & Gradle Wrapper (`gradlew.bat assembleDebug`).
-* **Capacitor Asset Sync**: Web assets synced from `dist/` to `android/app/src/main/assets/public/`.
-* **Output APK Paths**:
-  - Root Distribution Path: [SankalpaVani-Devotee-App.apk](file:///c:/Users/praha/Documents/Shree%20PM%20Consultancy%20Services/SankalpaVaniApp/sankalpavani-devotee-v0.2/SankalpaVani-Devotee-App.apk) *(Size: ~4.87 MB)*
-  - Android Build Output: [app-debug.apk](file:///c:/Users/praha/Documents/Shree%20PM%20Consultancy%20Services/SankalpaVaniApp/sankalpavani-devotee-v0.2/android/app/build/outputs/apk/debug/app-debug.apk)
+* **Build Tooling**: Android Studio SDK, Java 17+, & Gradle Wrapper.
+* **Web Distribution Path**: `dist/` (built via `npm run build`).
+* **Capacitor Sync Command**: `npx cap sync android`
+* **Gradle Build Command**: `.\gradlew.bat assembleDebug` inside `android/`
+* **Compiled Output APK Files**:
+  1. Primary Build Artifact: [android/app/build/outputs/apk/debug/app-debug.apk](file:///c:/Users/praha/Documents/Shree%20PM%20Consultancy%20Services/SankalpaVaniApp/sankalpavani-devotee-v0.2/android/app/build/outputs/apk/debug/app-debug.apk)
+  2. Root Distribution Artifact: [sankalpavani-devotee-debug.apk](file:///c:/Users/praha/Documents/Shree%20PM%20Consultancy%20Services/SankalpaVaniApp/sankalpavani-devotee-v0.2/sankalpavani-devotee-debug.apk)
+* **File Size**: **11.55 MB** (`11,549,374 bytes`).
+* **Build Timestamp**: October 3, 2026, 19:02:00 IST.
+* **Architecture / Variant**: Universal debug APK supporting `arm64-v8a`, `armeabi-v7a`, `x86`, and `x86_64` Android devices.
