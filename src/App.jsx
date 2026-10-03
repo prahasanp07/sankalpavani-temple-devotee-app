@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { AppProvider, AppContext } from './context/AppContext';
 import { App as CapacitorApp } from '@capacitor/app';
 
@@ -22,7 +22,45 @@ import TemplesListScreen from './screens/TemplesListScreen';
 import ProfileScreen from './screens/ProfileScreen';
 
 function AppContent() {
-  const { currentScreen, popScreen, currentScreenStack } = useContext(AppContext);
+  const { currentScreen, popScreen, screenStack, selectedTemple } = useContext(AppContext);
+  const scrollContainerRef = useRef(null);
+
+  // Automatically scroll to the top of the new screen on every navigation
+  useEffect(() => {
+    const scrollToTop = () => {
+      // 1. Reset main app container scroll position
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop = 0;
+        scrollContainerRef.current.scrollLeft = 0;
+      }
+
+      // 2. Reset window and root document scroll position
+      window.scrollTo(0, 0);
+      if (document.documentElement) {
+        document.documentElement.scrollTop = 0;
+      }
+      if (document.body) {
+        document.body.scrollTop = 0;
+      }
+
+      // 3. Reset any nested scrollable elements inside the mounted screen
+      const scrollables = document.querySelectorAll(
+        '.overflow-y-auto, main, [class*="overflow-y-auto"]'
+      );
+      scrollables.forEach((el) => {
+        el.scrollTop = 0;
+      });
+    };
+
+    scrollToTop();
+    const animId = requestAnimationFrame(scrollToTop);
+    const timerId = setTimeout(scrollToTop, 20);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      clearTimeout(timerId);
+    };
+  }, [currentScreen, screenStack?.length, selectedTemple?.id]);
 
   // Hook into Capacitor native back button for Android
   useEffect(() => {
@@ -94,7 +132,11 @@ function AppContent() {
 
   return (
     <div className="flex flex-col min-h-[100dvh] bg-navy-bg text-on-surface overflow-hidden font-sans pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]">
-      <div className="flex-1 overflow-y-auto w-full max-w-7xl mx-auto relative bg-navy-bg">
+      <div 
+        ref={scrollContainerRef}
+        key={`${screenStack?.length || 1}-${currentScreen}`}
+        className="flex-1 overflow-y-auto w-full max-w-7xl mx-auto relative bg-navy-bg"
+      >
         {renderScreen()}
       </div>
     </div>

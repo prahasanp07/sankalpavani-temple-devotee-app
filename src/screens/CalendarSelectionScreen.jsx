@@ -298,9 +298,9 @@ export default function CalendarSelectionScreen() {
   const selectedStats = getOccupancyStats(selectedDateStr);
 
   return (
-    <div className="bg-navy-bg font-body-md text-on-surface antialiased min-h-screen flex flex-col pt-24 pb-24 h-full overflow-y-auto">
+    <div className="bg-navy-bg font-body-md text-on-surface antialiased min-h-screen flex flex-col pb-24 h-full overflow-y-auto">
       {/* TopAppBar */}
-      <header className="fixed top-0 inset-x-0 w-full z-45 bg-surface/80 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex items-center px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3">
+      <header className="sticky top-0 inset-x-0 w-full z-45 shrink-0 bg-surface/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex items-center px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3">
         <div className="max-w-4xl mx-auto w-full flex justify-between items-center">
           <button
             onClick={popScreen}
@@ -313,7 +313,7 @@ export default function CalendarSelectionScreen() {
         </div>
       </header>
 
-      <main className="flex-grow px-margin-main py-6 flex flex-col gap-6 max-w-4xl mx-auto w-full">
+      <main className="flex-grow px-margin-main pt-4 pb-6 flex flex-col gap-6 max-w-4xl mx-auto w-full">
         {/* Context header */}
         <section className="text-center space-y-1">
           <h2 className="font-headline-lg text-lg text-gold-primary uppercase font-bold">{service.name}</h2>

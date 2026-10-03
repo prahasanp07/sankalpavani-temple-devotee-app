@@ -146,9 +146,9 @@ export default function ServicesListScreen() {
   });
 
   return (
-    <div className="bg-navy-bg text-on-surface h-full pb-[100px] pt-24 flex flex-col overflow-y-auto">
+    <div className="bg-navy-bg text-on-surface h-full pb-24 flex flex-col overflow-y-auto">
       {/* TopAppBar */}
-      <header className="fixed top-0 inset-x-0 w-full z-40 bg-surface/85 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex items-center px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3">
+      <header className="sticky top-0 inset-x-0 w-full z-40 shrink-0 bg-surface/85 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex items-center px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3">
         <div className="max-w-4xl mx-auto w-full flex justify-between items-center">
           <button 
             onClick={() => pushScreen('home')}
@@ -162,7 +162,7 @@ export default function ServicesListScreen() {
       </header>
 
       {/* Main Content */}
-      <main className="px-margin-main max-w-4xl mx-auto mt-6 flex flex-col gap-6 w-full">
+      <main className="px-margin-main max-w-4xl mx-auto pt-4 flex flex-col gap-6 w-full">
         {/* Header Section */}
         <section className="flex flex-col gap-2 text-center">
           <h2 className="font-headline-lg text-2xl text-gold-primary tracking-wide">{t('servicesList.title')}</h2>

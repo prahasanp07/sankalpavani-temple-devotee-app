@@ -260,6 +260,7 @@ The application features **17 dedicated screens**, each providing specialized fu
 | **80G Tax Exemption Receipt Generator** | PAN card input validation and tax receipt log creation inside `donationsHistory`. |
 | **Digital QR Pass Generator** | Auto-generates unique `SV-XXXXXX` booking reference IDs and renders scannable QR ticket graphics. |
 | **LocalStorage State Fallback** | Automatic JSON serialization of `sankalpavani_user`, `sankalpavani_bookings`, `sankalpavani_donations`, and `sankalpavani_language`. |
+| **Screen Navigation Scroll-to-Top** | Keyed screen container (`${screenStack.length}-${currentScreen}`) + multi-tier scroll reset (`scrollContainerRef.scrollTop = 0`, `window.scrollTo(0,0)`, and child `.overflow-y-auto` DOM reset) guaranteeing that every screen transition starts at the top without retaining previous scroll offsets. |
 | **Native Capacitor Packaging** | Capacitor Android bridge configured for Android SDK, compiling clean native APK packages via Gradle (`gradlew.bat assembleDebug`). |
 | **Desktop Bezel Container** | Responsive max-width wrapper with curved corners and camera notch mimicking an iPhone/Android device on wide desktop screens. |
 
@@ -274,6 +275,6 @@ The application features **17 dedicated screens**, each providing specialized fu
 * **Compiled Output APK Files**:
   1. Primary Build Artifact: [android/app/build/outputs/apk/debug/app-debug.apk](file:///c:/Users/praha/Documents/Shree%20PM%20Consultancy%20Services/SankalpaVaniApp/sankalpavani-devotee-v0.2/android/app/build/outputs/apk/debug/app-debug.apk)
   2. Root Distribution Artifact: [sankalpavani-devotee-debug.apk](file:///c:/Users/praha/Documents/Shree%20PM%20Consultancy%20Services/SankalpaVaniApp/sankalpavani-devotee-v0.2/sankalpavani-devotee-debug.apk)
-* **File Size**: **11.55 MB** (`11,549,374 bytes`).
-* **Build Timestamp**: October 3, 2026, 19:02:00 IST.
+* **File Size**: **11.55 MB** (`11,549,720 bytes`).
+* **Build Timestamp**: October 3, 2026, 19:29:02 IST.
 * **Architecture / Variant**: Universal debug APK supporting `arm64-v8a`, `armeabi-v7a`, `x86`, and `x86_64` Android devices.

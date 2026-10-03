@@ -30,9 +30,9 @@ export default function BookingDetailScreen() {
   };
 
   return (
-    <div className="bg-navy-bg text-on-surface font-body-md antialiased min-h-screen flex flex-col pt-24 pb-24 h-full overflow-y-auto">
+    <div className="bg-navy-bg text-on-surface font-body-md antialiased min-h-screen flex flex-col pb-24 h-full overflow-y-auto">
       {/* Top Header */}
-      <header className="fixed top-0 inset-x-0 w-full z-45 bg-surface/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3 flex items-center">
+      <header className="sticky top-0 inset-x-0 w-full z-45 shrink-0 bg-surface/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3 flex items-center">
         <div className="max-w-4xl mx-auto w-full flex items-center justify-between">
           <button
             onClick={popScreen}
@@ -46,7 +46,7 @@ export default function BookingDetailScreen() {
         </div>
       </header>
 
-      <main className="flex-1 px-margin-main py-6 w-full max-w-5xl mx-auto flex flex-col lg:flex-row gap-6 items-start">
+      <main className="flex-1 px-margin-main pt-4 pb-6 w-full max-w-5xl mx-auto flex flex-col lg:flex-row gap-6 items-start">
         {/* Left column: Seva, Devotees, and Shipping info */}
         <div className="flex-1 w-full space-y-6">
           {/* Booking Summary Card */}

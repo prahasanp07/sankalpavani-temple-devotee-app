@@ -31,25 +31,25 @@ export default function ServiceDetailScreen() {
   return (
     <div className="bg-navy-bg text-on-surface h-full pb-24 flex flex-col overflow-y-auto relative">
       {/* Full Width Header Image (Hero Banner) */}
-      <header className="relative w-full aspect-video md:aspect-[21/9] max-h-[380px] overflow-hidden">
+      <header className="relative w-full h-[280px] sm:h-[340px] md:h-[380px] overflow-hidden bg-navy-surface shadow-lg">
         <img 
           alt={service.name} 
-          className="w-full h-full object-cover" 
+          className="w-full h-full object-cover object-top sm:object-center" 
           src={selectedTemple.img}
         />
         {/* Top Nav Icons (Overlay) */}
-        <div className="absolute top-0 left-0 w-full p-4 pt-[max(env(safe-area-inset-top),1.5rem)] flex justify-between items-center z-10 bg-gradient-to-b from-black/70 to-transparent">
+        <div className="absolute top-0 left-0 w-full p-4 pt-[max(env(safe-area-inset-top),1rem)] flex justify-between items-center z-20 bg-gradient-to-b from-black/60 via-black/20 to-transparent">
           <button 
             onClick={popScreen}
-            className="material-symbols-outlined text-white text-2xl drop-shadow-md hover:text-gold-primary transition-colors"
+            className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:text-gold-primary transition-all active:scale-95 shadow-md"
             aria-label="Back"
           >
-            arrow_back
+            <span className="material-symbols-outlined text-2xl">arrow_back</span>
           </button>
         </div>
         
         {/* Bottom Gradient & Service Title */}
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-bg via-navy-bg/85 to-transparent pt-20 pb-4 px-margin-main flex flex-col justify-end">
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-bg via-navy-bg/80 to-transparent pt-14 pb-3 px-margin-main flex flex-col justify-end">
           <h1 className="font-headline-lg text-lg text-white uppercase font-bold tracking-widest drop-shadow-md truncate">{service.name}</h1>
         </div>
       </header>

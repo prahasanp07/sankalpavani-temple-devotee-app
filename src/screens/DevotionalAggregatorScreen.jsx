@@ -73,9 +73,9 @@ export default function DevotionalAggregatorScreen() {
   };
 
   return (
-    <div className="bg-navy-bg text-on-surface h-full pb-[100px] pt-24 flex flex-col overflow-y-auto">
+    <div className="bg-navy-bg text-on-surface h-full pb-24 flex flex-col overflow-y-auto">
       {/* Top Header */}
-      <header className="fixed top-0 inset-x-0 w-full z-45 bg-surface/85 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex items-center px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3">
+      <header className="sticky top-0 inset-x-0 w-full z-45 shrink-0 bg-surface/85 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex items-center px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3">
         <div className="max-w-4xl mx-auto w-full flex justify-between items-center">
           <button 
             onClick={() => pushScreen('home')}
@@ -89,7 +89,7 @@ export default function DevotionalAggregatorScreen() {
       </header>
 
       {/* Main Content */}
-      <main className="px-margin-main max-w-4xl mx-auto mt-6 flex flex-col gap-6 w-full">
+      <main className="px-margin-main max-w-4xl mx-auto pt-4 flex flex-col gap-6 w-full">
         {/* Header Title */}
         <section className="text-center">
           <h2 className="font-headline-lg text-2xl text-gold-primary tracking-wide">{t('hub.title')}</h2>

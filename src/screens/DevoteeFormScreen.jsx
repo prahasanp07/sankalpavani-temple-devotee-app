@@ -160,9 +160,9 @@ export default function DevoteeFormScreen() {
   const totalPrice = basePrice + (extraDevotees * extraPersonCost);
 
   return (
-    <div className="bg-navy-bg text-on-surface font-body-md antialiased min-h-screen flex flex-col pt-24 pb-24 h-full overflow-y-auto">
+    <div className="bg-navy-bg text-on-surface font-body-md antialiased min-h-screen flex flex-col pb-24 h-full overflow-y-auto">
       {/* Top Header */}
-      <header className="fixed top-0 inset-x-0 w-full z-45 bg-surface/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3 flex items-center">
+      <header className="sticky top-0 inset-x-0 w-full z-45 shrink-0 bg-surface/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3 flex items-center">
         <div className="max-w-4xl mx-auto w-full flex items-center justify-between">
           <button 
             onClick={popScreen}
@@ -176,7 +176,7 @@ export default function DevoteeFormScreen() {
         </div>
       </header>
 
-      <main className="flex-1 px-margin-main py-6 w-full max-w-xl mx-auto md:p-8 md:border md:border-white-muted/10 md:rounded-2xl md:bg-navy-surface md:shadow-sm md:mt-6 flex flex-col gap-6">
+      <main className="flex-1 px-margin-main pt-4 pb-6 w-full max-w-xl mx-auto md:p-8 md:border md:border-white-muted/10 md:rounded-2xl md:bg-navy-surface md:shadow-sm md:mt-4 flex flex-col gap-6">
         
         {error && (
           <div className="bg-error-container/20 border border-error/20 text-error p-3 rounded-lg text-center text-xs">

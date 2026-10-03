@@ -655,47 +655,40 @@ export default function TempleDetailScreen() {
   return (
     <div className="bg-navy-bg text-on-surface font-body-md antialiased pb-24 h-full overflow-y-auto relative">
       {/* Full Width Header Image */}
-      <header className="relative w-full aspect-video md:aspect-[21/9] max-h-[380px] overflow-hidden">
+      <header className="relative w-full h-[340px] sm:h-[400px] md:h-[440px] overflow-hidden bg-navy-surface shadow-lg">
         <img
           alt={selectedTemple.name}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-top sm:object-center"
           src={selectedTemple.img}
         />
         {/* Top Nav Icons (Overlay) */}
-        <div className="absolute top-0 left-0 w-full p-4 pt-[max(env(safe-area-inset-top),1.5rem)] flex justify-between items-center z-10 bg-gradient-to-b from-black/70 to-transparent">
+        <div className="absolute top-0 left-0 w-full p-4 pt-[max(env(safe-area-inset-top),1rem)] flex justify-between items-center z-20 bg-gradient-to-b from-black/60 via-black/20 to-transparent">
           <button
             onClick={popScreen}
-            className="material-symbols-outlined text-white text-2xl drop-shadow-md hover:text-gold-primary transition-colors"
+            className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:text-gold-primary transition-all active:scale-95 shadow-md"
             aria-label="Back"
           >
-            arrow_back
+            <span className="material-symbols-outlined text-2xl">arrow_back</span>
           </button>
         </div>
 
-        {/* Vertical Text */}
-        <div className="absolute top-20 right-4 z-10 max-w-[200px]">
-          <span className="font-headline-sm vertical-text text-white/80 text-xl tracking-widest font-bold uppercase drop-shadow-md">
-            {selectedTemple.name.split(' ').slice(0, 2).join(' ')}
-          </span>
-        </div>
-
         {/* Bottom Gradient & Specs */}
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-bg via-navy-bg/85 to-transparent pt-20 pb-4 px-4">
-          <div className="flex justify-between items-center w-full max-w-lg mx-auto border-t border-b border-white-muted/10 py-3">
-            <span className="material-symbols-outlined text-gold-primary text-[20px]">arrow_upward</span>
-            <div className="text-center">
-              <p className="font-label-caps text-[10px] text-white-muted uppercase tracking-wide">Architectural Style</p>
-              <p className="font-headline-sm text-sm font-bold text-on-surface uppercase mt-0.5">{details.style}</p>
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-bg via-navy-bg/80 to-transparent pt-14 pb-3 px-4">
+          <div className="flex justify-between items-center w-full max-w-lg mx-auto border-t border-b border-white-muted/15 py-2.5 backdrop-blur-[2px]">
+            <span className="material-symbols-outlined text-gold-primary text-[18px]">arrow_upward</span>
+            <div className="text-center px-1">
+              <p className="font-label-caps text-[9px] text-white-muted uppercase tracking-wide">Architectural Style</p>
+              <p className="font-headline-sm text-xs sm:text-sm font-bold text-on-surface uppercase mt-0.5">{details.style}</p>
             </div>
-            <div className="text-center">
-              <p className="font-label-caps text-[10px] text-white-muted uppercase tracking-wide">Deity</p>
-              <p className="font-headline-sm text-sm font-bold text-on-surface uppercase mt-0.5">{details.deity}</p>
+            <div className="text-center px-1">
+              <p className="font-label-caps text-[9px] text-white-muted uppercase tracking-wide">Deity</p>
+              <p className="font-headline-sm text-xs sm:text-sm font-bold text-on-surface uppercase mt-0.5">{details.deity}</p>
             </div>
-            <div className="text-center">
-              <p className="font-label-caps text-[10px] text-white-muted uppercase tracking-wide">Century Built</p>
-              <p className="font-headline-sm text-sm font-bold text-on-surface uppercase mt-0.5">{details.century}</p>
+            <div className="text-center px-1">
+              <p className="font-label-caps text-[9px] text-white-muted uppercase tracking-wide">Century Built</p>
+              <p className="font-headline-sm text-xs sm:text-sm font-bold text-on-surface uppercase mt-0.5">{details.century}</p>
             </div>
-            <span className="material-symbols-outlined text-gold-primary text-[20px]">arrow_downward</span>
+            <span className="material-symbols-outlined text-gold-primary text-[18px]">arrow_downward</span>
           </div>
         </div>
       </header>

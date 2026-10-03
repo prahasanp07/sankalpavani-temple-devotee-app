@@ -96,7 +96,7 @@ export default function LoginScreen() {
   };
 
   return (
-    <div className="min-h-[100dvh] flex flex-col justify-center items-center px-4 pb-12 w-full bg-navy-bg text-on-surface font-body-md relative overflow-y-auto">
+    <div className="min-h-[100dvh] flex flex-col justify-center items-center px-4 pb-12 pt-[max(env(safe-area-inset-top),2rem)] w-full bg-navy-bg text-on-surface font-body-md relative overflow-y-auto">
       {/* Atmospheric Background Elements */}
       <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gold-primary/20 via-navy-bg to-navy-bg z-0"></div>
 

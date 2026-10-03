@@ -226,6 +226,7 @@ export const AppProvider = ({ children }) => {
         bookingsHistory,
         donationsHistory,
         currentScreen,
+        screenStack,
         pushScreen,
         popScreen,
         resetNavigation,

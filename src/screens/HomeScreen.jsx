@@ -341,7 +341,7 @@ export default function HomeScreen() {
   return (
     <div className="bg-navy-bg text-on-surface flex flex-col h-full w-full relative overflow-hidden">
       {/* Top Profile Welcome Bar */}
-      <header className="fixed top-0 inset-x-0 w-full z-40 bg-navy-bg/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm px-4 pt-[max(env(safe-area-inset-top),1rem)] pb-3 flex items-center">
+      <header className="sticky top-0 inset-x-0 w-full z-40 shrink-0 bg-navy-bg/95 backdrop-blur-md border-b border-white-muted/10 shadow-sm px-4 pt-[max(env(safe-area-inset-top),1rem)] pb-3 flex items-center">
         <div className="max-w-4xl mx-auto w-full flex justify-between items-center">
           <div className="flex items-center gap-3">
             {/* Interactive Profile Picture (Clicking opens side drawer menu) */}
@@ -397,7 +397,7 @@ export default function HomeScreen() {
       </header>
 
       {/* Main Content Area - Scrollable for home screen content */}
-      <main className={`flex-grow mt-4 pt-16 pb-28 no-scrollbar scroll-smooth relative z-10 flex flex-col justify-start max-w-4xl mx-auto w-full ${isScrollEnabled ? 'overflow-y-auto' : 'overflow-hidden'}`}>
+      <main className={`flex-grow pt-4 pb-28 no-scrollbar relative z-10 flex flex-col justify-start max-w-4xl mx-auto w-full ${isScrollEnabled ? 'overflow-y-auto' : 'overflow-hidden'}`}>
 
         {/* Search temples and sevas */}
         <div className="px-4">

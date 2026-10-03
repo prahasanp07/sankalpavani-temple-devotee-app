@@ -20,8 +20,8 @@ export default function TemplesListScreen() {
 
   return (
     <div className="bg-navy-bg text-on-surface min-h-screen flex flex-col h-full relative overflow-hidden font-body-md">
-      {/* Fixed Top Header */}
-      <header className="fixed top-0 inset-x-0 w-full z-40 bg-surface/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex items-center px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3">
+      {/* Top Header */}
+      <header className="sticky top-0 inset-x-0 w-full z-40 shrink-0 bg-surface/90 backdrop-blur-md border-b border-white-muted/10 shadow-sm flex items-center px-margin-main pt-[max(env(safe-area-inset-top),1.5rem)] pb-3">
         <div className="max-w-4xl mx-auto w-full flex items-center justify-between">
           <button
             onClick={popScreen}
@@ -38,7 +38,7 @@ export default function TemplesListScreen() {
       </header>
 
       {/* Main Scrollable Content */}
-      <main className="flex-grow pt-24 pb-24 px-margin-main max-w-4xl mx-auto w-full overflow-y-auto no-scrollbar relative z-10 flex flex-col gap-5">
+      <main className="flex-grow pt-4 pb-24 px-margin-main max-w-4xl mx-auto w-full overflow-y-auto no-scrollbar relative z-10 flex flex-col gap-5">
         {/* Search Bar */}
         <div className="relative w-full">
           <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gold-primary text-sm">
