@@ -74,11 +74,11 @@ export default function DevoteeFormScreen() {
   const handleProceed = (e) => {
     e.preventDefault();
     if (!primaryName.trim()) {
-      setError('Primary devotee name is required.');
+      setError(t('devoteeForm.errName'));
       return;
     }
     if (!primaryGotram) {
-      setError('Please select a Gotram for the primary devotee.');
+      setError(t('devoteeForm.errGotram'));
       return;
     }
     
@@ -86,11 +86,11 @@ export default function DevoteeFormScreen() {
     for (let i = 0; i < familyMembers.length; i++) {
       const member = familyMembers[i];
       if (!member.name.trim()) {
-        setError(`Please enter a name for Family Member #${i + 1}.`);
+        setError(t('devoteeForm.errFamilyName'));
         return;
       }
       if (!member.gotram) {
-        setError(`Please select a Gotram for Family Member #${i + 1}.`);
+        setError(t('devoteeForm.errGotram'));
         return;
       }
     }
@@ -98,27 +98,27 @@ export default function DevoteeFormScreen() {
     // Validate shipping details if delivery option is selected
     if (activeBooking.prasadamDelivery) {
       if (!recipientName.trim()) {
-        setError('Recipient Name is required for Prasadam home delivery.');
+        setError(t('devoteeForm.recipientPlaceholder'));
         return;
       }
       if (!addressLine.trim()) {
-        setError('Shipping Address is required for Prasadam home delivery.');
+        setError(t('devoteeForm.errAddress'));
         return;
       }
       if (!city.trim()) {
-        setError('City is required for Prasadam home delivery.');
+        setError(t('devoteeForm.cityPlaceholder'));
         return;
       }
       if (!state.trim()) {
-        setError('State is required for Prasadam home delivery.');
+        setError(t('devoteeForm.statePlaceholder'));
         return;
       }
       if (!pincode.trim() || !/^\d{6}$/.test(pincode)) {
-        setError('Please enter a valid 6-digit Pincode.');
+        setError(t('devoteeForm.errPincode'));
         return;
       }
       if (!shippingPhone.trim() || shippingPhone.length < 10) {
-        setError('Please enter a valid Contact Phone Number.');
+        setError(t('devoteeForm.errPhone'));
         return;
       }
     }
@@ -197,7 +197,7 @@ export default function DevoteeFormScreen() {
                 className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
                 id="fullName" 
                 onChange={(e) => setPrimaryName(e.target.value)}
-                placeholder="Enter full name" 
+                placeholder={t('devoteeForm.name')} 
                 type="text" 
                 value={primaryName}
               />
@@ -212,7 +212,7 @@ export default function DevoteeFormScreen() {
                   onChange={(e) => setPrimaryGotram(e.target.value)}
                   value={primaryGotram}
                 >
-                  <option value="">Select Gotram</option>
+                  <option value="">{t('devoteeForm.selectGotram')}</option>
                   {gotramsList.map(g => (
                     <option key={g} value={g}>{g}</option>
                   ))}
@@ -226,7 +226,7 @@ export default function DevoteeFormScreen() {
                   onChange={(e) => setPrimaryNakshatram(e.target.value)}
                   value={primaryNakshatram}
                 >
-                  <option value="">Select Nakshatram</option>
+                  <option value="">{t('devoteeForm.selectNakshatram')}</option>
                   {nakshatramsList.map(n => (
                     <option key={n} value={n}>{n}</option>
                   ))}
@@ -266,14 +266,14 @@ export default function DevoteeFormScreen() {
                 >
                   <span className="material-symbols-outlined text-[20px]">close</span>
                 </button>
-                <p className="font-label-caps text-xs text-gold-primary uppercase font-bold">Family Member #{idx + 1}</p>
+                <p className="font-label-caps text-xs text-gold-primary uppercase font-bold">{t('devoteeForm.familyMember')} #{idx + 1}</p>
                 
                 <div>
-                  <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Full Name *</label>
+                  <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">{t('devoteeForm.name')} *</label>
                   <input 
                     className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2 text-on-surface text-xs focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
                     onChange={(e) => handleMemberChange(member.id, 'name', e.target.value)}
-                    placeholder="Enter full name" 
+                    placeholder={t('devoteeForm.name')} 
                     type="text" 
                     value={member.name}
                   />
@@ -281,26 +281,26 @@ export default function DevoteeFormScreen() {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Gotram *</label>
+                    <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">{t('devoteeForm.gotram')} *</label>
                     <select
                       className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2 text-on-surface text-xs focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
                       onChange={(e) => handleMemberChange(member.id, 'gotram', e.target.value)}
                       value={member.gotram}
                     >
-                      <option value="">Select Gotram</option>
+                      <option value="">{t('devoteeForm.selectGotram')}</option>
                       {gotramsList.map(g => (
                         <option key={g} value={g}>{g}</option>
                       ))}
                     </select>
                   </div>
                   <div>
-                    <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Nakshatram</label>
+                    <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">{t('devoteeForm.nakshatram')}</label>
                     <select
                       className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2 text-on-surface text-xs focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
                       onChange={(e) => handleMemberChange(member.id, 'nakshatram', e.target.value)}
                       value={member.nakshatram}
                     >
-                      <option value="">Select Nakshatram</option>
+                      <option value="">{t('devoteeForm.selectNakshatram')}</option>
                       {nakshatramsList.map(n => (
                         <option key={n} value={n}>{n}</option>
                       ))}
@@ -312,7 +312,7 @@ export default function DevoteeFormScreen() {
 
             {familyMembers.length === 0 && (
               <p className="text-center text-xs text-white-muted/40 py-4 bg-navy-surface/30 rounded-xl border border-white-muted/5">
-                No family members added. Tap "+ Add New" to perform Seva for family.
+                {t('devoteeForm.noFamilyMembers')}
               </p>
             )}
           </div>
@@ -323,46 +323,46 @@ export default function DevoteeFormScreen() {
           <section className="space-y-3 animate-[fadeIn_0.2s_ease-out]">
             <div className="flex items-center gap-3">
               <span className="material-symbols-outlined text-gold-primary">local_shipping</span>
-              <h2 className="font-headline-sm text-sm text-on-surface uppercase font-bold">Prasadam Shipping Address</h2>
+              <h2 className="font-headline-sm text-sm text-on-surface uppercase font-bold">{t('devoteeForm.shippingAddress')}</h2>
             </div>
             <div className="bg-navy-surface rounded-xl p-4 border border-border-subtle shadow-md space-y-4">
               <div>
-                <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Recipient Name *</label>
+                <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">{t('devoteeForm.recipientName')} *</label>
                 <input 
                   className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
                   onChange={(e) => setRecipientName(e.target.value)}
-                  placeholder="Enter recipient full name" 
+                  placeholder={t('devoteeForm.recipientPlaceholder')} 
                   type="text" 
                   value={recipientName}
                 />
               </div>
               <div>
-                <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Flat / House No / Street *</label>
+                <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">{t('devoteeForm.addressLine')} *</label>
                 <input 
                   className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
                   onChange={(e) => setAddressLine(e.target.value)}
-                  placeholder="Enter flat, house no, street details" 
+                  placeholder={t('devoteeForm.addressLinePlaceholder')} 
                   type="text" 
                   value={addressLine}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">City *</label>
+                  <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">{t('devoteeForm.city')} *</label>
                   <input 
                     className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
                     onChange={(e) => setCity(e.target.value)}
-                    placeholder="Enter city" 
+                    placeholder={t('devoteeForm.cityPlaceholder')} 
                     type="text" 
                     value={city}
                   />
                 </div>
                 <div>
-                  <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">State *</label>
+                  <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">{t('devoteeForm.state')} *</label>
                   <input 
                     className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
                     onChange={(e) => setState(e.target.value)}
-                    placeholder="Enter state" 
+                    placeholder={t('devoteeForm.statePlaceholder')} 
                     type="text" 
                     value={state}
                   />
@@ -370,21 +370,21 @@ export default function DevoteeFormScreen() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Pincode *</label>
+                  <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">{t('devoteeForm.pincode')} *</label>
                   <input 
                     className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
                     onChange={(e) => setPincode(e.target.value)}
-                    placeholder="6-digit pin" 
+                    placeholder={t('devoteeForm.pincodePlaceholder')} 
                     type="text" 
                     value={pincode}
                   />
                 </div>
                 <div>
-                  <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">Contact Phone Number *</label>
+                  <label className="block font-label-caps text-[10px] text-white-muted mb-1 uppercase">{t('devoteeForm.shippingPhone')} *</label>
                   <input 
                     className="w-full bg-navy-bg border border-border-subtle rounded-lg px-4 py-2.5 text-on-surface text-sm focus:border-gold-primary focus:ring-1 focus:ring-gold-primary focus:outline-none transition-colors"
                     onChange={(e) => setShippingPhone(e.target.value)}
-                    placeholder="10-digit number" 
+                    placeholder={t('devoteeForm.shippingPhonePlaceholder')} 
                     type="tel" 
                     value={shippingPhone}
                   />
@@ -400,7 +400,7 @@ export default function DevoteeFormScreen() {
         <div className="max-w-4xl w-full flex items-center justify-between gap-4">
           <div>
             <p className="font-label-caps text-[10px] text-white-muted uppercase">
-              Total ({totalDevotees} Devotee{totalDevotees > 1 ? 's' : ''})
+              {t('common.total', 'Total')} ({totalDevotees} {totalDevotees > 1 ? t('devoteeForm.devotees') : t('devoteeForm.devotee')})
             </p>
             <div className="flex flex-col">
               <p className="font-headline-sm text-xl text-gold-primary font-bold">₹{totalPrice}</p>
@@ -410,7 +410,7 @@ export default function DevoteeFormScreen() {
                 </p>
               ) : (
                 <p className="text-[9px] text-white-muted">
-                  (Base allocation: up to {basePersons} {basePersons === 1 ? 'devotee' : 'devotees'})
+                  ({t('devoteeForm.baseAllocation', { count: basePersons })})
                 </p>
               )}
             </div>

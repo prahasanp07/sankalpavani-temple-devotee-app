@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
+import { useTranslation } from 'react-i18next';
 
 const templeDetailsMap = {
   'sri-lakshmi-narasimha-marenahalli': {
@@ -159,6 +160,7 @@ True to the unbroken community spirit of Eshwarahalli, devotees are actively spe
 };
 
 export default function TempleDetailScreen() {
+  const { t } = useTranslation();
   const { popScreen, pushScreen, selectService, selectedTemple } = useContext(AppContext);
   const details = templeDetailsMap[selectedTemple.id] || templeDetailsMap['sri-lakshmi-narayana-eshwarahalli'] || templeDetailsMap['dodda-ganesha-basavanagudi'];
 
@@ -528,7 +530,7 @@ export default function TempleDetailScreen() {
                       <span className="material-symbols-outlined text-base">wb_sunny</span>
                     </div>
                     <div>
-                      <p className="font-semibold text-[9px] text-white-muted uppercase tracking-wider">Morning Slots</p>
+                      <p className="font-semibold text-[9px] text-white-muted uppercase tracking-wider">{t('templeDetail.morningSlots')}</p>
                       <p className="font-bold text-xs text-black mt-0.5">{item.morning}</p>
                     </div>
                   </div>
@@ -539,7 +541,7 @@ export default function TempleDetailScreen() {
                       <span className="material-symbols-outlined text-base">bedtime</span>
                     </div>
                     <div>
-                      <p className="font-semibold text-[9px] text-white-muted uppercase tracking-wider">Evening Slots</p>
+                      <p className="font-semibold text-[9px] text-white-muted uppercase tracking-wider">{t('templeDetail.eveningSlots')}</p>
                       <p className="font-bold text-xs text-black mt-0.5">{item.evening}</p>
                     </div>
                   </div>
@@ -578,7 +580,7 @@ export default function TempleDetailScreen() {
               }}
               className="bg-gold-primary text-navy-bg font-headline-sm text-[11px] font-bold uppercase py-2 px-4 rounded-lg hover:bg-gold-secondary transition-colors"
             >
-              Book
+              {t('templeDetail.book')}
             </button>
           </div>
         ))}
@@ -589,7 +591,7 @@ export default function TempleDetailScreen() {
           }}
           className="w-full text-center text-gold-primary hover:text-gold-secondary font-headline-sm text-xs uppercase font-bold py-2 mt-1 transition-colors"
         >
-          View All Services
+          {t('templeDetail.viewAllServices')}
         </button>
       </div>
     );
@@ -803,7 +805,7 @@ export default function TempleDetailScreen() {
             >
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-base">map</span>
-                <span>View Maps</span>
+                <span>{t('templeDetail.getDirections')}</span>
               </div>
               <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">
                 arrow_forward
@@ -815,8 +817,8 @@ export default function TempleDetailScreen() {
         {/* Seva Type Selection */}
         <div className="flex flex-col gap-2.5 mb-6 bg-navy-surface/50 p-4 rounded-xl border border-white-muted/5">
           <div className="flex flex-col">
-            <span className="font-headline-sm text-xs font-bold text-on-surface uppercase tracking-wider">Seva Type</span>
-            <p className="text-[10px] text-white-muted/70 mt-0.5">Click on a category pill below to view and book specific sevas.</p>
+            <span className="font-headline-sm text-xs font-bold text-on-surface uppercase tracking-wider">{t('servicesList.title')}</span>
+            <p className="text-[10px] text-white-muted/70 mt-0.5">{t('templeDetail.availableSevas')}</p>
           </div>
           <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
             {['All', 'Daily', 'Weekly', 'Monthly', 'Annually', 'Special', 'Dhanur Masa'].map((type) => {
@@ -834,7 +836,7 @@ export default function TempleDetailScreen() {
                     : 'bg-navy-bg border-white-muted/15 text-white-muted hover:border-gold-primary/30'
                     }`}
                 >
-                  {type}
+                  {type === 'All' ? t('common.all') : type}
                 </button>
               );
             })}
@@ -851,8 +853,8 @@ export default function TempleDetailScreen() {
             <div className="flex items-center gap-3">
               <span className="material-symbols-outlined text-gold-primary text-[22px]">schedule</span>
               <div>
-                <h3 className="font-headline-sm text-xs font-bold text-on-surface uppercase tracking-wide">Darshan Timings</h3>
-                <p className="font-body-md text-[10px] text-white-muted mt-0.5">Today: 6:00 AM - 9:00 PM (Accordion View)</p>
+                <h3 className="font-headline-sm text-xs font-bold text-on-surface uppercase tracking-wide">{t('templeDetail.sanctumDarshan')}</h3>
+                <p className="font-body-md text-[10px] text-white-muted mt-0.5">{t('common.today')}: 6:00 AM - 9:00 PM</p>
               </div>
             </div>
             <span className="material-symbols-outlined text-white-muted/30 text-[18px]">arrow_forward</span>
@@ -868,7 +870,7 @@ export default function TempleDetailScreen() {
               <span className="material-symbols-outlined text-white-muted/30 text-[18px]">arrow_forward</span>
             </div>
             <div>
-              <h3 className="font-headline-sm text-xs font-bold text-on-surface uppercase tracking-wide">Upcoming Events</h3>
+              <h3 className="font-headline-sm text-xs font-bold text-on-surface uppercase tracking-wide">{t('templeDetail.festivalsAndEvents')}</h3>
               <p className="font-body-md text-[10px] text-white-muted mt-0.5">Brahmotsavam, Navaratri...</p>
             </div>
           </div>
@@ -883,7 +885,7 @@ export default function TempleDetailScreen() {
               <span className="material-symbols-outlined text-white-muted/30 text-[18px]">arrow_forward</span>
             </div>
             <div>
-              <h3 className="font-headline-sm text-xs font-bold text-on-surface uppercase tracking-wide">Amenities</h3>
+              <h3 className="font-headline-sm text-xs font-bold text-on-surface uppercase tracking-wide">{t('templeDetail.templeFacilities')}</h3>
               <p className="font-body-md text-[10px] text-white-muted mt-0.5">Parking, Accessibility...</p>
             </div>
           </div>
@@ -893,13 +895,13 @@ export default function TempleDetailScreen() {
         <div className="mb-8 bg-gradient-to-br from-navy-surface to-navy-bg p-5 rounded-xl border border-gold-primary/20 text-center relative overflow-hidden">
           <div className="absolute inset-0 bg-gold-primary/5"></div>
           <div className="relative z-10">
-            <h2 className="font-headline-md text-lg font-bold text-on-surface uppercase mb-1">Support the Temple</h2>
-            <p className="font-body-md text-white-muted text-xs mb-4 max-w-sm mx-auto">Your generous contributions help in the maintenance and development of the temple facilities.</p>
+            <h2 className="font-headline-md text-lg font-bold text-on-surface uppercase mb-1">{t('donate.title')}</h2>
+            <p className="font-body-md text-white-muted text-xs mb-4 max-w-sm mx-auto">{t('donate.subtitle')}</p>
             <button
               onClick={() => pushScreen('donation')}
               className="bg-transparent border border-gold-primary text-gold-primary hover:bg-gold-primary hover:text-navy-bg font-headline-sm text-xs font-bold uppercase py-2 px-6 rounded-lg transition-colors inline-block w-full"
             >
-              DONATE NOW
+              {t('donate.donateNow')}
             </button>
           </div>
         </div>
@@ -912,7 +914,7 @@ export default function TempleDetailScreen() {
             onClick={() => pushScreen('services-list')}
             className="flex-1 bg-gold-primary text-navy-bg font-headline-sm text-lg font-bold uppercase py-3.5 rounded-xl hover:bg-gold-secondary transition-colors"
           >
-            SEVA SANKALPA
+            {t('templeDetail.bookSeva')}
           </button>
         </div>
       </div>

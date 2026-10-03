@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
+import { useTranslation } from 'react-i18next';
 
 export default function BookingDetailScreen() {
   const { activeBooking, popScreen, pushScreen } = useContext(AppContext);
+  const { t } = useTranslation();
   const [agreed, setAgreed] = useState(false);
 
   const seva = activeBooking.service || { name: 'Maha Aarti', price: 501 };
@@ -39,7 +41,7 @@ export default function BookingDetailScreen() {
           >
             <span className="material-symbols-outlined text-2xl">arrow_back</span>
           </button>
-          <h1 className="font-headline-md text-base text-gold-primary uppercase tracking-widest text-center flex-1">Review Booking</h1>
+          <h1 className="font-headline-md text-base text-gold-primary uppercase tracking-widest text-center flex-1">{t('bookingDetail.title')}</h1>
           <div className="w-6"></div>
         </div>
       </header>
@@ -49,18 +51,18 @@ export default function BookingDetailScreen() {
         <div className="flex-1 w-full space-y-6">
           {/* Booking Summary Card */}
           <section className="bg-navy-surface rounded-xl p-4 border border-border-subtle shadow-md space-y-3">
-            <h2 className="font-headline-sm text-sm text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1 font-bold">Seva Details</h2>
+            <h2 className="font-headline-sm text-sm text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1 font-bold">{t('bookingDetail.sevaDetails')}</h2>
             <div>
-              <p className="font-label-caps text-[10px] text-white-muted uppercase">Temple</p>
+              <p className="font-label-caps text-[10px] text-white-muted uppercase">{t('bookingDetail.temple')}</p>
               <p className="text-sm text-black font-semibold">{activeBooking.temple}</p>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="font-label-caps text-[10px] text-white-muted uppercase">Seva / Service</p>
+                <p className="font-label-caps text-[10px] text-white-muted uppercase">{t('bookingDetail.sevaService')}</p>
                 <p className="text-sm text-black font-semibold">{seva.name}</p>
               </div>
               <div>
-                <p className="font-label-caps text-[10px] text-white-muted uppercase">Date & Time Slot</p>
+                <p className="font-label-caps text-[10px] text-white-muted uppercase">{t('bookingDetail.dateTimeSlot')}</p>
                 <p className="text-sm text-black font-semibold">{date.fullDate} ({slot.time})</p>
               </div>
             </div>
@@ -69,19 +71,19 @@ export default function BookingDetailScreen() {
           {/* Devotees List */}
           <section className="bg-navy-surface rounded-xl p-4 border border-border-subtle shadow-md space-y-3">
             <h2 className="font-headline-sm text-sm text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1 font-bold">
-              Devotees ({devotees.length})
+              {t('bookingDetail.devoteesCount', { count: devotees.length })}
             </h2>
             <div className="space-y-3 divide-y divide-white-muted/5 max-h-[180px] overflow-y-auto pr-1">
               {devotees.map((devotee, idx) => (
                 <div key={idx} className={`pt-2 ${idx === 0 ? 'pt-0' : ''} text-xs space-y-1`}>
                   <p className="text-black font-semibold">
-                    {idx + 1}. {devotee.name} {devotee.type === 'Primary' ? '(Primary)' : ''}
+                    {idx + 1}. {devotee.name} {devotee.type === 'Primary' ? `(${t('bookingDetail.primary')})` : ''}
                   </p>
                   <div className="grid grid-cols-2 gap-2 text-black/70">
-                    {devotee.gotram && <p>Gotram: {devotee.gotram}</p>}
-                    {devotee.nakshatram && <p>Nakshatram: {devotee.nakshatram}</p>}
-                    {devotee.age && <p>Age: {devotee.age}</p>}
-                    {devotee.gender && <p>Gender: {devotee.gender}</p>}
+                    {devotee.gotram && <p>{t('bookingDetail.gotram')}: {devotee.gotram}</p>}
+                    {devotee.nakshatram && <p>{t('bookingDetail.nakshatram')}: {devotee.nakshatram}</p>}
+                    {devotee.age && <p>{t('bookingDetail.age')}: {devotee.age}</p>}
+                    {devotee.gender && <p>{t('bookingDetail.gender')}: {devotee.gender}</p>}
                   </div>
                 </div>
               ))}
@@ -92,7 +94,7 @@ export default function BookingDetailScreen() {
           {activeBooking.prasadamDelivery && activeBooking.shippingAddress && (
             <section className="bg-navy-surface rounded-xl p-4 border border-border-subtle shadow-md space-y-3">
               <h2 className="font-headline-sm text-sm text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1 font-bold">
-                Prasadam Shipping Address
+                {t('bookingDetail.prasadamShipping')}
               </h2>
               <div className="text-xs space-y-1 text-black">
                 <p className="font-bold">{activeBooking.shippingAddress.recipientName}</p>
@@ -111,28 +113,32 @@ export default function BookingDetailScreen() {
         <div className="w-full lg:w-96 shrink-0 space-y-6">
           {/* Price Breakdown */}
           <section className="bg-navy-surface rounded-xl p-4 border border-border-subtle shadow-md space-y-3">
-            <h2 className="font-headline-sm text-sm text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1 font-bold">Fare Details</h2>
+            <h2 className="font-headline-sm text-sm text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1 font-bold">{t('bookingDetail.fareDetails')}</h2>
             <div className="space-y-2 text-xs">
               <div className="flex justify-between">
-                <span className="text-black/70">Base Seva Fare (for up to {basePersons} person{basePersons > 1 ? 's' : ''})</span>
+                <span className="text-black/70">
+                  {basePersons > 1
+                    ? t('bookingDetail.baseSevaFarePlural', { count: basePersons })
+                    : t('bookingDetail.baseSevaFare', { count: basePersons })}
+                </span>
                 <span className="text-black font-semibold">₹{basePrice}</span>
               </div>
               {extraDevotees > 0 && (
                 <div className="flex justify-between animate-[fadeIn_0.2s_ease-out]">
-                  <span className="text-black/70">Extra Pilgrim Surcharge ({extraDevotees} × ₹{extraPersonCost})</span>
+                  <span className="text-black/70">{t('bookingDetail.extraPilgrim', { extra: extraDevotees, cost: extraPersonCost })}</span>
                   <span className="text-black font-semibold">₹{extraDevotees * extraPersonCost}</span>
                 </div>
               )}
               <div className="flex justify-between">
-                <span className="text-black/70">Convenience Fee</span>
+                <span className="text-black/70">{t('bookingDetail.convenienceFee')}</span>
                 <span className="text-black font-semibold">₹{convenienceFee}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-black/70">GST (18% integrated)</span>
+                <span className="text-black/70">{t('bookingDetail.gst')}</span>
                 <span className="text-black font-semibold">₹{gstAmount}</span>
               </div>
               <div className="flex justify-between border-t border-white-muted/10 pt-2 font-bold text-sm text-black">
-                <span>Total Amount</span>
+                <span>{t('bookingDetail.totalAmount')}</span>
                 <span>₹{totalAmount}</span>
               </div>
             </div>
@@ -148,7 +154,7 @@ export default function BookingDetailScreen() {
               className="mt-1 rounded bg-navy-bg border-white-muted/20 text-gold-primary focus:ring-gold-primary focus:ring-0 w-5 h-5 cursor-pointer"
             />
             <label htmlFor="terms" className="text-xs text-black/80 leading-relaxed cursor-pointer select-none">
-              I agree to the temple reporting guidelines, code of conduct, and terms of service. I understand that bookings are non-refundable.
+              {t('bookingDetail.termsLabel')}
             </label>
           </section>
 
@@ -162,7 +168,7 @@ export default function BookingDetailScreen() {
                 : 'bg-white-muted/10 text-white-muted/30 cursor-not-allowed'
                 }`}
             >
-              Proceed to Payment
+              {t('bookingDetail.proceedToPayment')}
             </button>
           </div>
         </div>
@@ -179,7 +185,7 @@ export default function BookingDetailScreen() {
               : 'bg-white-muted/10 text-white-muted/30 cursor-not-allowed'
               }`}
           >
-            Proceed to Payment
+            {t('bookingDetail.proceedToPayment')}
           </button>
         </div>
       </div>

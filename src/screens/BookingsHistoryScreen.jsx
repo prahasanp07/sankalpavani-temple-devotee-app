@@ -110,13 +110,13 @@ export default function BookingsHistoryScreen() {
 
               <div className="grid grid-cols-2 gap-4 text-xs text-black/70 border-t border-b border-white-muted/5 py-3.5 my-1">
                 <div>
-                  <p className="uppercase text-[9px] tracking-wider text-black/50">Date & Slot</p>
+                  <p className="uppercase text-[9px] tracking-wider text-black/50">{t('bookings.dateAndSlot')}</p>
                   <p className="text-black font-semibold mt-0.5">{booking.date}</p>
                   <p className="text-[11px] mt-0.5">{booking.timeSlot}</p>
                 </div>
                 <div>
-                  <p className="uppercase text-[9px] tracking-wider text-black/50">Devotees & Total</p>
-                  <p className="text-black font-semibold mt-0.5">{booking.devotees.length} Devotee{booking.devotees.length > 1 ? 's' : ''}</p>
+                  <p className="uppercase text-[9px] tracking-wider text-black/50">{t('bookings.devoteesAndTotal')}</p>
+                  <p className="text-black font-semibold mt-0.5">{booking.devotees.length} {t('bookings.devoteesCount')}</p>
                   <p className="text-gold-primary font-semibold mt-0.5">₹{booking.price}</p>
                 </div>
               </div>
@@ -128,11 +128,11 @@ export default function BookingsHistoryScreen() {
                     onClick={() => setSelectedTicket(booking)}
                     className="bg-gold-primary text-navy-bg font-label-caps text-xs uppercase px-4 py-2 rounded-lg font-bold hover:bg-gold-secondary transition-colors"
                   >
-                    View E-Ticket
+                    {t('bookings.viewETicket')}
                   </button>
                 ) : (
                   <button className="border border-white-muted/20 text-black/70 font-label-caps text-[10px] uppercase px-3 py-1.5 rounded hover:border-gold-primary hover:text-gold-primary transition-all">
-                    Download Invoice
+                    {t('bookings.downloadInvoice')}
                   </button>
                 )}
               </div>
@@ -141,7 +141,7 @@ export default function BookingsHistoryScreen() {
 
           {visibleBookings.length === 0 && (
             <p className="text-center text-white-muted/40 py-12 bg-navy-surface/30 rounded-xl border border-white-muted/5 text-xs">
-              No sevas registered under this section.
+              {t('bookings.noBookingsSection')}
             </p>
           )}
         </section>
@@ -155,7 +155,7 @@ export default function BookingsHistoryScreen() {
 
           <div className="relative bg-navy-surface border border-gold-primary/30 rounded-2xl w-full max-w-sm md:max-w-md overflow-hidden shadow-2xl z-10 text-black my-auto">
             <div className="p-4 border-b border-white-muted/10 flex justify-between items-center bg-navy-bg">
-              <h3 className="font-headline-sm text-gold-primary font-bold">Sacred E-Receipt</h3>
+              <h3 className="font-headline-sm text-gold-primary font-bold">{t('bookings.sacredEReceipt')}</h3>
               <button 
                 onClick={() => setSelectedTicket(null)} 
                 className="text-white-muted hover:text-white p-1 rounded-full hover:bg-white-muted/10 transition-colors"
@@ -169,45 +169,45 @@ export default function BookingsHistoryScreen() {
               <div className="text-center pb-2 border-b border-dashed border-white-muted/15">
                 <h4 className="text-black font-bold text-sm uppercase">{selectedTicket.temple}</h4>
                 <p className="text-gold-primary text-xs font-bold mt-1 uppercase tracking-wide">{selectedTicket.service}</p>
-                <p className="text-black/60 text-[9px] mt-0.5 uppercase">Digital Seva Confirmation Receipt</p>
+                <p className="text-black/60 text-[9px] mt-0.5 uppercase">{t('bookings.digitalSevaReceipt')}</p>
               </div>
 
               {/* Booking Details Grid */}
               <div className="space-y-2.5 text-xs">
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <p className="uppercase text-[9px] tracking-wider text-black/50">Reference ID</p>
+                    <p className="uppercase text-[9px] tracking-wider text-black/50">{t('bookings.referenceId')}</p>
                     <p className="font-semibold text-gold-primary">{selectedTicket.id}</p>
                   </div>
                   <div>
-                    <p className="uppercase text-[9px] tracking-wider text-black/50">Reporting Time</p>
+                    <p className="uppercase text-[9px] tracking-wider text-black/50">{t('bookings.reportingTime')}</p>
                     <p className="font-bold text-amber-600">{getReportingTime(selectedTicket.timeSlot)}</p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <p className="uppercase text-[9px] tracking-wider text-black/50">Sanctum Entry Gate</p>
+                    <p className="uppercase text-[9px] tracking-wider text-black/50">{t('bookings.sanctumGate')}</p>
                     <p className="font-semibold text-emerald-600">{getEntryGate(selectedTicket.service)}</p>
                   </div>
                   <div>
-                    <p className="uppercase text-[9px] tracking-wider text-black/50">Date & Slot</p>
+                    <p className="uppercase text-[9px] tracking-wider text-black/50">{t('bookings.dateAndSlot')}</p>
                     <p className="font-semibold">{selectedTicket.date} ({selectedTicket.timeSlot})</p>
                   </div>
                 </div>
 
                 {/* Devotees List */}
                 <div>
-                  <p className="uppercase text-[9px] tracking-wider text-black/50">Devotees ({selectedTicket.devotees.length})</p>
+                  <p className="uppercase text-[9px] tracking-wider text-black/50">{t('bookings.devoteesCount')} ({selectedTicket.devotees.length})</p>
                   <div className="mt-1 space-y-1.5 max-h-[110px] overflow-y-auto pr-1">
                     {selectedTicket.devotees.map((devotee, idx) => (
                       <div key={idx} className="bg-navy-bg/30 border border-white-muted/5 p-2 rounded-lg text-[10px] space-y-0.5">
                         <p className="text-black font-semibold">
-                          {idx + 1}. {devotee.name} {devotee.type === 'Primary' ? '(Primary)' : ''}
+                          {idx + 1}. {devotee.name} {devotee.type === 'Primary' ? `(${t('devoteeForm.primaryDevotee')})` : ''}
                         </p>
                         <p className="text-[9px] text-black/60">
-                          Gotram: {devotee.gotram || 'N/A'} {devotee.nakshatram && ` | Nakshatram: ${devotee.nakshatram}`}
-                          {devotee.age && ` | Age: ${devotee.age}`} {devotee.gender && ` | Gender: ${devotee.gender}`}
+                          {t('devoteeForm.gotram')}: {devotee.gotram || 'N/A'} {devotee.nakshatram && ` | ${t('devoteeForm.nakshatram')}: ${devotee.nakshatram}`}
+                          {devotee.age && ` | ${t('profile.age')}: ${devotee.age}`} {devotee.gender && ` | ${t('profile.gender')}: ${devotee.gender}`}
                         </p>
                       </div>
                     ))}
@@ -216,7 +216,7 @@ export default function BookingsHistoryScreen() {
 
                 {selectedTicket.prasadamDelivery && selectedTicket.shippingAddress && (
                   <div className="border-t border-dashed border-white-muted/15 pt-2 space-y-0.5">
-                    <p className="uppercase text-[9px] tracking-wider text-black/50">Prasadam Shipping Details</p>
+                    <p className="uppercase text-[9px] tracking-wider text-black/50">{t('devoteeForm.shippingAddress')}</p>
                     <p className="font-semibold text-[10px]">{selectedTicket.shippingAddress.recipientName}</p>
                     <p className="text-black/70 text-[10px] leading-tight">
                       {selectedTicket.shippingAddress.addressLine}, {selectedTicket.shippingAddress.city}, {selectedTicket.shippingAddress.state} - {selectedTicket.shippingAddress.pincode}
@@ -225,7 +225,7 @@ export default function BookingsHistoryScreen() {
                 )}
 
                 <div className="pt-2 border-t border-dashed border-white-muted/15 flex justify-between items-center text-xs">
-                  <span className="text-black/60 uppercase text-[9px] tracking-wider">Total Paid</span>
+                  <span className="text-black/60 uppercase text-[9px] tracking-wider">{t('bookings.amountPaid')}</span>
                   <span className="text-black font-bold text-sm">₹{selectedTicket.price}</span>
                 </div>
               </div>

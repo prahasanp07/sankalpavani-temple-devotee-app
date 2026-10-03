@@ -1,7 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
+import { useTranslation } from 'react-i18next';
 
 export default function PaymentSuccessScreen() {
+  const { t } = useTranslation();
   const { activeBooking, activeDonation, resetNavigation } = useContext(AppContext);
   const [downloading, setDownloading] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
@@ -64,7 +66,7 @@ export default function PaymentSuccessScreen() {
     setToastMsg('');
     setTimeout(() => {
       setDownloading(false);
-      setToastMsg('Receipt downloaded successfully!');
+      setToastMsg(t('paymentSuccess.downloadSuccess'));
       setTimeout(() => setToastMsg(''), 3000);
     }, 1500);
   };
@@ -96,8 +98,8 @@ export default function PaymentSuccessScreen() {
           </div>
 
           <div className="space-y-2">
-            <h1 className="font-headline-lg text-2xl text-gold-primary uppercase tracking-wide">Payment Successful!</h1>
-            <p className="font-body-md text-sm text-black/70 font-semibold">Your spiritual transaction is securely completed.</p>
+            <h1 className="font-headline-lg text-2xl text-gold-primary uppercase tracking-wide">{t('paymentSuccess.title')}</h1>
+            <p className="font-body-md text-sm text-black/70 font-semibold">{t('paymentSuccess.subtitle')}</p>
           </div>
 
           {/* Details Card / Digital Seva Confirmation Receipt */}
@@ -105,26 +107,26 @@ export default function PaymentSuccessScreen() {
             {isDonation ? (
               <>
                 <div>
-                  <p className="font-label-caps text-[10px] text-white-muted uppercase">Transaction Ref ID</p>
+                  <p className="font-label-caps text-[10px] text-white-muted uppercase">{t('paymentSuccess.transactionRef')}</p>
                   <p className="text-sm text-gold-primary font-bold">{refId}</p>
                 </div>
                 <div className="border-t border-white-muted/5 pt-3 space-y-2">
                   <div className="flex justify-between text-xs">
-                    <span className="text-black/70">Cause</span>
+                    <span className="text-black/70">{t('paymentSuccess.cause')}</span>
                     <span className="text-black font-semibold truncate max-w-[180px]">
                       {activeDonation.cause}
                     </span>
                   </div>
                   <div className="flex justify-between text-xs">
-                    <span className="text-black/70">Pan No.</span>
+                    <span className="text-black/70">{t('paymentSuccess.panNo')}</span>
                     <span className="text-black font-semibold uppercase">{activeDonation.pan || 'N/A'}</span>
                   </div>
                   <div className="flex justify-between text-xs">
-                    <span className="text-black/70">Recipient</span>
+                    <span className="text-black/70">{t('paymentSuccess.recipient')}</span>
                     <span className="text-black font-semibold">{activeBooking.temple}</span>
                   </div>
                   <div className="flex justify-between text-xs border-t border-white-muted/5 pt-2 mt-1">
-                    <span className="text-black/70 font-semibold">Amount Paid</span>
+                    <span className="text-black/70 font-semibold">{t('paymentSuccess.amountPaid')}</span>
                     <span className="text-black font-bold text-gold-primary">₹{totalAmount}</span>
                   </div>
                 </div>
@@ -132,52 +134,52 @@ export default function PaymentSuccessScreen() {
             ) : (
               <>
                 <div className="text-center border-b border-dashed border-white-muted/15 pb-3">
-                  <h2 className="font-headline-sm text-xs font-bold text-gold-primary uppercase tracking-widest">Digital Seva Confirmation Receipt</h2>
-                  <p className="text-black/60 text-[10px] mt-0.5">Show this text screen at entry point. No QR scanner needed.</p>
+                  <h2 className="font-headline-sm text-xs font-bold text-gold-primary uppercase tracking-widest">{t('paymentSuccess.receiptTitle')}</h2>
+                  <p className="text-black/60 text-[10px] mt-0.5">{t('paymentSuccess.receiptSubtitle')}</p>
                 </div>
 
                 <div className="space-y-2.5 text-xs">
                   <div>
-                    <p className="uppercase text-[9px] tracking-wider text-black/50">Booking Reference ID</p>
+                    <p className="uppercase text-[9px] tracking-wider text-black/50">{t('paymentSuccess.bookingRef')}</p>
                     <p className="text-sm text-gold-primary font-bold">{refId}</p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <p className="uppercase text-[9px] tracking-wider text-black/50">Devotee Name</p>
+                      <p className="uppercase text-[9px] tracking-wider text-black/50">{t('paymentSuccess.devoteeName')}</p>
                       <p className="font-semibold">{activeBooking.devotees?.[0]?.name || 'N/A'}</p>
                     </div>
                     <div>
-                      <p className="uppercase text-[9px] tracking-wider text-black/50">Gotram</p>
+                      <p className="uppercase text-[9px] tracking-wider text-black/50">{t('paymentSuccess.gotram')}</p>
                       <p className="font-semibold">{activeBooking.devotees?.[0]?.gotram || 'N/A'}</p>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <p className="uppercase text-[9px] tracking-wider text-black/50">Seva / Service</p>
+                      <p className="uppercase text-[9px] tracking-wider text-black/50">{t('paymentSuccess.sevaService')}</p>
                       <p className="font-semibold truncate">{seva.name}</p>
                     </div>
                     <div>
-                      <p className="uppercase text-[9px] tracking-wider text-black/50">Reporting Time</p>
+                      <p className="uppercase text-[9px] tracking-wider text-black/50">{t('paymentSuccess.reportingTime')}</p>
                       <p className="font-bold text-amber-600">{getReportingTime(activeBooking.slot?.time)}</p>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <p className="uppercase text-[9px] tracking-wider text-black/50">Sanctum Entry Gate</p>
+                      <p className="uppercase text-[9px] tracking-wider text-black/50">{t('paymentSuccess.entryGate')}</p>
                       <p className="font-semibold text-emerald-600">{getEntryGate(seva.name)}</p>
                     </div>
                     <div>
-                      <p className="uppercase text-[9px] tracking-wider text-black/50">Date & Slot Time</p>
+                      <p className="uppercase text-[9px] tracking-wider text-black/50">{t('paymentSuccess.dateSlot')}</p>
                       <p className="font-semibold">{activeBooking.date?.fullDate} ({activeBooking.slot?.time})</p>
                     </div>
                   </div>
 
                   {activeBooking.prasadamDelivery && activeBooking.shippingAddress && (
                     <div className="border-t border-dashed border-white-muted/15 pt-2.5 space-y-1">
-                      <p className="uppercase text-[9px] tracking-wider text-black/50">Prasadam Shipping To</p>
+                      <p className="uppercase text-[9px] tracking-wider text-black/50">{t('paymentSuccess.prasadamShipping')}</p>
                       <p className="font-semibold">{activeBooking.shippingAddress.recipientName}</p>
                       <p className="text-black/70 text-[11px] leading-tight">
                         {activeBooking.shippingAddress.addressLine}, {activeBooking.shippingAddress.city}, {activeBooking.shippingAddress.state} - {activeBooking.shippingAddress.pincode}
@@ -186,7 +188,7 @@ export default function PaymentSuccessScreen() {
                   )}
 
                   <div className="flex justify-between items-center border-t border-white-muted/5 pt-2">
-                    <span className="text-black/60 font-semibold uppercase text-[9px] tracking-wider">Total Amount Paid</span>
+                    <span className="text-black/60 font-semibold uppercase text-[9px] tracking-wider">{t('paymentSuccess.totalPaid')}</span>
                     <span className="text-black font-bold text-sm text-gold-primary">₹{totalAmount}</span>
                   </div>
                 </div>
@@ -203,12 +205,12 @@ export default function PaymentSuccessScreen() {
             {downloading ? (
               <>
                 <div className="w-4 h-4 rounded-full border-2 border-gold-primary border-t-transparent animate-spin"></div>
-                Generating PDF...
+                {t('paymentSuccess.generatingPdf')}
               </>
             ) : (
               <>
                 <span className="material-symbols-outlined text-sm">download</span>
-                Download Receipt
+                {t('paymentSuccess.downloadReceipt')}
               </>
             )}
           </button>
@@ -221,13 +223,13 @@ export default function PaymentSuccessScreen() {
           onClick={handleGoToBookings}
           className="w-full bg-gold-primary text-navy-bg font-headline-sm text-sm uppercase tracking-wider py-4 rounded-xl font-bold hover:bg-gold-secondary transition-colors active:scale-95 shadow-md"
         >
-          Go to My Bookings
+          {t('paymentSuccess.goToBookings')}
         </button>
         <button
           onClick={handleGoHome}
           className="w-full bg-transparent border border-white-muted/20 text-black hover:border-gold-primary/50 font-label-caps text-xs uppercase py-3 rounded-xl transition-all font-semibold"
         >
-          Back to Temples Screen
+          {t('paymentSuccess.backToTemples')}
         </button>
       </div>
     </div>

@@ -239,21 +239,21 @@ export default function ProfileScreen() {
               className="bg-navy-bg/60 p-2.5 rounded-xl border border-white-muted/10 hover:border-gold-primary/40 cursor-pointer transition-colors"
             >
               <p className="font-headline-md text-base sm:text-lg font-bold text-gold-primary">{bookingsHistory.length}</p>
-              <p className="text-[10px] text-white-muted uppercase tracking-wider font-semibold mt-0.5">Sevas Booked</p>
+              <p className="text-[10px] text-white-muted uppercase tracking-wider font-semibold mt-0.5">{t('profile.sevasBooked')}</p>
             </div>
             <div
               onClick={() => pushScreen('donation')}
               className="bg-navy-bg/60 p-2.5 rounded-xl border border-white-muted/10 hover:border-gold-primary/40 cursor-pointer transition-colors"
             >
               <p className="font-headline-md text-base sm:text-lg font-bold text-gold-primary">₹{totalDonationsAmount.toLocaleString('en-IN')}</p>
-              <p className="text-[10px] text-white-muted uppercase tracking-wider font-semibold mt-0.5">Contributions</p>
+              <p className="text-[10px] text-white-muted uppercase tracking-wider font-semibold mt-0.5">{t('profile.contributions')}</p>
             </div>
             <div
               onClick={() => pushScreen('temples-list')}
               className="bg-navy-bg/60 p-2.5 rounded-xl border border-white-muted/10 hover:border-gold-primary/40 cursor-pointer transition-colors"
             >
               <p className="font-headline-md text-base sm:text-lg font-bold text-gold-primary">{favorites.length}</p>
-              <p className="text-[10px] text-white-muted uppercase tracking-wider font-semibold mt-0.5">Favorites</p>
+              <p className="text-[10px] text-white-muted uppercase tracking-wider font-semibold mt-0.5">{t('profile.favorites')}</p>
             </div>
           </div>
         </section>
@@ -267,16 +267,16 @@ export default function ProfileScreen() {
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-gold-primary text-xl">self_improvement</span>
                 <h3 className="font-headline-sm text-xs font-bold text-on-surface uppercase tracking-wider">
-                  Sankalpa & Spiritual Details
+                  {t('profile.sankalpaDetails')}
                 </h3>
               </div>
-              <span className="text-[10px] text-white-muted">Used for Archana & Vedic Sankalpas</span>
+              <span className="text-[10px] text-white-muted">{t('profile.sankalpaDesc')}</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {/* Primary Gotram */}
               <div className="space-y-1">
-                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">Primary Gotram</label>
+                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">{t('profile.primaryGotram')}</label>
                 {isEditing ? (
                   <select
                     value={formData.gotram}
@@ -294,7 +294,7 @@ export default function ProfileScreen() {
 
               {/* Janma Nakshatram */}
               <div className="space-y-1">
-                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">Janma Nakshatram</label>
+                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">{t('profile.janmaNakshatram')}</label>
                 {isEditing ? (
                   <select
                     value={formData.nakshatram}
@@ -312,7 +312,7 @@ export default function ProfileScreen() {
 
               {/* Rashi */}
               <div className="space-y-1">
-                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">Rashi (Moon Sign)</label>
+                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">{t('profile.rashi')}</label>
                 {isEditing ? (
                   <select
                     value={formData.rashi}
@@ -330,14 +330,14 @@ export default function ProfileScreen() {
 
               {/* Kuladevata */}
               <div className="space-y-1">
-                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">Kuladevata</label>
+                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">{t('profile.kuladevata')}</label>
                 {isEditing ? (
                   <input
                     type="text"
                     value={formData.kuladevata}
                     onChange={(e) => setFormData({ ...formData, kuladevata: e.target.value })}
                     className="w-full bg-navy-bg border border-white-muted/20 focus:border-gold-primary rounded-xl px-3 py-2 text-xs font-bold text-on-surface focus:outline-none"
-                    placeholder="Enter family deity"
+                    placeholder={t('profile.enterKuladevata')}
                   />
                 ) : (
                   <p className="bg-navy-bg/60 border border-white-muted/10 rounded-xl px-3 py-2 text-xs font-bold text-on-surface">
@@ -348,7 +348,7 @@ export default function ProfileScreen() {
 
               {/* Age */}
               <div className="space-y-1">
-                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">Age</label>
+                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">{t('profile.age')}</label>
                 {isEditing ? (
                   <input
                     type="number"
@@ -358,27 +358,27 @@ export default function ProfileScreen() {
                   />
                 ) : (
                   <p className="bg-navy-bg/60 border border-white-muted/10 rounded-xl px-3 py-2 text-xs font-bold text-on-surface">
-                    {formData.age} Years
+                    {formData.age} {t('profile.years')}
                   </p>
                 )}
               </div>
 
               {/* Gender */}
               <div className="space-y-1">
-                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">Gender</label>
+                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">{t('profile.gender')}</label>
                 {isEditing ? (
                   <select
                     value={formData.gender}
                     onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
                     className="w-full bg-navy-bg border border-white-muted/20 focus:border-gold-primary rounded-xl px-3 py-2 text-xs font-bold text-on-surface focus:outline-none"
                   >
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
+                    <option value="Male">{t('profile.genderMale')}</option>
+                    <option value="Female">{t('profile.genderFemale')}</option>
+                    <option value="Other">{t('profile.genderOther')}</option>
                   </select>
                 ) : (
                   <p className="bg-navy-bg/60 border border-white-muted/10 rounded-xl px-3 py-2 text-xs font-bold text-on-surface">
-                    {formData.gender}
+                    {formData.gender === 'Male' ? t('profile.genderMale') : formData.gender === 'Female' ? t('profile.genderFemale') : formData.gender}
                   </p>
                 )}
               </div>
@@ -391,15 +391,15 @@ export default function ProfileScreen() {
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-gold-primary text-xl">local_shipping</span>
                 <h3 className="font-headline-sm text-xs font-bold text-on-surface uppercase tracking-wider">
-                  Prasadam Delivery Address
+                  {t('profile.deliveryAddressTitle')}
                 </h3>
               </div>
-              <span className="text-[10px] text-white-muted">Used for home postal prasadam delivery</span>
+              <span className="text-[10px] text-white-muted">{t('profile.deliveryAddressDesc')}</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               <div className="sm:col-span-2 md:col-span-3 space-y-1">
-                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">Address Line</label>
+                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">{t('profile.addressLine')}</label>
                 {isEditing ? (
                   <input
                     type="text"
@@ -415,7 +415,7 @@ export default function ProfileScreen() {
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">City</label>
+                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">{t('profile.city')}</label>
                 {isEditing ? (
                   <input
                     type="text"
@@ -431,7 +431,7 @@ export default function ProfileScreen() {
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">State</label>
+                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">{t('profile.state')}</label>
                 {isEditing ? (
                   <input
                     type="text"
@@ -447,7 +447,7 @@ export default function ProfileScreen() {
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">Postal PIN Code</label>
+                <label className="text-[11px] font-semibold text-white-muted uppercase tracking-wider">{t('profile.postalPincode')}</label>
                 {isEditing ? (
                   <input
                     type="text"
@@ -470,7 +470,7 @@ export default function ProfileScreen() {
                   className="bg-gold-primary text-navy-bg font-headline-sm text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-xl hover:bg-gold-secondary transition-colors shadow-lg active:scale-95 flex items-center gap-1.5"
                 >
                   <span className="material-symbols-outlined text-sm">save</span>
-                  Save Profile Changes
+                  {t('profile.saveProfileChanges')}
                 </button>
               </div>
             )}
@@ -486,7 +486,7 @@ export default function ProfileScreen() {
                 <h3 className="font-headline-sm text-xs font-bold text-on-surface uppercase tracking-wider">
                   {t('profile.familyMembers')}
                 </h3>
-                <p className="text-[10px] text-white-muted">Quickly add family members into puja bookings</p>
+                <p className="text-[10px] text-white-muted">{t('profile.familyMembersSubtitle')}</p>
               </div>
             </div>
 
@@ -516,7 +516,7 @@ export default function ProfileScreen() {
                     )}
                   </div>
                   <p className="text-[10px] text-white-muted">
-                    Gotram: <span className="text-gold-primary font-semibold">{member.gotram}</span> • Nakshatram: <span className="text-gold-primary font-semibold">{member.nakshatram}</span>
+                    {t('devoteeForm.gotram')}: <span className="text-gold-primary font-semibold">{member.gotram}</span> • {t('devoteeForm.nakshatram')}: <span className="text-gold-primary font-semibold">{member.nakshatram}</span>
                   </p>
                 </div>
 
@@ -524,7 +524,7 @@ export default function ProfileScreen() {
                   type="button"
                   onClick={() => handleRemoveFamilyMember(member.id)}
                   className="text-white-muted hover:text-rose-400 p-1 transition-colors"
-                  title="Remove Member"
+                  title={t('profile.removeMember')}
                 >
                   <span className="material-symbols-outlined text-base">delete</span>
                 </button>
@@ -581,8 +581,8 @@ export default function ProfileScreen() {
             {/* Seva Reminders */}
             <div className="pt-3 flex justify-between items-center">
               <div>
-                <p className="text-xs font-bold text-on-surface">Puja & Seva Reminders</p>
-                <p className="text-[10px] text-white-muted">Notifications for upcoming temple sevas & live streams</p>
+                <p className="text-xs font-bold text-on-surface">{t('profile.pujaReminders')}</p>
+                <p className="text-[10px] text-white-muted">{t('profile.pujaRemindersDesc')}</p>
               </div>
               <button
                 type="button"
@@ -597,8 +597,8 @@ export default function ProfileScreen() {
             {/* Audio Autoplay */}
             <div className="pt-3 flex justify-between items-center">
               <div>
-                <p className="text-xs font-bold text-on-surface">Devotional Hub Autoplay</p>
-                <p className="text-[10px] text-white-muted">Play sacred stotrams and suprabhatam automatically</p>
+                <p className="text-xs font-bold text-on-surface">{t('profile.audioAutoplay')}</p>
+                <p className="text-[10px] text-white-muted">{t('profile.audioAutoplayDesc')}</p>
               </div>
               <button
                 type="button"
@@ -617,7 +617,7 @@ export default function ProfileScreen() {
           <div className="flex items-center gap-2 border-b border-white-muted/10 pb-2.5">
             <span className="material-symbols-outlined text-gold-primary text-xl">shield</span>
             <h3 className="font-headline-sm text-xs font-bold text-on-surface uppercase tracking-wider">
-              Help, Privacy & Account
+              {t('profile.helpPrivacy')}
             </h3>
           </div>
 
@@ -628,7 +628,7 @@ export default function ProfileScreen() {
             >
               <div className="flex items-center gap-2.5">
                 <span className="material-symbols-outlined text-lg text-gold-primary">receipt_long</span>
-                <span className="font-semibold text-on-surface">Payment Receipts & History</span>
+                <span className="font-semibold text-on-surface">{t('bookings.title')}</span>
               </div>
               <span className="material-symbols-outlined text-sm">chevron_right</span>
             </button>
@@ -639,7 +639,7 @@ export default function ProfileScreen() {
             >
               <div className="flex items-center gap-2.5">
                 <span className="material-symbols-outlined text-lg text-gold-primary">support_agent</span>
-                <span className="font-semibold text-on-surface">Priest Concierge / Support</span>
+                <span className="font-semibold text-on-surface">{t('profile.conciergeHelpdesk')}</span>
               </div>
               <span className="material-symbols-outlined text-sm">chevron_right</span>
             </button>
@@ -652,7 +652,7 @@ export default function ProfileScreen() {
               className="w-full bg-rose-950/40 hover:bg-rose-900/60 border border-rose-500/30 text-rose-300 font-headline-sm text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition-colors flex items-center justify-center gap-2"
             >
               <span className="material-symbols-outlined text-base">logout</span>
-              {t('profile.logout')}
+              {t('profile.logoutSession')}
             </button>
           </div>
         </section>
@@ -666,7 +666,7 @@ export default function ProfileScreen() {
             <div className="flex justify-between items-center border-b border-white-muted/10 pb-2.5">
               <h3 className="font-headline-sm text-sm font-bold text-gold-primary uppercase tracking-wide flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-base">person_add</span>
-                Add Family Member
+                {t('profile.addFamilyMember')}
               </h3>
               <button onClick={() => setShowAddMemberModal(false)} className="text-white-muted hover:text-white">
                 <span className="material-symbols-outlined text-lg">close</span>
@@ -675,11 +675,11 @@ export default function ProfileScreen() {
 
             <form onSubmit={handleAddFamilyMember} className="space-y-3 text-xs">
               <div className="space-y-1">
-                <label className="font-semibold text-white-muted uppercase">Full Name *</label>
+                <label className="font-semibold text-white-muted uppercase">{t('devoteeForm.name')} *</label>
                 <input
                   type="text"
                   required
-                  placeholder="Enter devotee name"
+                  placeholder={t('devoteeForm.name')}
                   value={newMember.name}
                   onChange={(e) => setNewMember({ ...newMember, name: e.target.value })}
                   className="w-full bg-navy-bg border border-white-muted/20 focus:border-gold-primary rounded-xl px-3 py-2 text-on-surface font-semibold focus:outline-none"
@@ -688,7 +688,7 @@ export default function ProfileScreen() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="font-semibold text-white-muted uppercase">Gotram</label>
+                  <label className="font-semibold text-white-muted uppercase">{t('devoteeForm.gotram')}</label>
                   <select
                     value={newMember.gotram}
                     onChange={(e) => setNewMember({ ...newMember, gotram: e.target.value })}
@@ -699,7 +699,7 @@ export default function ProfileScreen() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="font-semibold text-white-muted uppercase">Nakshatram</label>
+                  <label className="font-semibold text-white-muted uppercase">{t('devoteeForm.nakshatram')}</label>
                   <select
                     value={newMember.nakshatram}
                     onChange={(e) => setNewMember({ ...newMember, nakshatram: e.target.value })}
@@ -711,7 +711,7 @@ export default function ProfileScreen() {
               </div>
 
               <div className="space-y-1">
-                <label className="font-semibold text-white-muted uppercase">Relationship</label>
+                <label className="font-semibold text-white-muted uppercase">{t('devoteeForm.relationship')}</label>
                 <input
                   type="text"
                   placeholder="e.g. Spouse, Son, Daughter, Parent"
@@ -727,13 +727,13 @@ export default function ProfileScreen() {
                   onClick={() => setShowAddMemberModal(false)}
                   className="px-4 py-2 rounded-xl text-white-muted hover:text-white border border-white-muted/20 font-bold uppercase tracking-wider"
                 >
-                  Cancel
+                  {t('common.cancel')}
                 </button>
                 <button
                   type="submit"
                   className="px-5 py-2 rounded-xl bg-gold-primary text-navy-bg hover:bg-gold-secondary font-bold uppercase tracking-wider transition-colors shadow-md"
                 >
-                  Add Member
+                  {t('profile.addFamilyMember')}
                 </button>
               </div>
             </form>

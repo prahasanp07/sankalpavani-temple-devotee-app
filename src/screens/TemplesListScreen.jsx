@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 import { templesData } from './templesData';
+import { useTranslation } from 'react-i18next';
 
 export default function TemplesListScreen() {
+  const { t } = useTranslation();
   const { popScreen, pushScreen, setSelectedTemple, favorites = [], toggleFavorite } = useContext(AppContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('All');
@@ -29,7 +31,7 @@ export default function TemplesListScreen() {
             <span className="material-symbols-outlined text-xl">arrow_back</span>
           </button>
           <h1 className="font-display-vertical text-display-vertical text-gold-primary tracking-[0.2em] uppercase text-center flex-grow">
-            BENGALURU TEMPLES
+            {t('templesList.title')}
           </h1>
           <div className="w-8"></div>
         </div>
@@ -44,7 +46,7 @@ export default function TemplesListScreen() {
           </span>
           <input
             type="text"
-            placeholder="Search Bangalore temples or locality..."
+            placeholder={t('templesList.searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-navy-surface border border-white-muted/15 rounded-xl pl-10 pr-4 py-2.5 text-xs text-on-surface placeholder:text-white-muted/50 focus:outline-none focus:border-gold-primary transition-colors shadow-inner"
@@ -72,15 +74,15 @@ export default function TemplesListScreen() {
                   : 'bg-navy-surface text-white-muted border-white-muted/10 hover:border-gold-primary/30'
               }`}
             >
-              {region}
+              {region === 'All' ? t('common.all') : region}
             </button>
           ))}
         </div>
 
         {/* Count Label */}
         <div className="flex items-center justify-between text-[11px] text-white-muted font-bold tracking-wider uppercase px-0.5">
-          <span>Showing {filteredTemples.length} Shrines</span>
-          <span className="text-gold-primary text-[10px]">Bengaluru Local Shrines</span>
+          <span>{t('templesList.showingShrines', { count: filteredTemples.length })}</span>
+          <span className="text-gold-primary text-[10px]">{t('templesList.localShrines')}</span>
         </div>
 
         {/* Responsive Temples Fluid Grid */}
@@ -147,12 +149,12 @@ export default function TemplesListScreen() {
         ) : (
           <div className="flex flex-col items-center justify-center py-16 text-center text-white-muted gap-3">
             <span className="material-symbols-outlined text-4xl text-gold-primary/50">search_off</span>
-            <p className="text-xs font-semibold">No temples found matching your criteria</p>
+            <p className="text-xs font-semibold">{t('templesList.noTemplesFound')}</p>
             <button
               onClick={() => { setSearchQuery(''); setSelectedRegion('All'); }}
               className="text-[10px] font-bold text-gold-primary uppercase tracking-wider underline mt-1"
             >
-              Reset Filters
+              {t('common.clear')}
             </button>
           </div>
         )}

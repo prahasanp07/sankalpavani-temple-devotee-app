@@ -84,7 +84,8 @@ const popularSevas = [
 ];
 
 export default function HomeScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = (i18n.language || 'en').split('-')[0];
   const { currentUser, pushScreen, logout, selectedTemple, setSelectedTemple, setActiveBooking, playlist, currentTrackIndex, isPlaying, setIsPlaying, favorites = [], toggleFavorite } = useContext(AppContext);
 
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -367,20 +368,36 @@ export default function HomeScreen() {
             </div>
           </div>
 
-          {/* Notification bell button */}
-          <button
-            onClick={() => setShowNotifications(prev => !prev)}
-            className="w-10 h-10 rounded-full bg-navy-surface border border-white-muted/10 flex items-center justify-center text-white-muted hover:text-gold-primary relative shadow-sm transition-colors"
-            aria-label="Notifications"
-          >
-            <span className="material-symbols-outlined text-lg">notifications</span>
-            <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
-          </button>
+          <div className="flex items-center gap-2">
+            {/* Quick Language Switcher */}
+            <button
+              onClick={() => {
+                const nextLang = currentLang === 'en' ? 'kn' : 'en';
+                i18n.changeLanguage(nextLang);
+                localStorage.setItem('sankalpavani_language', nextLang);
+              }}
+              className="flex items-center gap-1 bg-navy-surface border border-gold-primary/30 text-gold-primary px-2.5 py-1.5 rounded-full text-[11px] font-bold hover:bg-gold-primary/10 transition-colors shadow-sm active:scale-95"
+              title="Change Language / ಭಾಷೆ ಬದಲಿಸಿ"
+            >
+              <span className="material-symbols-outlined text-[15px]">translate</span>
+              <span>{currentLang === 'en' ? 'ಕನ್ನಡ' : 'English'}</span>
+            </button>
+
+            {/* Notification bell button */}
+            <button
+              onClick={() => setShowNotifications(prev => !prev)}
+              className="w-10 h-10 rounded-full bg-navy-surface border border-white-muted/10 flex items-center justify-center text-white-muted hover:text-gold-primary relative shadow-sm transition-colors"
+              aria-label="Notifications"
+            >
+              <span className="material-symbols-outlined text-lg">notifications</span>
+              <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+            </button>
+          </div>
         </div>
       </header>
 
       {/* Main Content Area - Scrollable for home screen content */}
-      <main className={`flex-grow pt-16 pb-28 no-scrollbar scroll-smooth relative z-10 flex flex-col justify-start max-w-4xl mx-auto w-full ${isScrollEnabled ? 'overflow-y-auto' : 'overflow-hidden'}`}>
+      <main className={`flex-grow mt-4 pt-16 pb-28 no-scrollbar scroll-smooth relative z-10 flex flex-col justify-start max-w-4xl mx-auto w-full ${isScrollEnabled ? 'overflow-y-auto' : 'overflow-hidden'}`}>
 
         {/* Search temples and sevas */}
         <div className="px-4">
@@ -409,14 +426,18 @@ export default function HomeScreen() {
           {searchQuery.trim() && (
             <div className="flex justify-between items-center mt-2 px-1 text-[11px] text-white-muted animate-[fadeIn_0.2s_ease-out]">
               <span>
-                Found <span className="text-gold-primary font-bold">{filteredTemples.length}</span> temple{filteredTemples.length !== 1 ? 's' : ''} & <span className="text-gold-primary font-bold">{filteredSevas.length}</span> seva{filteredSevas.length !== 1 ? 's' : ''} for <span className="text-gold-primary font-bold">"{searchQuery}"</span>
+                {t('home.searchResultsFound', {
+                  templeCount: filteredTemples.length,
+                  sevaCount: filteredSevas.length,
+                  query: searchQuery
+                })}
               </span>
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
                 className="text-gold-primary hover:underline font-bold text-[10px] uppercase tracking-wider"
               >
-                Clear
+                {t('common.clear')}
               </button>
             </div>
           )}
@@ -429,14 +450,11 @@ export default function HomeScreen() {
             {/* Left side: content */}
             <div className="flex-1 flex flex-col justify-between gap-4 z-10">
               <div className="space-y-2">
-                {/* <span className="inline-block bg-navy-bg/85 backdrop-blur-sm text-gold-primary text-[8px] font-bold tracking-widest px-2.5 py-0.5 rounded-full uppercase">
-                  SankalpaVani - 
-                </span> */}
                 <h3 className="font-display-vertical text-base font-extrabold text-navy-bg leading-snug uppercase">
-                  SankalpaVani - Gateway to Divine Blessings
+                  {t('home.appBannerTitle')}
                 </h3>
                 <p className="text-[14px] text-center text-navy-bg/85 leading-relaxed font-semibold">
-                  A Handbook to your spiritual journey
+                  {t('home.appBannerSubtitle')}
                 </p>
               </div>
 
@@ -668,7 +686,7 @@ export default function HomeScreen() {
                   <div className="flex justify-between items-center mt-1">
                     <span className="font-headline-md text-xs text-gold-primary font-bold">₹{seva.price}</span>
                     <button className="bg-gold-primary/20 text-gold-primary hover:bg-gold-primary hover:text-navy-bg font-bold text-[9px] uppercase tracking-wider px-2.5 py-1 rounded transition-colors">
-                      Quick Book
+                      {t('home.quickBook')}
                     </button>
                   </div>
                 </div>
@@ -676,7 +694,7 @@ export default function HomeScreen() {
             </div>
           ) : (
             <div className="bg-navy-surface/50 border border-white-muted/10 rounded-xl p-4 text-center">
-              <p className="text-xs text-white-muted font-medium">No sevas found matching "{searchQuery}"</p>
+              <p className="text-xs text-white-muted font-medium">{t('home.noSevasFound', { query: searchQuery })}</p>
             </div>
           )}
         </section>
@@ -690,7 +708,7 @@ export default function HomeScreen() {
                 <span className="material-symbols-outlined text-xl">music_note</span>
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-[8px] font-bold text-gold-primary uppercase tracking-widest">NOW PLAYING</p>
+                <p className="text-[8px] font-bold text-gold-primary uppercase tracking-widest">{t('home.nowPlaying')}</p>
                 <h4 className="font-headline-sm text-xs text-black font-bold leading-tight truncate mt-0.5">
                   {playlist[currentTrackIndex]?.title || 'Spiritual Chant'}
                 </h4>
@@ -725,11 +743,11 @@ export default function HomeScreen() {
           {/* Daily Quote / Upanishad Insight */}
           <div className="bg-navy-surface/30 p-4 rounded-xl border border-white-muted/5 flex flex-col gap-2 relative overflow-hidden">
             <span className="absolute top-2 right-4 text-white-muted/5 font-display-vertical text-5xl select-none pointer-events-none">ॐ</span>
-            <p className="text-[9px] font-bold text-gold-primary tracking-widest uppercase">Mantra of the Day</p>
+            <p className="text-[9px] font-bold text-gold-primary tracking-widest uppercase">{t('home.mantraOfTheDay')}</p>
             <p className="font-headline-sm text-xs text-black/25 leading-relaxed italic mt-1 font-semibold">
-              "Lead me from the unreal to the real. Lead me from darkness to light. Lead me from death to immortality."
+              {t('home.mantraQuote')}
             </p>
-            <p className="text-[9px] text-white-muted uppercase tracking-wider self-end mt-1">— Brihadaranyaka Upanishad</p>
+            <p className="text-[9px] text-white-muted uppercase tracking-wider self-end mt-1">{t('home.mantraSource')}</p>
           </div>
         </section>
 
@@ -747,7 +765,7 @@ export default function HomeScreen() {
             </button>
           </div>
 
-          <h2 className="font-headline-lg text-lg text-white mb-2 tracking-wide">Selected Temple</h2>
+          <h2 className="font-headline-lg text-lg text-white mb-2 tracking-wide">{t('home.selectedTemple')}</h2>
 
           {selectedTemple && (
             <div className="bg-navy-surface rounded-xl overflow-hidden border border-border-subtle shadow-lg flex flex-col group relative">
@@ -786,7 +804,7 @@ export default function HomeScreen() {
                     }}
                     className="bg-gold-primary text-navy-bg font-headline-sm text-headline-sm px-5 py-2 rounded-lg uppercase tracking-wider hover:bg-gold-secondary transition-colors active:scale-95 shadow-md font-bold"
                   >
-                    View Details
+                    {t('common.viewDetails')}
                   </button>
                 </div>
               </div>
@@ -803,19 +821,19 @@ export default function HomeScreen() {
           <div className="absolute inset-0" onClick={() => setShowNotifications(false)}></div>
           <div className="relative bg-navy-surface border border-white-muted/15 rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl z-10">
             <div className="p-4 border-b border-white-muted/10 flex justify-between items-center bg-navy-bg">
-              <h3 className="font-headline-sm text-gold-primary">Spiritual Updates</h3>
+              <h3 className="font-headline-sm text-gold-primary">{t('home.spiritualUpdates')}</h3>
               <button onClick={() => setShowNotifications(false)} className="text-white-muted hover:text-white p-1">
                 <span className="material-symbols-outlined">close</span>
               </button>
             </div>
             <div className="p-4 space-y-4 max-h-[300px] overflow-y-auto">
               <div className="border-l-2 border-gold-primary pl-3 py-1">
-                <p className="text-body-md text-white font-semibold">Suprabhatha Seva Booked</p>
-                <p className="text-xs text-white-muted">Your booking for Sri Venkateswara Temple is successful.</p>
+                <p className="text-body-md text-white font-semibold">{t('home.suprabhathaBooked')}</p>
+                <p className="text-xs text-white-muted">{t('home.suprabhathaBookedDesc')}</p>
               </div>
               <div className="border-l-2 border-gold-primary pl-3 py-1">
-                <p className="text-body-md text-white font-semibold">Annadanam Donation Successful</p>
-                <p className="text-xs text-white-muted">Thank you for contributing ₹1,000 for free meals.</p>
+                <p className="text-body-md text-white font-semibold">{t('home.annadanamDonated')}</p>
+                <p className="text-xs text-white-muted">{t('home.annadanamDonatedDesc')}</p>
               </div>
             </div>
           </div>
@@ -827,7 +845,7 @@ export default function HomeScreen() {
         <div className="fixed inset-0 z-[60] flex animate-[fadeIn_0.2s_ease-out]">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setIsMenuOpen(false)}></div>
           <div className="relative w-64 bg-navy-bg border-r border-white-muted/10 h-full flex flex-col justify-between p-6 shadow-2xl z-10">
-            <div className="space-y-8">
+            <div className="space-y-6">
               <div className="flex justify-between items-center">
                 <div className="font-display-vertical text-headline-sm text-gold-primary tracking-widest uppercase">
                   Sankalpavani
@@ -837,41 +855,60 @@ export default function HomeScreen() {
                 </button>
               </div>
 
+              {/* Side Drawer Language Switcher */}
+              <div className="bg-navy-surface p-3 rounded-xl border border-white-muted/10 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="material-symbols-outlined text-gold-primary text-base">translate</span>
+                  <span className="text-xs font-semibold text-white-muted">{t('profile.appLanguage')}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const nextLang = currentLang === 'en' ? 'kn' : 'en';
+                    i18n.changeLanguage(nextLang);
+                    localStorage.setItem('sankalpavani_language', nextLang);
+                  }}
+                  className="bg-navy-bg border border-gold-primary/30 text-gold-primary px-2.5 py-1 rounded-lg text-xs font-bold hover:bg-gold-primary/10 transition-colors"
+                >
+                  {currentLang === 'en' ? 'ಕನ್ನಡ' : 'English'}
+                </button>
+              </div>
+
               <nav className="space-y-4">
                 <button
                   onClick={() => { setIsMenuOpen(false); pushScreen('home'); }}
                   className="flex items-center gap-3 text-gold-primary font-body-lg text-left w-full py-2"
                 >
                   <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>distance</span>
-                  Home
+                  {t('home.drawerHome')}
                 </button>
                 <button
                   onClick={() => { setIsMenuOpen(false); pushScreen('devotional-aggregator'); }}
                   className="flex items-center gap-3 text-white-muted hover:text-gold-primary font-body-lg text-left w-full py-2 transition-colors"
                 >
                   <span className="material-symbols-outlined">library_music</span>
-                  Devotional Hub
+                  {t('home.drawerHub')}
                 </button>
                 <button
                   onClick={() => { setIsMenuOpen(false); pushScreen('donation'); }}
                   className="flex items-center gap-3 text-white-muted hover:text-gold-primary font-body-lg text-left w-full py-2 transition-colors"
                 >
                   <span className="material-symbols-outlined">volunteer_activism</span>
-                  Donation Center
+                  {t('home.drawerDonation')}
                 </button>
                 <button
                   onClick={() => { setIsMenuOpen(false); pushScreen('bookings-history'); }}
                   className="flex items-center gap-3 text-white-muted hover:text-gold-primary font-body-lg text-left w-full py-2 transition-colors"
                 >
                   <span className="material-symbols-outlined">history</span>
-                  My Bookings
+                  {t('home.drawerBookings')}
                 </button>
                 <button
                   onClick={() => { setIsMenuOpen(false); pushScreen('profile'); }}
                   className="flex items-center gap-3 text-white-muted hover:text-gold-primary font-body-lg text-left w-full py-2 transition-colors"
                 >
                   <span className="material-symbols-outlined">account_circle</span>
-                  My Profile
+                  {t('home.drawerProfile')}
                 </button>
               </nav>
             </div>
@@ -881,7 +918,7 @@ export default function HomeScreen() {
               className="flex items-center gap-3 text-error hover:text-red-400 font-label-caps text-label-caps uppercase pt-4 border-t border-white-muted/10 w-full text-left"
             >
               <span className="material-symbols-outlined text-[20px]">logout</span>
-              Logout Session
+              {t('home.drawerLogout')}
             </button>
           </div>
           {/* Overlay to close menu */}

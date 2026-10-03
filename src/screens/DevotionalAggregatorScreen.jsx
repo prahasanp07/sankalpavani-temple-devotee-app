@@ -92,8 +92,8 @@ export default function DevotionalAggregatorScreen() {
       <main className="px-margin-main max-w-4xl mx-auto mt-6 flex flex-col gap-6 w-full">
         {/* Header Title */}
         <section className="text-center">
-          <h2 className="font-headline-lg text-2xl text-gold-primary tracking-wide">DEVOTIONAL HUB</h2>
-          <p className="font-body-md text-sm text-white-muted">Immerse yourself in daily spiritual practices.</p>
+          <h2 className="font-headline-lg text-2xl text-gold-primary tracking-wide">{t('hub.title')}</h2>
+          <p className="font-body-md text-sm text-white-muted">{t('hub.subtitle')}</p>
         </section>
 
         {/* Verse of the Day */}
@@ -102,17 +102,17 @@ export default function DevotionalAggregatorScreen() {
             <span className="material-symbols-outlined text-[60px]" style={{ fontVariationSettings: "'FILL' 1" }}>format_quote</span>
           </div>
           <div className="relative z-10">
-            <h3 className="font-label-caps text-[10px] text-gold-primary uppercase tracking-widest mb-1.5 font-bold">Verse of the Day</h3>
+            <h3 className="font-label-caps text-[10px] text-gold-primary uppercase tracking-widest mb-1.5 font-bold">{t('hub.verseOfTheDay')}</h3>
             <p className="font-body-md text-black font-semibold text-xs leading-relaxed italic">
-              "You have a right to perform your prescribed duties, but you are not entitled to the fruits of your actions."
+              {t('hub.gitaVerse')}
             </p>
-            <p className="text-[10px] text-black/70 mt-2 text-right font-semibold">— Bhagavad Gita, Chapter 2, Verse 47</p>
+            <p className="text-[10px] text-black/70 mt-2 text-right font-semibold">{t('hub.gitaSource')}</p>
           </div>
         </section>
 
         {/* Audio Player Panel */}
         <section className="bg-navy-surface border border-white-muted/10 rounded-xl p-5 shadow-lg space-y-4">
-          <h3 className="font-headline-sm text-xs text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1 font-bold">Devotional Audio</h3>
+          <h3 className="font-headline-sm text-xs text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1 font-bold">{t('hub.devotionalAudio')}</h3>
           
           <div className="flex flex-col items-center py-2">
             <p className="font-headline-sm text-sm text-black uppercase text-center truncate max-w-[240px] font-bold">{activeTrack.title}</p>
@@ -156,7 +156,7 @@ export default function DevotionalAggregatorScreen() {
 
         {/* Live Temple Darshan Section */}
         <section className="space-y-3">
-          <h3 className="font-headline-sm text-xs text-gold-primary uppercase tracking-wider font-bold">Live Temple Darshan</h3>
+          <h3 className="font-headline-sm text-xs text-gold-primary uppercase tracking-wider font-bold">{t('hub.liveTempleDarshan')}</h3>
           
           {!watchLive ? (
             <div className="relative h-44 rounded-xl overflow-hidden border border-white-muted/10 bg-navy-surface flex flex-col items-center justify-center gap-3">
@@ -172,7 +172,7 @@ export default function DevotionalAggregatorScreen() {
                   disabled={liveLoading}
                   className="bg-gold-primary text-navy-bg font-label-caps text-xs uppercase px-5 py-2.5 rounded-lg font-bold shadow-md hover:bg-gold-secondary active:scale-95 transition-all"
                 >
-                  {liveLoading ? 'Connecting Feed...' : 'Watch Live Darshan'}
+                  {liveLoading ? t('hub.connectingFeed') : t('hub.watchLiveDarshan')}
                 </button>
               </div>
             </div>
@@ -195,8 +195,8 @@ export default function DevotionalAggregatorScreen() {
                 <span className="material-symbols-outlined text-xs">close</span>
               </button>
               <div className="absolute bottom-0 w-full h-12 bg-gradient-to-t from-black/80 to-transparent flex items-end p-3 justify-between text-[10px] text-white-muted">
-                <span>Sri Venkateswara Temple shrine room</span>
-                <span className="flex items-center gap-1"><span className="material-symbols-outlined text-xs">visibility</span> 4.2k watching</span>
+                <span>{t('hub.shrineRoom')}</span>
+                <span className="flex items-center gap-1"><span className="material-symbols-outlined text-xs">visibility</span> 4.2k {t('hub.watching')}</span>
               </div>
             </div>
           )}
@@ -204,7 +204,7 @@ export default function DevotionalAggregatorScreen() {
 
         {/* Festival Calendar */}
         <section className="space-y-3">
-          <h3 className="font-headline-sm text-xs text-gold-primary uppercase tracking-wider font-bold">Spiritual Calendar</h3>
+          <h3 className="font-headline-sm text-xs text-gold-primary uppercase tracking-wider font-bold">{t('hub.spiritualCalendar')}</h3>
           <div className="space-y-3">
             {festivals.map((fest, idx) => (
               <div key={idx} className="flex gap-4 bg-navy-surface p-3.5 rounded-xl border border-white-muted/5">

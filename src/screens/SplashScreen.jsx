@@ -1,8 +1,10 @@
 import React, { useEffect, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
+import { useTranslation } from 'react-i18next';
 
 export default function SplashScreen() {
   const { pushScreen } = useContext(AppContext);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -15,7 +17,7 @@ export default function SplashScreen() {
     <div className="bg-navy-bg min-h-[100dvh] w-full flex flex-col items-center justify-center p-6 relative overflow-hidden">
       {/* Background overlay for depth */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-surface/50 to-navy-bg pointer-events-none z-0"></div>
-      
+
       {/* Main Content Flex Flow */}
       <div className="z-10 flex flex-col items-center justify-center gap-6 w-full max-w-sm mx-auto text-center my-auto">
         {/* Animated Temple Icon */}
@@ -33,14 +35,14 @@ export default function SplashScreen() {
           </h1>
           <div className="h-0.5 w-16 bg-gold-secondary/50 rounded-full"></div>
           <p className="text-xs text-white-muted uppercase tracking-wider mt-1">
-            Devotee Rituals & Darshan
+            {t('splash.tagline')}
           </p>
         </div>
 
         {/* Loading Indicator */}
         <div className="flex flex-col items-center gap-3 mt-4">
           <p className="text-xs font-semibold text-gold-primary/80 uppercase tracking-[0.25em]">
-            Awakening...
+            {t('splash.awakening')}
           </p>
           <div className="flex gap-2 items-center">
             <div className="w-2 h-2 rounded-full bg-gold-primary animate-pulse" style={{ animationDelay: '0s' }}></div>

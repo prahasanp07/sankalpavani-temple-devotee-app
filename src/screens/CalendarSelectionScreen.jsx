@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
+import { useTranslation } from 'react-i18next';
 
 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const fullMonthNames = [
@@ -51,6 +52,7 @@ const formatDateString = (date) => {
 };
 
 export default function CalendarSelectionScreen() {
+  const { t } = useTranslation();
   const { activeBooking, popScreen, pushScreen, setActiveBooking } = useContext(AppContext);
   const service = activeBooking.service || { name: 'Archana Pooja', capacity: 20 };
 
@@ -262,11 +264,11 @@ export default function CalendarSelectionScreen() {
   // Selection Proceed handler
   const handleProceed = () => {
     if (!selectedDateStr) {
-      setError('Please select a date.');
+      setError(t('calendar.errSelectDate'));
       return;
     }
     if (!selectedSlot) {
-      setError('Please select a time slot.');
+      setError(t('calendar.errSelectSlot'));
       return;
     }
 
@@ -306,7 +308,7 @@ export default function CalendarSelectionScreen() {
           >
             <span className="material-symbols-outlined">arrow_back</span>
           </button>
-          <h1 className="font-display-vertical text-display-vertical uppercase tracking-widest text-gold-primary tracking-[0.1em]">SELECT DATE</h1>
+          <h1 className="font-display-vertical text-display-vertical uppercase tracking-widest text-gold-primary tracking-[0.1em]">{t('calendar.selectDateHeader')}</h1>
           <div className="w-6"></div>
         </div>
       </header>
@@ -315,7 +317,7 @@ export default function CalendarSelectionScreen() {
         {/* Context header */}
         <section className="text-center space-y-1">
           <h2 className="font-headline-lg text-lg text-gold-primary uppercase font-bold">{service.name}</h2>
-          <p className="text-xs text-white-muted">Select a date from the calendar roster to check slot availability.</p>
+          <p className="text-xs text-white-muted">{t('calendar.rosterPrompt')}</p>
         </section>
 
         {error && (
@@ -328,15 +330,15 @@ export default function CalendarSelectionScreen() {
         <section className="bg-navy-surface border border-white-muted/5 rounded-xl p-3.5 flex justify-around text-[10px] uppercase font-bold tracking-wider text-black/80 shadow-md">
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-            <span>Available</span>
+            <span>{t('calendar.available')}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-            <span>Filling Fast</span>
+            <span>{t('calendar.fillingFast')}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
-            <span>Fully Booked</span>
+            <span>{t('calendar.fullyBooked')}</span>
           </div>
         </section>
 
@@ -352,7 +354,7 @@ export default function CalendarSelectionScreen() {
               <span className="material-symbols-outlined text-sm font-bold">chevron_left</span>
             </button>
             <span className="font-headline-lg text-base text-gold-primary font-bold uppercase tracking-wider">
-              {fullMonthNames[currentMonth]} {currentYear}
+              {t(`calendar.months.${fullMonthNames[currentMonth] === 'May' ? 'MayFull' : fullMonthNames[currentMonth]}`)} {currentYear}
             </span>
             <button
               onClick={nextMonth}
@@ -365,7 +367,7 @@ export default function CalendarSelectionScreen() {
           {/* Days of Week Header Grid */}
           <div className="grid grid-cols-7 text-center font-label-caps text-[9px] font-bold text-gold-primary/60 border-b border-white-muted/5 pb-2">
             {dayNames.map((d, i) => (
-              <span key={i} className={d === 'Sun' ? 'text-rose-400' : ''}>{d}</span>
+              <span key={i} className={d === 'Sun' ? 'text-rose-400' : ''}>{t(`calendar.days.${d}`)}</span>
             ))}
           </div>
 
@@ -445,7 +447,7 @@ export default function CalendarSelectionScreen() {
             {/* Header info */}
             <div className="flex justify-between items-start">
               <div>
-                <span className="text-[10px] text-gold-primary font-bold uppercase tracking-widest">Select time slot</span>
+                <span className="text-[10px] text-gold-primary font-bold uppercase tracking-widest">{t('calendar.selectSlot')}</span>
                 <h3 className="font-headline-lg text-base text-black font-bold mt-1">
                   {new Date(selectedDateStr).toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' })}
                 </h3>
@@ -463,21 +465,21 @@ export default function CalendarSelectionScreen() {
               {selectedStats.filledSlots >= selectedStats.capacity ? (
                 <div className="bg-rose-500/10 border border-rose-500/20 text-rose-500 p-2.5 rounded-lg text-center text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 animate-pulse">
                   <span className="material-symbols-outlined text-sm">block</span>
-                  Fully Booked
+                  {t('calendar.fullyBooked')}
                 </div>
               ) : (
                 <>
                   <div className="flex justify-between text-xs font-semibold text-black/70">
-                    <span>Bookings Allowed (Max)</span>
+                    <span>{t('serviceDetail.dailySlotCapacity')}</span>
                     <span className="text-black font-bold">{selectedStats.capacity}</span>
                   </div>
                   <div className="flex justify-between text-xs font-semibold text-black/70 border-t border-white-muted/5 pt-2">
-                    <span>Filled Slots</span>
+                    <span>{t('calendar.booked')}</span>
                     <span className="text-black font-bold">{selectedStats.filledSlots} / {selectedStats.capacity}</span>
                   </div>
                   <div className="flex justify-between text-xs font-semibold text-black/70 border-t border-white-muted/5 pt-2">
-                    <span>Remaining Available</span>
-                    <span className="text-emerald-500 font-bold">{selectedStats.availableSlots} seats left</span>
+                    <span>{t('calendar.available')}</span>
+                    <span className="text-emerald-500 font-bold">{selectedStats.availableSlots} {t('calendar.slotsRemaining')}</span>
                   </div>
                 </>
               )}
@@ -500,7 +502,7 @@ export default function CalendarSelectionScreen() {
                     >
                       <span className="material-symbols-outlined text-white-muted/40 text-xs mb-1.5">block</span>
                       <span className="font-semibold text-xs text-white-muted/40 line-through">{slot.time}</span>
-                      <span className="text-[9px] text-rose-400 mt-1 uppercase font-bold">Filled</span>
+                      <span className="text-[9px] text-rose-400 mt-1 uppercase font-bold">{t('calendar.booked')}</span>
                     </div>
                   );
                 }
@@ -544,7 +546,7 @@ export default function CalendarSelectionScreen() {
                     : 'bg-gold-primary text-navy-bg hover:bg-gold-secondary'
                 }`}
               >
-                {selectedStats.filledSlots >= selectedStats.capacity ? 'Fully Booked' : 'Confirm & Proceed to Devotee Details'}
+                {selectedStats.filledSlots >= selectedStats.capacity ? t('calendar.fullyBooked') : t('calendar.proceed')}
               </button>
             </div>
           </div>

@@ -1,8 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
+import { useTranslation } from 'react-i18next';
 
 export default function PaymentScreen() {
   const { activeBooking, activeDonation, confirmBooking, confirmDonation, popScreen, pushScreen } = useContext(AppContext);
+  const { t } = useTranslation();
   const [paymentMethod, setPaymentMethod] = useState('upi');
   const [upiProvider, setUpiProvider] = useState('gpay');
   const [loading, setLoading] = useState(false);
@@ -31,15 +33,15 @@ export default function PaymentScreen() {
     e.preventDefault();
     if (paymentMethod === 'card') {
       if (!cardNumber || cardNumber.length < 16) {
-        setError('Please enter a valid 16-digit card number.');
+        setError(t('payment.invalidCard'));
         return;
       }
       if (!cardExpiry || !/^\d{2}\/\d{2}$/.test(cardExpiry)) {
-        setError('Please enter card expiry as MM/YY.');
+        setError(t('payment.invalidExpiry'));
         return;
       }
       if (!cardCvv || cardCvv.length < 3) {
-        setError('Please enter a valid 3-digit CVV.');
+        setError(t('payment.invalidCvv'));
         return;
       }
     }
@@ -71,8 +73,8 @@ export default function PaymentScreen() {
       {loading && (
         <div className="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex flex-col items-center justify-center gap-4">
           <div className="w-16 h-16 rounded-full border-4 border-gold-primary border-t-transparent animate-spin"></div>
-          <p className="font-headline-sm text-gold-primary uppercase tracking-widest text-sm">Processing Transaction...</p>
-          <p className="text-xs text-white-muted">Do not press back or refresh this page.</p>
+          <p className="font-headline-sm text-gold-primary uppercase tracking-widest text-sm">{t('payment.processingTitle')}</p>
+          <p className="text-xs text-white-muted">{t('payment.processingSubtitle')}</p>
         </div>
       )}
 
@@ -86,7 +88,7 @@ export default function PaymentScreen() {
           >
             <span className="material-symbols-outlined text-2xl">arrow_back</span>
           </button>
-          <h1 className="font-headline-md text-base text-gold-primary uppercase tracking-widest text-center flex-1">Secure Checkout</h1>
+          <h1 className="font-headline-md text-base text-gold-primary uppercase tracking-widest text-center flex-1">{t('payment.title')}</h1>
           <div className="w-6"></div>
         </div>
       </header>
@@ -95,13 +97,13 @@ export default function PaymentScreen() {
         {/* Total Summary */}
         <section className="bg-navy-surface p-4 rounded-xl border border-border-subtle flex justify-between items-center shadow-md">
           <div>
-            <p className="font-label-caps text-[10px] text-white-muted uppercase">Paying For</p>
+            <p className="font-label-caps text-[10px] text-white-muted uppercase">{t('payment.payingFor')}</p>
             <p className="text-sm text-black font-semibold">
-              {isDonation ? `Donation: ${activeDonation.cause}` : `Seva: ${activeBooking.service?.name}`}
+              {isDonation ? `${t('payment.donation')}: ${activeDonation.cause}` : `${t('payment.seva')}: ${activeBooking.service?.name}`}
             </p>
           </div>
           <div className="text-right">
-            <p className="font-label-caps text-[10px] text-white-muted uppercase">Amount Due</p>
+            <p className="font-label-caps text-[10px] text-white-muted uppercase">{t('payment.amountDue')}</p>
             <p className="font-headline-sm text-xl text-gold-primary font-bold">₹{totalAmount}</p>
           </div>
         </section>
@@ -114,7 +116,7 @@ export default function PaymentScreen() {
 
         {/* Payment Methods */}
         <section className="space-y-4">
-          <h2 className="font-headline-sm text-xs text-on-surface uppercase tracking-wider">Select Payment Method</h2>
+          <h2 className="font-headline-sm text-xs text-on-surface uppercase tracking-wider">{t('payment.selectMethod')}</h2>
           
           {/* UPI Method */}
           <div className={`border rounded-xl bg-navy-surface overflow-hidden ${paymentMethod === 'upi' ? 'border-gold-primary shadow-lg' : 'border-white-muted/10'}`}>
@@ -129,7 +131,7 @@ export default function PaymentScreen() {
               <div className="flex-1">
                 <p className="text-sm text-black font-semibold flex items-center gap-2">
                   <span className="material-symbols-outlined text-gold-primary text-[20px]">qr_code_2</span>
-                  UPI (GPay / PhonePe / Paytm)
+                  {t('payment.upiLabel')}
                 </p>
               </div>
             </label>
@@ -180,7 +182,7 @@ export default function PaymentScreen() {
               <div className="flex-1">
                 <p className="text-sm text-black font-semibold flex items-center gap-2">
                   <span className="material-symbols-outlined text-gold-primary text-[20px]">credit_card</span>
-                  Credit / Debit Card
+                  {t('payment.cardLabel')}
                 </p>
               </div>
             </label>
@@ -188,7 +190,7 @@ export default function PaymentScreen() {
             {paymentMethod === 'card' && (
               <div className="px-4 pb-4 border-t border-white-muted/5 pt-3 bg-navy-bg/30 space-y-3">
                 <div>
-                  <label className="block text-[10px] text-white-muted uppercase mb-1">Card Number</label>
+                  <label className="block text-[10px] text-white-muted uppercase mb-1">{t('payment.cardNumber')}</label>
                   <input 
                     type="text" 
                     maxLength="16"
@@ -200,7 +202,7 @@ export default function PaymentScreen() {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] text-white-muted uppercase mb-1">Expiry Date</label>
+                    <label className="block text-[10px] text-white-muted uppercase mb-1">{t('payment.expiryDate')}</label>
                     <input 
                       type="text" 
                       maxLength="5"
@@ -211,7 +213,7 @@ export default function PaymentScreen() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] text-white-muted uppercase mb-1">CVV</label>
+                    <label className="block text-[10px] text-white-muted uppercase mb-1">{t('payment.cvv')}</label>
                     <input 
                       type="password" 
                       maxLength="3"
@@ -235,7 +237,7 @@ export default function PaymentScreen() {
             onClick={handlePay}
             className="flex-grow bg-gold-primary text-navy-bg font-headline-sm text-sm py-4 rounded-xl uppercase tracking-wider hover:bg-gold-secondary transition-colors font-bold shadow-md active:scale-95"
           >
-            Pay ₹{totalAmount}
+            {t('payment.payButton', { amount: totalAmount })}
           </button>
         </div>
       </div>

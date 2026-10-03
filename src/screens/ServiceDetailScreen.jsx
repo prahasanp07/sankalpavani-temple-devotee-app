@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
+import { useTranslation } from 'react-i18next';
 
 export default function ServiceDetailScreen() {
+  const { t } = useTranslation();
   const { activeBooking, popScreen, pushScreen, setActiveBooking, selectedTemple } = useContext(AppContext);
   const service = activeBooking.service || { 
     name: 'Maha Aarti', 
@@ -20,10 +22,10 @@ export default function ServiceDetailScreen() {
     (service.instructions && service.instructions.toLowerCase().includes('prasadam'));
 
   const details = [
-    { icon: 'schedule', title: 'Performance Timing', value: service.timings || '06:00 AM - 12:30 PM' },
-    { icon: 'groups', title: 'Persons per Seva', value: `${service.persons || 1} Person(s)` },
-    { icon: 'payments', title: 'Extra Person Cost', value: `₹${service.extraPersonCost || 0}` },
-    { icon: 'confirmation_number', title: 'Daily Slot Capacity', value: `${service.capacity || 20} Slots` }
+    { icon: 'schedule', title: t('serviceDetail.performanceTiming'), value: service.timings || '06:00 AM - 12:30 PM' },
+    { icon: 'groups', title: t('serviceDetail.personsPerSeva'), value: `${service.persons || 1} ${t('bookingDetail.devoteesCount', { count: service.persons || 1 })}` },
+    { icon: 'payments', title: t('serviceDetail.extraPersonCost'), value: `₹${service.extraPersonCost || 0}` },
+    { icon: 'confirmation_number', title: t('serviceDetail.dailySlotCapacity'), value: `${service.capacity || 20}` }
   ];
 
   return (
@@ -72,15 +74,15 @@ export default function ServiceDetailScreen() {
 
         {/* About Seva (Sthala Mahime) Section */}
         <section className="space-y-2">
-          <h3 className="font-headline-sm text-xs font-bold text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1">About Seva (Sthala Mahime)</h3>
+          <h3 className="font-headline-sm text-xs font-bold text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1">{t('serviceDetail.aboutSeva')}</h3>
           <p className="font-body-md text-sm text-white-muted leading-relaxed bg-navy-surface/40 p-3.5 rounded-xl border border-white-muted/5 whitespace-pre-line">
-            {service.sthalaMahime || service.aboutSeva || service.desc || service.about || 'No mythological details or background available for this seva.'}
+            {service.sthalaMahime || service.aboutSeva || service.desc || service.about || t('serviceDetail.noMythology')}
           </p>
         </section>
 
         {/* Seva Details Grid */}
         <section className="space-y-3">
-          <h3 className="font-headline-sm text-xs font-bold text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1">Seva Details</h3>
+          <h3 className="font-headline-sm text-xs font-bold text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1">{t('serviceDetail.sevaDetails')}</h3>
           <div className="grid grid-cols-2 gap-3">
             {details.map((detail, idx) => (
               <div key={idx} className="flex gap-2.5 bg-navy-surface p-3 rounded-lg border border-white-muted/5">
@@ -96,11 +98,11 @@ export default function ServiceDetailScreen() {
 
         {/* Instructions & Arrival Guidelines Section */}
         <section className="space-y-2">
-          <h3 className="font-headline-sm text-xs font-bold text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1">Instructions & Arrival Guidelines</h3>
+          <h3 className="font-headline-sm text-xs font-bold text-gold-primary uppercase tracking-wider border-b border-white-muted/5 pb-1">{t('serviceDetail.instructionsTitle')}</h3>
           <div className="bg-navy-surface border border-gold-primary/30 p-4 rounded-xl shadow-md flex items-start gap-3">
             <span className="material-symbols-outlined text-gold-primary text-lg mt-0.5 shrink-0">info</span>
             <p className="font-body-md text-xs text-white-muted leading-relaxed whitespace-pre-line">
-              {service.instructions || service.guidelines || 'Please wear traditional dress (Dhoti/Kurta for men, Saree/Salwar for women) and report 45 minutes before the seva start time.'}
+              {service.instructions || service.guidelines || `${t('serviceDetail.dressCodeNotice')}\n${t('serviceDetail.reportingTimeNotice')}`}
             </p>
           </div>
         </section>
@@ -110,8 +112,8 @@ export default function ServiceDetailScreen() {
           <section className="space-y-3 bg-navy-surface p-4 rounded-xl border border-white-muted/5 shadow-md">
             <div className="flex justify-between items-center">
               <div>
-                <h3 className="font-headline-sm text-xs font-bold text-gold-primary uppercase tracking-wider">Prasadam Option</h3>
-                <p className="text-[10px] text-white-muted/70 mt-0.5">Choose how you want to receive the blessed offerings.</p>
+                <h3 className="font-headline-sm text-xs font-bold text-gold-primary uppercase tracking-wider">{t('devoteeForm.prasadamDelivery')}</h3>
+                <p className="text-[10px] text-white-muted/70 mt-0.5">{t('devoteeForm.prasadamDesc')}</p>
               </div>
               <div className="flex items-center gap-2">
                 <button
@@ -134,14 +136,14 @@ export default function ServiceDetailScreen() {
                       : 'bg-navy-bg border-white-muted/15 text-white-muted'
                   }`}
                 >
-                  Home Delivery
+                  {t('devoteeForm.prasadamDelivery')}
                 </button>
               </div>
             </div>
             {activeBooking.prasadamDelivery && (
               <div className="p-3 bg-gold-primary/10 border border-gold-primary/20 rounded-lg text-[10px] text-gold-primary/95 leading-normal flex items-start gap-2">
                 <span className="material-symbols-outlined text-[16px] shrink-0 mt-0.5">local_shipping</span>
-                <span>Blessed Prasadam will be physically shipped to your address post-seva performance. Fill in shipping details on the Devotee Info screen.</span>
+                <span>{t('devoteeForm.prasadamDesc')}</span>
               </div>
             )}
           </section>
@@ -152,14 +154,14 @@ export default function ServiceDetailScreen() {
       <div className="fixed bottom-0 inset-x-0 w-full bg-navy-bg border-t border-white-muted/10 p-margin-main pb-safe flex justify-center z-40">
         <div className="max-w-4xl w-full flex items-center justify-between gap-4">
           <div>
-            <p className="font-label-caps text-[10px] text-white-muted uppercase">Seva Price</p>
+            <p className="font-label-caps text-[10px] text-white-muted uppercase">{t('bookingDetail.sevaService')}</p>
             <p className="font-headline-sm text-lg text-gold-primary font-bold">₹{service.price}</p>
           </div>
           <button 
             onClick={() => pushScreen('calendar-selection')}
             className="bg-gold-primary text-navy-bg font-headline-sm text-sm font-bold uppercase py-3.5 px-6 rounded-xl hover:bg-gold-secondary transition-colors"
           >
-            Select Date & Time
+            {t('calendar.selectDate')}
           </button>
         </div>
       </div>

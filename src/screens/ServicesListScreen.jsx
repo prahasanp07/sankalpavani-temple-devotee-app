@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
+import { useTranslation } from 'react-i18next';
 
 const allServices = [
   {
@@ -130,6 +131,7 @@ const allServices = [
 ];
 
 export default function ServicesListScreen() {
+  const { t } = useTranslation();
   const { pushScreen, selectService } = useContext(AppContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -163,8 +165,8 @@ export default function ServicesListScreen() {
       <main className="px-margin-main max-w-4xl mx-auto mt-6 flex flex-col gap-6 w-full">
         {/* Header Section */}
         <section className="flex flex-col gap-2 text-center">
-          <h2 className="font-headline-lg text-2xl text-gold-primary tracking-wide">SACRED SEVAS</h2>
-          <p className="font-body-md text-sm text-white-muted max-w-xs mx-auto">Explore our spiritual offerings and find the perfect ceremony for your devotion.</p>
+          <h2 className="font-headline-lg text-2xl text-gold-primary tracking-wide">{t('servicesList.title')}</h2>
+          <p className="font-body-md text-sm text-white-muted max-w-xs mx-auto">{t('onboarding.slide2Desc')}</p>
         </section>
 
         {/* Search Bar */}
@@ -172,7 +174,7 @@ export default function ServicesListScreen() {
           <input 
             type="text"
             className="w-full bg-navy-surface border border-white-muted/10 text-on-surface text-sm rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:border-gold-primary focus:ring-1 focus:ring-gold-primary transition-all duration-300 placeholder:text-white-muted/30"
-            placeholder="Search Sevas (e.g. Aarti, Homa)"
+            placeholder={t('servicesList.searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -192,7 +194,7 @@ export default function ServicesListScreen() {
                   : 'bg-navy-surface border-white-muted/10 text-white-muted hover:border-gold-primary/30'
               }`}
             >
-              {cat}
+              {cat === 'All' ? t('common.all') : cat}
             </button>
           ))}
         </div>
@@ -213,7 +215,7 @@ export default function ServicesListScreen() {
                     onClick={() => selectService(service)}
                     className="bg-gold-primary text-navy-bg font-label-caps text-xs uppercase px-4 py-2 rounded-lg font-bold shadow-sm hover:bg-gold-secondary transition-colors active:scale-95"
                   >
-                    Book Now
+                    {t('common.bookNow')}
                   </button>
                 </div>
               </div>
@@ -221,7 +223,7 @@ export default function ServicesListScreen() {
           ))}
           
           {filteredServices.length === 0 && (
-            <p className="text-center text-white-muted/50 py-8">No matching services found.</p>
+            <p className="text-center text-white-muted/50 py-8 col-span-full">{t('servicesList.noServicesFound')}</p>
           )}
         </section>
       </main>
